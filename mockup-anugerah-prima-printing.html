@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PT Anugerah Prima Printing — Company Profile</title>
+<title> PT Anugerah Prima Printing </title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -88,6 +88,7 @@
   nav a.active{color:var(--navy);}
   nav a.active::after{width:100%;}
   nav a:hover::after{width:100%;}
+HEAD
   .nav-item-with-caret{display:inline-flex;align-items:center;gap:8px;}
   .nav-caret{font-size:12px;color:var(--navy);transform:translateY(-1px);}
   .header-actions{display:flex;align-items:center;gap:16px;flex:0 0 auto;}
@@ -100,6 +101,51 @@
   .nav-cta{
     background:var(--navy);color:#fff;padding:12px 24px;font-size:14px;font-weight:600;
     letter-spacing:.2px;border:1px solid var(--navy);
+  }
+  
+  /* ===== ICON SOSMED HEADER WITH CUSTOM HOVER ===== */
+  .header-socials {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .header-socials a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+  .header-socials a:hover {
+    transform: scale(1.18); /* Sedikit membesar agar interaktif */
+  }
+  .header-socials svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--navy); /* Warna default Navy dari tema asli */
+    transition: fill 0.2s ease;
+  }
+
+  /* Hover Facebook: Biru Khas FB */
+  .header-socials a.link-fb:hover svg {
+    fill: #1877F2;
+  }
+
+  /* Hover YouTube: Merah Cerah */
+  .header-socials a.link-yt:hover svg {
+    fill: #FF0000;
+  }
+
+  /* Hover Instagram: Pink Elegan */
+  .header-socials a.link-ig:hover svg {
+    fill: #E1306C;
+  }
+
+  /* Hover TikTok: Hitam Menyala (Menggunakan warna gelap pekat + Efek Glow Neon Cyan/Magenta khas TikTok) */
+  .header-socials a.link-tt:hover svg {
+    fill: #010101;
+  }
+  .header-socials a.link-tt:hover {
+    filter: drop-shadow(1px 1px 0px #00f2fe) drop-shadow(-1px -1px 0px #fe0979);
   }
 
   /* ===== HERO ===== */
@@ -392,6 +438,28 @@
     </a>
     <a class="social-link" href="#contact" aria-label="TikTok">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4c.4 2.7 2.1 4.3 4.8 4.5v2.8c-1.6 0-3.1-.5-4.3-1.4V16a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1v3a2.7 2.7 0 1 0 1.9 2.6V4h2.2Z"/></svg>
+=======
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#project">Project</a></li>
+      <li><a href="#application">Application</a></li>
+      <li><a href="#career">Career</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </nav>
+  <div class="header-socials">
+    <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="link-fb">
+      <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
+    </a>
+    <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="link-yt">
+      <svg viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    </a>
+    <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="link-ig">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 2.156 4.919 5.419.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 5.271-4.919 5.419-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-2.199-4.919-5.42-.058-1.265-.069-1.644-.069-4.849 0-3.204 013-3.583.069-4.849.149-3.227 1.664-5.271 4.919-5.419 1.265-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+    </a>
+    <a href="https://tiktok.com" target="_blank" aria-label="TikTok" class="link-tt">
+      <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.01 1.63 4.13 1.13 1.17 2.69 1.84 4.32 1.93v3.31c-1.39-.07-2.73-.61-3.82-1.49-.65-.54-1.19-1.22-1.57-1.98v7.41c.06 2.45-1.12 4.82-3.15 6.06-2.19 1.34-5.06 1.32-7.22-.04-2.22-1.35-3.37-3.99-2.86-6.55.42-2.19 2.11-3.99 4.3-4.41v3.36c-1.07.25-1.78 1.32-1.61 2.42.18 1.05 1.2 1.77 2.25 1.59.86-.14 1.5-1 1.49-1.88V0h3.36z"/></svg>
+>>>>>>> d961e80592bf8edfaf4e09f56bef970da48e074a
     </a>
   </div>
 </header>
