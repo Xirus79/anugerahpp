@@ -165,9 +165,22 @@
 
   /* ===== HERO ===== */
   .hero{
-    position:relative;min-height:88vh;display:flex;align-items:center;
-    background:var(--navy);color:#fff;overflow:hidden;isolation:isolate;
+    position:relative;
+    min-height:88vh;
+    display:flex;
+    align-items:center;
+    /* Pindahkan background gradient dan image ke class hero ini langsung */
+    background-color: #300b0b;
+    background-image: linear-gradient(rgba(11, 26, 48, 0.75), rgba(11, 26, 48, 0.75)), url('./Title-images.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color:#fff;
+    overflow:hidden;
+    isolation:isolate;
   }
+
   .hero::before{
     content:"";position:absolute;inset:-8% 0 -8% 0;z-index:0;
     background-image:
@@ -180,6 +193,7 @@
     filter:saturate(.88) contrast(.95) brightness(.82);
     will-change:transform;
   }
+
   .hero::after{
     content:"";position:absolute;inset:0;z-index:0;
     background:radial-gradient(ellipse at 70% 30%, rgba(47,111,237,.18), transparent 55%);
