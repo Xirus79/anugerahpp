@@ -169,13 +169,7 @@
     min-height:88vh;
     display:flex;
     align-items:center;
-    /* Pindahkan background gradient dan image ke class hero ini langsung */
-    background-color: #300b0b;
-    background-image: linear-gradient(rgba(11, 26, 48, 0.75), rgba(11, 26, 48, 0.75)), url('./Title-images.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+    background: var(--navy);
     color:#fff;
     overflow:hidden;
     isolation:isolate;
@@ -184,19 +178,19 @@
   .hero::before{
     content:"";position:absolute;inset:-8% 0 -8% 0;z-index:0;
     background-image:
-      linear-gradient(90deg, rgba(12,22,46,.86) 0%, rgba(12,22,46,.72) 40%, rgba(12,22,46,.42) 100%),
-      url('https://source.unsplash.com/1600x900/?flexo,printing,press,machine');
+      linear-gradient(100deg, rgba(8,18,35,.90) 0%, rgba(8,18,35,.72) 42%, rgba(8,18,35,.28) 100%),
+      url('./Title-images.jpeg');
     background-size:cover;
     background-position:center center;
     background-repeat:no-repeat;
-    transform:translate3d(0, var(--hero-parallax, 0px), 0) scale(1.08);
-    filter:saturate(.88) contrast(.95) brightness(.82);
+    transform:translate3d(0, var(--hero-parallax, 0px), 0) scale(1.015);
+    filter:saturate(.72) contrast(1.02) brightness(.82);
     will-change:transform;
   }
 
   .hero::after{
     content:"";position:absolute;inset:0;z-index:0;
-    background:radial-gradient(ellipse at 70% 30%, rgba(47,111,237,.18), transparent 55%);
+    background:radial-gradient(ellipse at 68% 28%, rgba(47,111,237,.10), transparent 58%);
   }
   .hero .halftone{
     position:absolute;inset:0;z-index:1;opacity:.08;
@@ -205,8 +199,8 @@
     mask-image:linear-gradient(120deg, transparent 0%, black 60%, transparent 100%);
   }
   .hero .glow{
-    position:absolute;right:-10%;top:-20%;width:60%;height:140%;z-index:1;
-    background:radial-gradient(ellipse at center, rgba(47,111,237,.35), transparent 65%);
+    position:absolute;right:-8%;top:-18%;width:55%;height:135%;z-index:1;
+    background:radial-gradient(ellipse at center, rgba(47,111,237,.18), transparent 68%);
   }
   .hero-inner{position:relative;z-index:2;padding:0 56px;max-width:1180px;width:100%;}
   .hero .eyebrow{color:var(--lime-2);}
@@ -835,7 +829,7 @@
       const rect = hero.getBoundingClientRect();
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 1;
       const progress = Math.max(-1, Math.min(1, rect.top / viewportHeight));
-      const shift = (-progress * 18).toFixed(2) + 'px';
+      const shift = (-progress * 2).toFixed(2) + 'px';
       hero.style.setProperty('--hero-parallax', shift);
       ticking = false;
     }
