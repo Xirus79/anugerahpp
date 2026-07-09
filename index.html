@@ -237,8 +237,22 @@
 
   /* ===== ABOUT ===== */
   .about{background:var(--paper);}
+  .about-intro{max-width:980px;margin:0 auto 42px;text-align:center;color:var(--muted);font-size:16px;line-height:1.8;}
+  .about-intro strong{color:var(--navy);font-weight:600;}
+  .about-highlight{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;max-width:1180px;margin:0 auto 36px;}
+  .about-card{position:relative;overflow:hidden;background:linear-gradient(135deg, rgba(255,255,255,0.98), rgba(242,240,234,0.96));border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:0 20px 60px rgba(18,32,62,.08);}
+  .about-card::before{content:"";position:absolute;inset:auto -20px -30px auto;width:140px;height:140px;background:radial-gradient(circle, rgba(47,111,237,.16), transparent 70%);pointer-events:none;}
+  .about-card h3{font-size:26px;line-height:1.2;color:var(--navy);margin-bottom:14px;}
+  .about-card p{color:var(--muted);margin-bottom:12px;}
+  .about-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;}
+  .about-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:var(--white);border:1px solid rgba(47,111,237,.12);border-radius:999px;font-size:13px;font-weight:600;color:var(--navy);}
+  .about-quote{font-size:24px;line-height:1.5;font-weight:600;color:var(--navy);margin-bottom:18px;}
+  .about-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px;}
+  .about-stat{padding:16px;background:rgba(18,32,62,.03);border:1px solid rgba(18,32,62,.06);border-radius:16px;}
+  .about-stat strong{display:block;font-size:24px;color:var(--blue);margin-bottom:4px;}
+  .about-stat span{font-size:13px;color:var(--muted);}
   .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:start;}
-  .accordion-item{border-bottom:1px solid var(--line);}
+  .accordion-item{border:1px solid var(--line);border-radius:16px;padding:0 16px;margin-bottom:12px;background:rgba(255,255,255,.75);}
   .accordion-item summary{
     list-style:none;cursor:pointer;padding:26px 4px;font-family:'Space Grotesk';font-weight:600;
     font-size:20px;color:var(--navy);display:flex;align-items:center;justify-content:space-between;gap:14px;
@@ -262,7 +276,7 @@
   }
 
   /* ===== SERVICES ===== */
-  .services{background:var(--navy);color:#fff;}
+  .services{background:var(--navy);color:#ffffff;}
   .services .section-head h2{color:#fff;}
   .services .section-head p{color:rgba(255,255,255,.6);}
   .services .eyebrow{color:var(--lime-2);}
@@ -492,7 +506,30 @@
   <div class="section-head">
     <div class="eyebrow">01 — Company Profile</div>
     <h2>About Us</h2>
-    <p>Mengenal lebih dekat perjalanan, arah, dan nilai kerja PT Anugerah Prima Printing.</p>
+    <p>Mengenal lebih dekat perjalanan, arah, dan nilai kerja PT Anugerah Prima Printing. </p>
+  </div>
+  <p class="about-intro">PT Anugerah Prima Printing adalah perusahaan percetakan yang berfokus pada layanan <strong>offset, flexo, dan security printing</strong> untuk berbagai kebutuhan industri di Indonesia, hadir sebagai mitra yang membantu brand menghadirkan hasil cetak presisi, konsisten, dan profesional.</p>
+  <div class="about-highlight">
+    <div class="about-card">
+      <div class="eyebrow">Why We Stand Out</div>
+      <h3>Solusi percetakan yang menggabungkan presisi, kecepatan, dan kualitas konsisten.</h3>
+      <p>Kami membantu klien dari berbagai sektor industri menghadirkan label, kemasan, dan produk cetak lainnya dengan hasil akhir yang kuat dan terpercaya.</p>
+      <div class="about-badges">
+        <span class="about-badge">● Offset, Flexo, Security Printing</span>
+        <span class="about-badge">● Tim berpengalaman</span>
+        <span class="about-badge">● Proses produksi terarah</span>
+      </div>
+    </div>
+    <div class="about-card">
+      <p class="about-quote">“Kualitas yang baik lahir dari proses yang baik.”</p>
+      <p>Integritas, ketepatan waktu, inovasi, dan kepuasan pelanggan menjadi fondasi layanan kami dalam setiap proyek.</p>
+      <div class="about-stats">
+        <div class="about-stat"><strong>100%</strong><span>Focus on quality control</span></div>
+        <div class="about-stat"><strong>24/7</strong><span>Support for production needs</span></div>
+        <div class="about-stat"><strong>3+</strong><span>Core printing specialties</span></div>
+        <div class="about-stat"><strong>500+</strong><span>Projects delivered</span></div>
+      </div>
+    </div>
   </div>
   <div class="about-grid">
     <div>
