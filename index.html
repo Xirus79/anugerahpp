@@ -342,10 +342,13 @@
   .filter-row{display:flex;gap:10px;margin-bottom:56px;flex-wrap:wrap;}
   .filter-row .tab{color:var(--navy);border-color:var(--line);}
   .filter-row .tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
-  .project-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);}
+  .project-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;background:transparent;}
   .project-card{
     position:relative;aspect-ratio:4/3;background:var(--navy-2);
-    display:flex;align-items:flex-end;color:#fff;overflow:hidden;
+    display:flex;align-items:flex-end;color:#fff;overflow:hidden;border-radius:8px;
+  }
+  .project-card img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   }
   .project-card .halftone{position:absolute;inset:0;opacity:.1;background-image:radial-gradient(circle,#fff 1px,transparent 1.4px);background-size:10px 10px;}
   .project-card .label{
@@ -353,6 +356,12 @@
     font-family:'JetBrains Mono';font-size:11.5px;letter-spacing:1px;text-transform:uppercase;
     background:linear-gradient(to top, rgba(0,0,0,.6), transparent);
   }
+  .project .section-head p {
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 3000px; /* Opsional: Atur angka ini agar teks tidak terlalu memanjang ke samping */
+}
 
   /* ===== APPLICATION ===== */
   .application{background:var(--paper-2);}
@@ -691,24 +700,31 @@
 <section id="project" class="project">
   <div class="section-head">
     <div class="eyebrow">04 — Portfolio</div>
-    <h2>Selected Projects</h2>
-    <p>Dokumentasi hasil kerja kami di berbagai kategori — segera hadir.</p>
+    <h2>Finished Projects</h2>
+    <p>Jelajahi rekam jejak dedikasi kami dalam memberikan solusi cetak dan kemasan terbaik. 
+      Dari fleksibilitas shrink label hingga presisi offset, temukan bagaimana kami membantu berbagai brand menonjolkan nilai produk mereka di pasaran.</p>
   </div>
-  <div class="filter-row">
-    <button class="tab active">All</button>
-    <button class="tab">Flexo Printing</button>
-    <button class="tab">Offset Printing</button>
-    <button class="tab">Security Printing</button>
-  </div>
+  
   <div class="project-grid">
-    <div class="project-card"><div class="halftone"></div><span class="label">Coming Soon</span></div>
-    <div class="project-card"><div class="halftone"></div><span class="label">Coming Soon</span></div>
-    <div class="project-card"><div class="halftone"></div><span class="label">Coming Soon</span></div>
-    <div class="project-card"><div class="halftone"></div><span class="label">Coming Soon</span></div>
-    <div class="project-card"><div class="halftone"></div><span class="label">Coming Soon</span></div>
-    <div class="project-card"><div class="halftone"></div><span class="label">Coming Soon</span></div>
-    <div class="project-card"><div class="halftone"></div><span class="label">Coming Soon</span></div>
-    <div class="project-card"><div class="halftone"></div><span class="label">Coming Soon</span></div>
+     <div class="project-card">
+      <img src="Images/Project 1.jpeg" alt="Project 1"> 
+      <div class="halftone"></div>
+     </div>
+    
+     <div class="project-card">
+       <img src="Images/Project 2.jpeg" alt="Project 2"> 
+       <div class="halftone"></div>
+     </div>
+    
+     <div class="project-card">
+       <img src="Images/Project 3.jpeg" alt="Project 3"> 
+       <div class="halftone"></div>
+     </div>
+    
+     <div class="project-card">
+       <img src="Images/Project 4.jpeg" alt="Project 4"> 
+       <div class="halftone"></div>
+     </div>
   </div>
 </section>
 
