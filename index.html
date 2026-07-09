@@ -249,10 +249,10 @@
   .about-card{position:relative;overflow:hidden;background:linear-gradient(135deg, rgba(167, 240, 189, 0.642), rgb(47, 81, 250));border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:0 20px 60px rgb(202, 202, 202);}
   .about-card::before{content:"";position:absolute;inset:auto -20px -30px auto;width:140px;height:140px;background:radial-gradient(circle, rgba(242, 243, 244, 0.151), transparent 70%);pointer-events:none;}
   .about-card h3{font-size:26px;line-height:1.2;color:var(--navy);margin-bottom:14px;}
-  .about-card p{color:var(--muted);margin-bottom:12px;}
+  .about-card p{margin-bottom:12px;}
   .about-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;}
   .about-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:var(--white);border:1px solid rgb(0, 0, 0);border-radius:999px;font-size:13px;font-weight:600;color:var(--navy);}
-  .about-quote{font-size:24px;line-height:1.5;font-weight:600;color:var(--navy);margin-bottom:18px;}
+  .about-quote{font-size:24px;line-height:1.5;font-weight:600;color:#000000;margin-bottom:18px;}
   .about-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px;}
   .about-stat{padding:16px;background:rgba(242, 243, 247, 0.878);border:1px solid rgb(0, 0, 0);border-radius:16px;}
   .about-stat strong{display:block;font-size:24px;color:var(--blue);margin-bottom:4px;}
@@ -261,11 +261,11 @@
   .accordion-item{border:1px solid var(--line);border-radius:16px;padding:0 16px;margin-bottom:12px;background:rgba(255,255,255,.75);}
   .accordion-item summary{
     list-style:none;cursor:pointer;padding:26px 4px;font-family:'Space Grotesk';font-weight:600;
-    font-size:24px;color:var(--navy);display:flex;align-items:center;justify-content:space-between;gap:14px;
+    font-size:20px;color:var(--navy);display:flex;align-items:center;justify-content:space-between;gap:14px;
   }
   .accordion-item summary::-webkit-details-marker{display:none;}
   .accordion-item summary .num{
-    font-family:'JetBrains Mono';font-size:25px;color:var(--blue);font-weight:500;margin-right:16px;
+    font-family:'JetBrains Mono';font-size:12px;color:var(--blue);font-weight:500;margin-right:16px;
   }
   .accordion-item summary::after{content:"+";font-size:22px;font-weight:300;color:var(--blue);transition:transform .2s;}
   .accordion-item[open] summary::after{transform:rotate(45deg);}
@@ -775,6 +775,7 @@
         <li>Ability to analyze and prepare steps for continuous improvement</li>
         <li>Ability to concept a system / SOP for QA Department</li>
       </ul>
+      <span class="apply">Apply Now →</span>
     </div>
     <div class="career-card">
       <div class="role-tag">Full-time · On-site</div>
@@ -787,6 +788,7 @@
         <li>Good leadership</li>
         <li>Ability to concept a system in Maintenance Department</li>
       </ul>
+      <span class="apply">Apply Now →</span>
     </div>
   </div>
 </section>
@@ -829,6 +831,9 @@
     <div>
       <h4>Contacts</h4>
       <p>marketingstaff@anugerahpp.com</p>
+      <p>+62 21 5562 1488</p>
+      <p>+62 21 5562 1489</p>
+      <p>Fax +62 21 5576 6594</p>
     </div>
     <div>
       <h4>Links</h4>
@@ -843,6 +848,7 @@
   </div>
   <div class="footer-bottom">
     <span>© 2026 PT ANUGERAH PRIMA PRINTING</span>
+    <div class="socials"><span>X</span><span>f</span><span>ig</span></div>
   </div>
 </footer>
 
