@@ -251,6 +251,41 @@
   filter: drop-shadow(1px 1px 0px #00f2fe) drop-shadow(-1px -1px 0px #fe0979);
 }
 
+.clients-action {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 820px;
+  padding: 18px 26px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #25D366 0%, #1EBF5D 100%);
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(37, 211, 102, 0.20);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.btn-whatsapp:hover,
+.btn-whatsapp:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 42px rgba(37, 211, 102, 0.28);
+  opacity: 0.98;
+}
+
+.btn-whatsapp:active {
+  transform: translateY(0);
+  box-shadow: 0 14px 30px rgba(37, 211, 102, 0.22);
+}
+
   /* ===== HERO ===== */
   .hero {
     position: relative; /* Penting sebagai patokan ::before */
