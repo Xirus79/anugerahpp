@@ -139,5 +139,35 @@ window.addEventListener('scroll', () => {
             services.style.setProperty('--services-parallax', `${servicesSpeed}px`);
         }
     }
-});       
+    
+});
+
+// ===== 5. EMAILJS CONTACT FORM LOGIC =====
+const contactForm = document.getElementById('contactForm');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Mencegah halaman reload saat disubmit
+        
+        // Ubah teks tombol saat loading mengirim pesan
+        const submitBtn = this.querySelector('.btn-submit');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        // Kirim data ke EmailJS
+        // Ganti 'YOUR_SERVICE_ID' dan 'YOUR_TEMPLATE_ID' sesuai akun EmailJS-mu
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+            .then(() => {
+                alert('Pesan Anda berhasil dikirim langsung ke email perusahaan!');
+                contactForm.reset(); // Kosongkan form kembali
+            }, (error) => {
+                alert('Gagal mengirim pesan, silakan coba lagi nanti: ' + JSON.stringify(error));
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+    });
+}
 

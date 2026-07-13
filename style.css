@@ -697,10 +697,31 @@
   /* ===== CONTACT ===== */
   .contact{background:var(--paper);}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;}
-  .map-box{
-    height:100%;min-height:380px;position:relative;background:var(--navy-2);
-    display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);font-size:13px;
-    font-family:'JetBrains Mono';
+  .contact-map-frame {
+    width: 100%;
+    height: 480px;
+    /* Atur tinggi kotak peta sesuai keinginanmu */
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    /* Membuat sudut kotak peta melengkung halus */
+    overflow: hidden;
+    /* Memotong ujung tajam iFrame agar ikut membundar */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    /* Efek bayangan tipis modern */
+    position: relative;
+  }
+
+  .contact-map-frame iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(10%) contrast(95%);
+    /* Efek filter opsional agar warna peta sedikit lebih menyatu dengan tema web */
+    transition: filter 0.3s ease;
+  }
+  .contact-map-frame:hover iframe {
+    filter: grayscale(0%) contrast(100%);
   }
   .map-box .halftone{position:absolute;inset:0;opacity:.12;background-image:radial-gradient(circle,#fff 1px,transparent 1.4px);background-size:12px 12px;}
   .contact-form .eyebrow{margin-bottom:14px;}
@@ -714,7 +735,7 @@
     padding-bottom:0;
     border-bottom: none;
   }
-  .contact-form .lead{color:rgba(255,255,255,.35);margin-bottom:32px;font-size:15.5px;}
+  .contact-form .lead{color:var(--navy);margin-bottom:32px;font-size:15.5px;}
   .contact-form label{
     font-family:'JetBrains Mono';font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);
     display:block;margin-bottom:8px;
