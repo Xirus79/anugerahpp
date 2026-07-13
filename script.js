@@ -1,173 +1,171 @@
 // ===== 1. SERVICE TABS LOGIC =====
-document.querySelectorAll('.service-tabs .tab').forEach(btn => {
-    btn.addEventListener('click',()=>{
-        btn.parentElement.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.service-panel').forEach(panel=>{
-            panel.classList.toggle('active', panel.dataset.service === btn.textContent.toLowerCase().split(' ')[0]);
-        });
+const serviceTabs = document.querySelectorAll('.service-tabs .tab');
+if (serviceTabs.length > 0) {
+  serviceTabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentElement.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.service-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.dataset.service === btn.textContent.toLowerCase().split(' ')[0]);
+      });
     });
-});
-
-// ====== LOGIKA SMART HEADER (REVEAL ON SCROLL UP) ======
-let lastScrollTop = 0;
-const headerMain = document.querySelector('.header-main');
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-
-    // 1. Kondisi jika halaman baru dibuka / di paling atas (Scroll = 0)
-    if (currentScroll <= 0) {
-        headerMain.classList.remove('scroll-down', 'scroll-up');
-        return;
-    }
-
-    // 2. Deteksi arah scroll
-    if (currentScroll > lastScrollTop) {
-        // Jika scroll ke bawah, tambahkan class sembunyi
-        headerMain.classList.remove('scroll-up');
-        headerMain.classList.add('scroll-down');
-    } else {
-        // Jika scroll ke atas, tambahkan class muncul
-        headerMain.classList.remove('scroll-down');
-        headerMain.classList.add('scroll-up');
-    }
-
-    // Rekam posisi scroll saat ini untuk perbandingan berikutnya
-    lastScrollTop = currentScroll;
-});
+  });
+}
 
 // ===== 2. PROJECT FILTER LOGIC =====
-document.querySelectorAll('.filter-row .tab').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        btn.parentElement.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
+const filterTabs = document.querySelectorAll('.filter-row .tab');
+if (filterTabs.length > 0) {
+  filterTabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentElement.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
     });
-});
+  });
+}
 
-// ===== 3. CLIENT CAROUSEL LOGIC (WITH AUTOMATIC SCROLL / AUTOPLAY) =====
+// ===== 3. CLIENT CAROUSEL LOGIC (WITH AUTOPLAY) =====
 (function(){
   const track = document.getElementById('clientTrack');
   const dots = document.querySelectorAll('#clientDots span');
   const prevBtn = document.getElementById('clientPrev');
   const nextBtn = document.getElementById('clientNext');
-  const container = document.querySelector('.client-carousel'); // Ambil kontainer luar untuk deteksi mouse
+  const container = document.querySelector('.client-carousel');
   
   if(!track || !dots.length) return; 
 
   const totalPages = dots.length;
   let page = 0;
-  let autoplayTimer = null; // Tempat menyimpan interval pencacah waktu
+  let autoplayTimer = null;
 
   function render(){
     track.style.transform = 'translateX(-' + (page * (100/totalPages)) + '%)';
     dots.forEach((d,i)=> d.classList.toggle('active', i===page));
   }
 
-  // Fungsi untuk berpindah ke halaman berikutnya
   function nextPage() {
     page = (page + 1) % totalPages;
     render();
   }
 
-  // Fungsi untuk memulai autoplay
   function startAutoplay() {
-    // 3000 artinya carousel akan bergeser otomatis setiap 3 detik (3000ms)
-    autoplayTimer = setInterval(nextPage, 1500); 
+    autoplayTimer = setInterval(nextPage, 3000); 
   }
 
-  // Fungsi untuk menghentikan autoplay sementara
   function stopAutoplay() {
-    if (autoplayTimer) {
-      clearInterval(autoplayTimer);
-    }
+    if (autoplayTimer) clearInterval(autoplayTimer);
   }
 
-  // Navigasi Manual (Tombol Panah & Dots)
-  prevBtn.addEventListener('click', ()=>{ 
-    page = (page - 1 + totalPages) % totalPages; 
-    render(); 
-  });
+  if (prevBtn) prevBtn.addEventListener('click', ()=>{ page = (page - 1 + totalPages) % totalPages; render(); });
+  if (nextBtn) nextBtn.addEventListener('click', ()=>{ nextPage(); });
   
-  nextBtn.addEventListener('click', ()=>{ 
-    nextPage(); 
-  });
-  
-  dots.forEach((d,i)=> d.addEventListener('click', ()=>{ 
-    page = i; 
-    render(); 
-  }));
+  dots.forEach((d,i)=> d.addEventListener('click', ()=>{ page = i; render(); }));
 
-  // === FITUR UX PINTAR ===
-  // Hentikan gerak otomatis saat mouse masuk ke area logo, dan jalankan lagi saat mouse keluar
   if (container) {
     container.addEventListener('mouseenter', stopAutoplay);
     container.addEventListener('mouseleave', startAutoplay);
   }
 
-  // Jalankan render awal dan mulai jalankan autoplay pertama kali
   render();
   startAutoplay();
 })();
 
-// ===== 4. EFEK PARALLAX HERO SECTION (YANG BARU & MULUS) ======
+// ===== 4. SMART HEADER LOGIC =====
+let lastScrollTop = 0;
+const headerMain = document.querySelector('.header-main');
+
+if (headerMain) {
+  window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+
+      if (currentScroll <= 0) {
+          headerMain.classList.remove('scroll-down', 'scroll-up');
+          return;
+      }
+
+      if (currentScroll > lastScrollTop) {
+          headerMain.classList.remove('scroll-up');
+          headerMain.classList.add('scroll-down');
+      } else {
+          headerMain.classList.remove('scroll-down');
+          headerMain.classList.add('scroll-up');
+      }
+      lastScrollTop = currentScroll;
+  });
+}
+
+// ===== 5. EFEK PARALLAX HERO & SERVICES =====
 const hero = document.querySelector('.hero');
 const services = document.querySelector('.services');
 
 window.addEventListener('scroll', () => {
-    // Ambil posisi scroll aktual dan tinggi layar monitor
     const scrollPos = window.scrollY;
     const windowHeight = window.innerHeight;
     
-    // 1. Parallax untuk Hero Section (Hanya jalan saat halaman di bagian paling atas)
     if (hero && scrollPos < windowHeight) {
-        const heroSpeed = scrollPos * 0.5; // Atur kecepatan gerak (0.3)
+        const heroSpeed = scrollPos * 0.3;
         hero.style.setProperty('--hero-parallax', `${heroSpeed}px`);
     }
     
-    // 2. Parallax untuk Services Section (Akurat mendeteksi kemunculan elemen)
     if (services) {
         const servicesRect = services.getBoundingClientRect();
-        
-        // Efek hanya aktif saat kotak Services sudah mulai mengintip masuk ke dalam layar
         if (servicesRect.top < windowHeight && servicesRect.bottom > 0) {
-            
-            // Hitung jarak pergeseran berdasarkan posisi relatif kotak dari atas viewport
-            const servicesSpeed = (windowHeight - servicesRect.top) * 0.5; 
-            
-            // Kirim nilai posisi dinamis ke variabel CSS milik .services
+            const servicesSpeed = (windowHeight - servicesRect.top) * 0.15; 
             services.style.setProperty('--services-parallax', `${servicesSpeed}px`);
         }
     }
-    
 });
 
-// ===== 5. EMAILJS CONTACT FORM LOGIC =====
+// ===== 6. FORM CONTACT SUBMIT & TOAST NOTIFICATION =====
 const contactForm = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const toast = document.getElementById('toastNotification');
 
-if (contactForm) {
-    contactForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Mencegah halaman reload saat disubmit
-        
-        // Ubah teks tombol saat loading mengirim pesan
-        const submitBtn = this.querySelector('.btn-submit');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-
-        // Kirim data ke EmailJS
-        // Ganti 'YOUR_SERVICE_ID' dan 'YOUR_TEMPLATE_ID' sesuai akun EmailJS-mu
-        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-            .then(() => {
-                alert('Pesan Anda berhasil dikirim langsung ke email perusahaan!');
-                contactForm.reset(); // Kosongkan form kembali
-            }, (error) => {
-                alert('Gagal mengirim pesan, silakan coba lagi nanti: ' + JSON.stringify(error));
-            })
-            .finally(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            });
+if (contactForm && submitBtn && toast) {
+  contactForm.addEventListener('submit', function(event) {
+    // 1. Cegah halaman bawaan melakukan reload/pindah halaman
+    event.preventDefault();
+    
+    // 2. Ubah tampilan tombol menjadi loading "Sending..."
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true; // Kunci tombol biar tidak diklik dua kali
+    
+    // 3. Ambil seluruh data dari inputan form
+    const formData = new FormData(contactForm);
+    
+    // 4. Kirim data ke Formspree menggunakan Fetch API (di latar belakang)
+    fetch(contactForm.action, {
+      method: contactForm.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        // JIKA BERHASIL:
+        toast.textContent = 'Pesan Anda berhasil dikirim langsung ke email perusahaan!';
+        toast.className = 'toast-notification success';
+        contactForm.reset(); // Bersihkan isi form kembali
+      } else {
+        // JIKA SERVER MERESPONS ERROR:
+        throw new Error('Network response was not ok.');
+      }
+    })
+    .catch(error => {
+      // JIKA GAGAL (Koneksi putus/masalah jaringan):
+      toast.textContent = 'Gagal mengirim pesan, silakan coba lagi nanti';
+      toast.className = 'toast-notification error';
+    })
+    .finally(() => {
+      // 5. Kembalikan teks tombol ke kondisi semula setelah proses selesai
+      submitBtn.innerHTML = originalBtnText;
+      submitBtn.disabled = false;
+      
+      // 6. Sembunyikan notifikasi toast secara otomatis setelah 4 detik
+      setTimeout(() => {
+        toast.className = 'toast-notification';
+      }, 4000);
     });
+  });
 }
-
