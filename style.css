@@ -77,6 +77,25 @@
     /* Aksen merah gagal */
   }
 
+  /* ===== SCROLL REVEAL ANIMATION ===== */
+
+  /* Keadaan awal: Elemen disembunyikan (masih di bawah layar) */
+  .hidden-scroll {
+    opacity: 0;
+    filter: blur(4px); /* Efek blur halus agar transisi lebih estetik */
+    transform: translateY(40px); /* Dorong elemen ke bawah sejauh 40px */
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); /* Transisi halus */
+  }
+  /* Keadaan akhir: Elemen muncul sempurna saat tersorot */
+  .hidden-scroll.show {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+  /* Opsional: Berikan sedikit delay jika ingin elemen kiri dan kanan muncul bergantian */
+  .delay-200 {transition-delay: 200ms;}
+  .delay-400 {transition-delay: 400ms;}
+
   /* ===== CMYK REGISTRATION BAR (signature element) ===== */
   .reg-bar{display:flex;height:5px;width:100%;}
   .reg-bar span{flex:1;}

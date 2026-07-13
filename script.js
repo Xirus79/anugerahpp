@@ -169,3 +169,24 @@ if (contactForm && submitBtn && toast) {
     });
   });
 }
+
+// ===== 7. INTERSECTION OBSERVER FOR SCROLL REVEAL =====
+const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        // Jika elemen sudah masuk ke area sorot layar
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            // Unobserve digunakan jika kamu ingin animasi hanya berjalan 1 kali saja 
+            // saat di-scroll down (tidak menghilang lagi saat di-scroll up)
+            scrollObserver.unobserve(entry.target); 
+        }
+    });
+}, {
+    // threshold 0.15 berarti elemen akan memicu animasi 
+    // ketika 15% dari bagian tubuhnya sudah mulai mengintip masuk ke layar
+    threshold: 0.15 
+});
+
+// Cari semua elemen di HTML yang memiliki class hidden-scroll untuk diawasi
+const hiddenElements = document.querySelectorAll('.hidden-scroll');
+hiddenElements.forEach((el) => scrollObserver.observe(el));
