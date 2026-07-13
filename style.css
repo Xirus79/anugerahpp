@@ -283,7 +283,7 @@
 .header-socials a.link-ig:hover svg { fill: #E1306C; }
 .header-socials a.link-tt:hover svg { fill: #010101; }
 .header-socials a.link-wa:hover svg { fill: #25D366; }
-.header-socials a.link-tt:hover {
+.header-socials a.link-tt:hover svg {
   filter: drop-shadow(1px 1px 0px #00f2fe) drop-shadow(-1px -1px 0px #fe0979);
 }
 
@@ -325,7 +325,7 @@
   /* ===== HERO ===== */
   .hero {
     position: relative; /* Penting sebagai patokan ::before */
-    min-height: 640px;
+    min-height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
