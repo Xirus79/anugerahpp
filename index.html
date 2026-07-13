@@ -39,10 +39,11 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#project">Our Project</a></li>
       <li><a href="#application">Applications</a></li>
-      <li><a href="#career">Career</a></li>
+      <!-- <li><a href="#career">Career</a></li> -->
       <li><a href="#contact">Contact Us</a></li>
     </ul>
   </nav>
+
 
   <div class="header-socials">
     <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="link-fb">
@@ -103,9 +104,15 @@
       <h3>Solusi percetakan yang menggabungkan presisi, kecepatan, dan kualitas konsisten.</h3>
       <p>Kami membantu klien dari berbagai sektor industri menghadirkan label, kemasan, dan produk cetak lainnya dengan hasil akhir yang kuat dan terpercaya.</p>
       <div class="about-badges">
-        <span class="about-badge">● Offset, Flexo, Security Printing</span>
-        <span class="about-badge">● Tim berpengalaman</span>
-        <span class="about-badge">● Proses produksi terarah</span>
+        <span class="about-badge">
+          <span class="badge-icon">✓</span> Offset, Flexo, Security Printing
+        </span>
+        <span class="about-badge">
+          <span class="badge-icon">✓</span> Tim berpengalaman
+        </span>
+        <span class="about-badge">
+          <span class="badge-icon">✓</span> Proses produksi terarah
+        </span>
       </div>
     </div>
     <div class="about-card">
@@ -437,20 +444,33 @@
     <div class="contact-form">
       <div class="eyebrow">07 — Get In Touch</div>
       <h2>Contact Us</h2>
-      <p class="lead">Don't hesitate to contact us — ready for offers and cooperation.</p>
+      <p class="lead">Jangan ragu untuk menghubungi kami, Kami terbuka terhadap penawaran dan kerja sama.</p>
       <div class="form-row">
-        <form id="contactForm" class="contact-form">
-        <div class="field"><label>Your Name</label><input type="text" id="userName" name="from_name" placeholder="Nama lengkap"></div>
-        <div class="field"><label>Phone</label><input type="text" placeholder="08xx xxxx xxxx"></div>
-      </div>
-      <div class="field"><label>Email</label><input type="email" id="userEmail" name="user_email" placeholder="nama@email.com"></div>
-      <div class="field"><label>Message</label><textarea rows="4" id="userMessage" name="message" placeholder="Tulis pesan Anda..."></textarea></div>
-      <button type="submit" class="btn-primary">Send Message →</button>
-    </form>
+        <form id="contactForm" action="https://formspree.io/f/mykrykrz" method="POST" class="contact-form">
+        <div class="field">
+          <label>Your Name</label>
+          <input type="text" id="userName" name="userName" placeholder="Nama lengkap" required>
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="text" id="userPhone" name="userPhone" placeholder="08xx xxxx xxxx" optional>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="userEmail" name="user_email" placeholder="nama@email.com" required>
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <textarea rows="3" id="userMessage" name="message" placeholder="Tulis pesan Anda..." required></textarea>
+        </div>
+        <button type="submit" id="submitBtn"class="btn-primary">Send Message →</button>
+      </form>
+      <div id="toastNotification" class="toast-notification"></div>
     </div>
   </div>
 </section>
 
+<!-- ==Footer== -->
 <footer>
   <div class="footer-grid">
     <div>
@@ -461,15 +481,13 @@
     </div>
     <div>
       <h4>Address</h4>
-      <p>Jl. Pembangunan 2 No. 69</p>
-      <p>Tangerang, Indonesia 15121</p>
+      <p>Jl. Pembangunan 2 No.2 no.69, RT.001/RW.001, </p>
+      <p>Karang Anyar, Kec. Neglasari, Kota Tangerang, Banten 15121</p>
     </div>
     <div>
       <h4>Contacts</h4>
-      <p>marketingstaff@anugerahpp.com</p>
-      <p>+62 21 5562 1488</p>
-      <p>+62 21 5562 1489</p>
-      <p>Fax +62 21 5576 6594</p>
+      <p>anugerahprimaprintingmarketing@gmail.com</p>
+      <p>+62 811-1004-4055</p>
     </div>
     <div>
       <h4>Links</h4>
@@ -478,13 +496,13 @@
       <a href="#services">Services</a>
       <a href="#project">Project</a>
       <a href="#application">Application</a>
-      <a href="#career">Career</a>
+      <!-- <a href="#career">Career</a> -->
       <a href="#contact">Contact Us</a>
     </div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 PT ANUGERAH PRIMA PRINTING</span>
-    <div class="socials"><span>X</span><span>f</span><span>ig</span></div>
+    <!-- <div class="socials"><span>f</span><span>ig</span><span>tt</span></div> -->
   </div>
 </footer>
 

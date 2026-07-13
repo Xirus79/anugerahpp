@@ -41,6 +41,42 @@
   }
   .eyebrow::before{content:"";width:22px;height:1px;background:var(--blue);}
 
+  /* ===== NOTIFIKASI TOAST (POJOK KANAN BAWAH) ===== */
+  .toast-notification {
+    position: fixed;
+    bottom: -100px;
+    /* Sembunyi di bawah layar saat awal */
+    right: 30px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Class bantuan saat notifikasi sukses aktif */
+  .toast-notification.success {
+    bottom: 30px;
+    /* Memantul naik ke atas */
+    border-left: 4px solid #2ecc71;
+    /* Aksen hijau sukses */
+  }
+
+  /* Class bantuan saat notifikasi gagal aktif */
+  .toast-notification.error {
+    bottom: 30px;
+    border-left: 4px solid #e74c3c;
+    /* Aksen merah gagal */
+  }
+
   /* ===== CMYK REGISTRATION BAR (signature element) ===== */
   .reg-bar{display:flex;height:5px;width:100%;}
   .reg-bar span{flex:1;}
@@ -360,15 +396,16 @@
     font-weight:400;
   }   
   .hero-tags{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px;}
-  .hero-tags span{
-    font-family:'normal';
-    font-size:12.5px;
-    font-weight:500;
-    letter-spacing:1px;
-    padding:9px 16px;
-    border:1px solid var(--c);
-    color:rgb(255, 255, 255);
+  .hero-tags span {
+    font-family: 'normal';
+    font-size: 15px;
+    font-weight: 5000;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    /* border:1px solid var(--c); */
+    color: var(--paper-2);
     border-radius: 8px;
+    filter: drop-shadow(1px 1px 0px #00f2fe) drop-shadow(-1px -1px 0px #092efe);
   }
   .btn-primary{
     display:inline-flex;
@@ -406,8 +443,53 @@
   .about-card::before{content:"";position:absolute;inset:auto -20px -30px auto;width:140px;height:140px;background:radial-gradient(circle, rgba(242, 243, 244, 0.151), transparent 70%);pointer-events:none;}
   .about-card h3{font-size:26px;line-height:1.2;color:var(--navy);margin-bottom:14px;}
   .about-card p{margin-bottom:12px;}
-  .about-badges{display:flex;flex-wrap:wrap;gap:15px;margin-top:22px;}
-  .about-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:var(--white);border:2px solid rgb(32, 42, 161);border-radius:999px;font-size:13px;font-weight:600;color:var(--navy);}
+  .about-badges {
+    display: flex;
+    flex-direction: column;
+    /* Mengubah susunan menjadi list vertikal agar lebih rapi */
+    gap: 16px;
+    margin-top: 26px;
+  }
+
+  .about-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 0;
+    /* Hapus padding tebal khas tombol */
+    background: transparent;
+    /* Hilangkan background solid */
+    border: none;
+    /* Hilangkan border hitam yang membuatnya mirip tombol */
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--paper);
+    letter-spacing: 0.3px;
+    transition: transform 0.2s ease;
+  }
+
+  .about-card:hover .about-badge {
+    transform: translateX(7px);
+    /* Bergeser sedikit ke kanan secara elegan */
+  }
+
+  .about-badge .badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: var(--blue-deep);
+    /* Warna biru muda transparan */
+    color: var(--paper);
+    /* Simbol check berwarna biru brand utama */
+    border-radius: 6px;
+    /* Kotak membundar kecil yang estetik */
+    font-size: 11px;
+    font-weight: bold;
+  }
+  /* .about-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:var(--white);border:2px solid rgb(32, 42, 161);border-radius:999px;font-size:13px;font-weight:600;color:var(--navy);} */
   .about-quote{font-size:24px;line-height:1.5;font-weight:600;color:#000000;margin-bottom:18px;}
   .about-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px;}
   .about-stat{padding:16px;background:rgba(242, 243, 247, 0.878);border:1px solid rgb(0, 0, 0);border-radius:16px;}
@@ -735,25 +817,19 @@
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;}
   .contact-map-frame {
     width: 100%;
-    height: 480px;
-    /* Atur tinggi kotak peta sesuai keinginanmu */
+    height: 480px; /* Atur tinggi kotak peta sesuai keinginanmu */
     background: var(--paper-2);
     border: 1px solid var(--line);
-    border-radius: 20px;
-    /* Membuat sudut kotak peta melengkung halus */
-    overflow: hidden;
-    /* Memotong ujung tajam iFrame agar ikut membundar */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-    /* Efek bayangan tipis modern */
+    border-radius: 20px; /* Membuat sudut kotak peta melengkung halus */
+    overflow: hidden; /* Memotong ujung tajam iFrame agar ikut membundar */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04); /* Efek bayangan tipis modern */
     position: relative;
   }
-
   .contact-map-frame iframe {
     display: block;
     width: 100%;
     height: 100%;
-    filter: grayscale(10%) contrast(95%);
-    /* Efek filter opsional agar warna peta sedikit lebih menyatu dengan tema web */
+    filter: grayscale(10%) contrast(95%); /* Efek filter opsional agar warna peta sedikit lebih menyatu dengan tema web */
     transition: filter 0.3s ease;
   }
   .contact-map-frame:hover iframe {
@@ -762,10 +838,10 @@
   .map-box .halftone{position:absolute;inset:0;opacity:.12;background-image:radial-gradient(circle,#fff 1px,transparent 1.4px);background-size:12px 12px;}
   .contact-form .eyebrow{margin-bottom:14px;}
   .contact-form h2{
-    font-size:38px;
+    font-size:40px;
     color:#000000;
-    font-weight:600;
-    margin-bottom:10px;
+    font-weight:700;
+    margin-bottom:1px;
     letter-spacing:-1px;
     display:block;
     padding-bottom:0;
@@ -782,22 +858,61 @@
     font-family:inherit;font-size:15px;color:var(--ink);transition:border-color .2s;
   }
   .contact-form input:focus, .contact-form textarea:focus{outline:none;border-color:var(--blue);}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-
-  /* ===== FOOTER ===== */
-  footer{background:var(--navy);color:rgba(255,255,255,.75);padding:70px 56px 0;}
-  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px;padding-bottom:50px;}
-  .footer-grid h4{
-    margin-bottom:18px;font-weight:600;color:#fff;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
-    font-family:'JetBrains Mono';
-  }
-  .footer-grid p, .footer-grid a{display:block;font-size:14.5px;color:rgba(255,255,255,.6);margin-bottom:9px;transition:color .2s;}
-  .footer-grid a:hover{color:var(--lime-2);}
-  .footer-bottom{
-    display:flex;justify-content:space-between;align-items:center;padding:26px 0;
-    border-top:1px solid rgba(255,255,255,.12);font-size:12.5px;color:rgba(255,255,255,.4);
-    font-family:'JetBrains Mono';
-  }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+  
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--navy);
+      color: rgba(255, 255, 255, .75);
+      padding: 70px 56px 0;
+    }
+  
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 50px;
+      padding-bottom: 50px;
+    }
+  
+    .footer-grid h4 {
+      margin-bottom: 18px;
+      font-weight: 600;
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono';
+    }
+  
+    .footer-grid p,
+    .footer-grid a {
+      display: block;
+      font-size: 14.5px;
+      color: rgba(255, 255, 255, .6);
+      margin-bottom: 9px;
+      transition: color .2s;
+    }
+  
+    .footer-grid a:hover {
+      color: var(--lime-2);
+    }
+  
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 26px 0;
+      border-top: 1px solid rgba(255, 255, 255, .12);
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .4);
+      font-family: 'JetBrains Mono';
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
   .socials{display:flex;gap:14px;}
   .socials span{
     width:34px;height:34px;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;
