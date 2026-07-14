@@ -439,13 +439,14 @@
     cursor:pointer;
     transition:background .2s;
     border-radius: 10px;
+    margin-bottom: 35px;
   }
   .btn-primary:hover{background:var(--navy-1);}
 
   /* ===== SECTION SHELL ===== */
   section{padding:25px 60px;position:relative;}
   .section-head{max-width:640px;margin-bottom:64px;}
-  .section-head h2{font-size:clamp(70px,3.4vw,80px);font-weight:800;letter-spacing:-1px;color:var(--blue-deep);}
+  .section-head h2{font-size:clamp(70px,3.4vw,80px);font-weight:800;letter-spacing:-1px;color:var(--blue-deep);margin-top: -10px;}
   .section-head p{font-size:16px;margin-top:10px;max-width:520px;}
   .center{text-align:center;margin-left:auto;margin-right:auto;}
   .center p{margin-left:auto;margin-right:auto;}
@@ -730,69 +731,119 @@
   }
 
   /* ===== CLIENTS ===== */
-  .clients{background:var(--paper-2);}
-  .client-carousel{
-    max-width:100%;width: 100%;
-    overflow: hidden; /* Sembunyikan logo yang ada di halaman berikutnya */
+  .clients {
+    background: var(--paper-2);
+  } 
+  .client-carousel {
+    max-width: 100%;
+    margin: 0 auto 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    overflow: hidden;
+    /* Sembunyikan logo yang ada di halaman berikutnya */
     position: relative;
   }
-  .carousel-btn{
-    width:52px;height:52px;min-width:52px;border-radius:50%;border:1px solid var(--navy);background:transparent;
-    color:var(--navy);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;
-    transition:all .4s;
-  }
-  .carousel-btn:hover{background:var(--navy);color:#fff;}
-  .client-viewport{overflow:hidden;flex:1;max-width:560px;}
-  .client-track{
-    display:flex;
-    width:300%; /* Sesuai jumlah dot/page kamu (misal ada 3 halaman) */
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Efek slide mulus */
-  }
-  /* Setiap halaman slide pembungkus kumpulan logo */
-  .client-page {
-    width: 100%; /* Setiap page memakan 100% lebar kontainer carousel */
-    flex-shrink: 0; /* PENTING: Mencegah page menyusut dan menumpuk di mobile */
+  .carousel-btn {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 50%;
+    border: 1px solid var(--navy);
+    background: transparent;
+    color: var(--navy);
+    cursor: pointer;
+    font-size: 18px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .4s;
+  }
+  .carousel-btn:hover {
+    background: var(--navy);
+    color: #fff;
+  }
+  .client-viewport {
+    overflow: hidden;
+    flex: 1;
+    max-width: 560px;
+  }
+  .client-track {
+    display: flex;
+    width: 400%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .client-page {
+    width: 100%;
+    /* Setiap page memakan 100% lebar kontainer carousel */
+    flex-shrink: 0;
+    /* PENTING: Mencegah page menyusut dan menumpuk di mobile */
+    flex: 0 0 25%;
+    display: flex;
+    gap: 24px;
+    padding: 1 0 0px;
     justify-content: space-around;
     align-items: center;
     gap: 20px;
-    padding: 10px 0;
   }
   /* Mengatur ukuran gambar logo klien di dalam page */
   .client-page img {
-    max-width: 140px; /* Batasi lebar maksimal logo */
+    max-width: 140px;
+    /* Batasi lebar maksimal logo */
     height: auto;
-    max-height: 50px; /* Batasi tinggi maksimal agar seragam */
-    object-fit: contain; /* Jaga proporsi logo agar tidak gepeng */
-    filter: grayscale(100%); /* Bikin hitam putih estetik (opsional) */
-    opacity: 0.6;
-    transition: all 0.3s ease;
-  }
+    max-height: 50px;
+    /* Batasi tinggi maksimal agar seragam */
+    object-fit: contain;
+    /* Jaga proporsi logo agar tidak gepeng */
+    transition: all 0.4s ease;
+  } 
   .client-page img:hover {
     filter: grayscale(0%);
     opacity: 1;
-  }
-  .client-logo-card{
-    background:var(--paper);
-    border:2px solid var(--line);
+  } 
+  .client-logo-card {
+    background: var(--paper);
+    border: 2px solid var(--line);
     border-radius: 10px;
-    flex:1;
-    max-width:220px;
-    aspect-ratio:1/1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:30px 36px;
+    flex: 1;
+    max-width: 220px;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 36px;
   }
-  .client-logo-card img{
-    max-width:100%;max-height:100%;object-fit:contain;
+  .client-logo-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
-  .clients-note{text-align:center;font-family:'JetBrains Mono';font-size:12px;letter-spacing:1px;color:var(--muted);}
-  .client-dots{display:flex;gap:8px;justify-content:center;margin-top:28px;margin-bottom: 12px;}
-  .client-dots span{
-    width:7px;height:7px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .4s;
+  .clients-note {
+    text-align: center;
+    font-family: 'JetBrains Mono';
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--muted);
   }
-  .client-dots span.active{background:var(--navy);}
+  .client-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 28px;
+    margin-bottom: 12px;
+  }
+  .client-dots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--line);
+    cursor: pointer;
+    transition: background .4s;
+  }
+  .client-dots span.active {
+    background: var(--navy);
+  }
 
   /* ===== PROJECT ===== */
   .project{background:var(--paper);}
@@ -821,7 +872,19 @@
 }
 
   /* ===== APPLICATION ===== */
-  .application{background:var(--paper-2);}
+  .application{
+    padding: 120px 56px;
+    background:var(--paper-2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;;
+  }
+  .application .section-head {
+    width: 100%;
+    max-width: 960px; /* Samakan dengan batas maksimal lebar tabel agar sejajar sempurna */
+    text-align: Center; /* KUNCI 2: Memindahkan teks "Application" dari tengah ke ujung kiri tepi tabel */
+    margin-bottom: 48px;
+  }
   .app-toolbar{display:flex;justify-content:flex-end;margin-bottom:24px;}
   .search-box{
     padding:11px 14px;border:1px solid var(--line);background:var(--paper);width:220px;
@@ -831,16 +894,18 @@
   /* Slim, modern table with colored chips for entries */
   .application table{
     width:100%;
-    border-collapse:separate;
+    font-family: 'Space Grotesk', sans-serif;
+    border-collapse:collapse;
     border-spacing:0;
     background:transparent;
     border:1px solid rgba(27,46,82,0.06); /* subtle outer border */
     border-radius:10px;
     overflow:hidden;
     box-shadow:0 6px 20px rgba(18,32,62,0.04);
-    max-width:1180px; /* keep table from spanning full width */
+    max-width:960px; /* keep table from spanning full width */
     margin: 0 auto; /* center the bordered table */
     display: block; /* enable margin auto for table in some browsers */
+    
   }
 
   .application th{
@@ -1184,4 +1249,19 @@
     max-height: 35px !important; /* Turunkan batas tinggi maksimal agar pas */
     padding: 2px;
   }
-    }
+  .application {
+    padding: 60px 20px !important;
+  }
+
+  /* Di mobile, judul dikembalikan ke tengah agar lebih seimbang dengan layar HP */
+  .application .section-head {
+    text-align: center !important;
+  }
+
+  /* Membuat tabel bisa di-scroll ke samping di HP agar tidak hancur atau terpotong */
+  .application .app-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
