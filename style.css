@@ -44,7 +44,8 @@
   /* ===== NOTIFIKASI TOAST (POJOK KANAN BAWAH) ===== */
   .toast-notification {
     position: fixed;
-    bottom: -150px; /* Sembunyi di bawah layar saat awal */
+    bottom: -100px;
+    /* Sembunyi di bawah layar saat awal */
     right: 30px;
     background-color: #1a1a1a;
     color: #ffffff;
@@ -55,28 +56,23 @@
     font-weight: 500;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: bottom bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      opacity 0.3s ease,
-      visibility 0.3s ease;
+    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     align-items: center;
     gap: 10px;
   }
+
   /* Class bantuan saat notifikasi sukses aktif */
   .toast-notification.success {
-    bottom: 30px; /* Memantul naik ke atas */
-    opacity: 1;
-    visibility: visible;
-    border-left: 4px solid #2ecc71; /* Aksen hijau sukses */
+    bottom: 30px;
+    /* Memantul naik ke atas */
+    border-left: 4px solid #2ecc71;
+    /* Aksen hijau sukses */
   }
 
   /* Class bantuan saat notifikasi gagal aktif */
   .toast-notification.error {
     bottom: 30px;
-    opacity: 1;
-    visibility: visible;
     border-left: 4px solid #e74c3c;
     /* Aksen merah gagal */
   }
@@ -183,11 +179,18 @@
 
 /* Garis bawah animasi (Underline) */
 .header-nav .nav-links > li > a::after {
-  display: none;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--blue  );
+  transition: width 0.2s ease;
 }
 
 .header-nav .nav-links > li > a.active::after {
-  width: 0;
+  width: 100%;
 }
 
 /* ===== EFFECT HOVER: FOKUS & REDUP ===== */
@@ -914,9 +917,18 @@
     background:rgba(243,244,250,0.95);
   }
 
-  .application td{
-    padding:16px 18px;border-bottom:1px solid rgba(18,32,62,0.08);font-size:14px;vertical-align:middle;background:var(--white);
-  }
+  .application th{
+  text-align:center;
+  padding:16px 18px;
+  border-bottom:1px solid rgba(18,32,62,0.2);
+  border-right:1px solid rgba(18,32,62,0.12); /* opsional, kalau mau garis vertikal juga di header */
+  font-family:'JetBrains Mono';
+  font-size:12px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:var(--navy);
+  background:rgba(243,244,250,0.95);
+}
 
   .application td:first-child {
     text-align:center;
@@ -926,7 +938,13 @@
     border-bottom:none;
   }
 
-  .application td:first-child{font-weight:700;color:var(--navy);font-family:'Space Grotesk';width:28%;}
+  .application td:first-child{
+  font-weight:700;
+  color:var(--navy);
+  font-family:'Space Grotesk';
+  width:28%;
+  border-right:1px solid rgba(18,32,62,0.12); /* garis vertikal pemisah kolom */
+}
 
   /* Make each application item look like a colorful pill/chip */
   .application td span{
@@ -1219,10 +1237,8 @@
   }
   /* --- PERBAIKAN SECTIONS LAIN (ABOUT & SERVICES) --- */
   .about-grid,
-  .service-col,
   .service-cols,
   .project-grid,
-  .project-card,
   .footer-grid,
   .contact-grid {
     grid-template-columns: 1fr !important; /* Paksa semua grid 2-3 kolom menjadi 1 kolom saja */
@@ -1255,31 +1271,29 @@
 
   /* 4. Memperbaiki grid angka statistik (100%, 24/7, dll) agar tidak menumpuk kaku */
   .about-stats {
-    /* grid-template-columns: 1fr 1fr !important; Ubah menjadi 2 kolom yang rapi di HP */
-    flex-direction: column !important;
-    display: flex !important;
-    gap: 24px !important;
+    grid-template-columns: 1fr 1fr !important; /* Ubah menjadi 2 kolom yang rapi di HP */
+    gap: 15px !important;
     width: 100% !important;
     margin-top: 20px !important;
+    display: grid !important;
   }
-  
+  .project-card,
+  .service-col,
   /* 5. Merapikan kotak pembungkus statistik individual */
   .about-stat {
+    padding: 15px 10px !important;
     width: 100% !important;
-    max-width: 100% !important;
     height: auto !important; /* Bebaskan tinggi kaku agar teks deskripsi tidak terpotong */
-    /* display: flex; */
-    padding: 30px 24px !important;
-    box-sizing: border-box !important;
-    /* flex-direction: column;
+    display: flex;
+    padding: 20px 15px !important;
+    flex-direction: column;
     align-items: center;
-    text-align: center; */
+    text-align: center;
   }
   .project-card h3,
   .service-col h3 {
     font-size: 16px !important;
     line-height: 1.4 !important;
-    margin-bottom: 8px;
   }
 
   .about-stat strong {
