@@ -44,8 +44,7 @@
   /* ===== NOTIFIKASI TOAST (POJOK KANAN BAWAH) ===== */
   .toast-notification {
     position: fixed;
-    bottom: -100px;
-    /* Sembunyi di bawah layar saat awal */
+    bottom: -150px; /* Sembunyi di bawah layar saat awal */
     right: 30px;
     background-color: #1a1a1a;
     color: #ffffff;
@@ -56,23 +55,28 @@
     font-weight: 500;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     z-index: 9999;
-    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    visibility: hidden;
+    transition: bottom bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      opacity 0.3s ease,
+      visibility 0.3s ease;
     display: flex;
     align-items: center;
     gap: 10px;
   }
-
   /* Class bantuan saat notifikasi sukses aktif */
   .toast-notification.success {
-    bottom: 30px;
-    /* Memantul naik ke atas */
-    border-left: 4px solid #2ecc71;
-    /* Aksen hijau sukses */
+    bottom: 30px; /* Memantul naik ke atas */
+    opacity: 1;
+    visibility: visible;
+    border-left: 4px solid #2ecc71; /* Aksen hijau sukses */
   }
 
   /* Class bantuan saat notifikasi gagal aktif */
   .toast-notification.error {
     bottom: 30px;
+    opacity: 1;
+    visibility: visible;
     border-left: 4px solid #e74c3c;
     /* Aksen merah gagal */
   }
