@@ -1260,17 +1260,27 @@
     gap: 15px !important;
     width: 100% !important;
     margin-top: 20px !important;
+    display: grid !important;
   }
-
+  .project-card,
+  .service-col,
   /* 5. Merapikan kotak pembungkus statistik individual */
   .about-stat {
     padding: 15px 10px !important;
+    width: 100% !important;
     height: auto !important; /* Bebaskan tinggi kaku agar teks deskripsi tidak terpotong */
     display: flex;
+    padding: 20px 15px !important;
     flex-direction: column;
     align-items: center;
     text-align: center;
-  } 
+  }
+  .project-card h3,
+  .service-col h3 {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+  }
+
   .about-stat strong {
     font-size: 24px !important; /* Sesuaikan ukuran angka agar proporsional */
   }
