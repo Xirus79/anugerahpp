@@ -950,3 +950,99 @@
     .form-row{grid-template-columns:1fr;}
     .client-strip{gap:50px;}
   }
+
+    /* ==========================================================================
+     8. RESPONSIVE MOBILE LAYOUT (BREAKPOINT: 768px)
+     ========================================================================== */
+    @media screen and (max-width: 768px) {
+  
+      /* --- PERBAIKAN HEADER --- */
+      .header-main {
+        height: auto;
+        padding: 15px 20px;
+        flex-direction: column; /* Membuat logo dan menu berbaris ke bawah */
+        gap: 15px;
+        position: relative; /* Lepas sementara efek fixed di mobile agar tidak menumpuk */
+      }
+      /* Membuat logo berada di tengah */
+      .logo-lockup img {
+        height: 50px;/* Perkecil sedikit ukuran logo di mobile */
+        max-width: 100%;
+      }
+      /* Menyusun menu navigasi agar berbaris rapi ke bawah */
+      .header-nav .nav-links {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+        gap: 12px;
+      }
+      .header-nav .nav-links li {
+        width: 100%;
+        text-align: center;
+      }
+      /* Beri jarak tambahan untuk ikon sosial media & WhatsApp */
+      .header-socials,
+      .nav-whatsapp {
+        justify-content: center;
+        margin-top: 5px;
+      }
+      /* --- PERBAIKAN HERO SECTION --- */
+      .hero {
+        height: auto !important; /* Buat tinggi otomatis mengikuti panjang teks */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      /* Perkecil ukuran judul utama agar tidak menumpuk */
+      .hero-inner h1 {
+        font-size: 28px !important; /* Ukuran teks utama disesuaikan untuk HP */
+        line-height: 1.3 !important;
+        margin-bottom: 15px;
+      }
+      .hero-inner .sub-line {
+        font-size: 14px !important;
+        line-height: 1.5;
+      }
+      /* Menyusun tag cetak (Offset, Flexo, dll) ke bawah */
+      .hero-tags {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin: 20px 0;
+      }
+      .hero-tags span {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 12px;
+      }
+      /* Tombol aksi utama dibuat penuh selebar layar */
+      .btn-primary {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+        padding: 14px 20px;
+      }
+      /* --- PERBAIKAN SECTIONS LAIN (ABOUT & SERVICES) --- */
+      .about-grid,
+      .service-cols,
+      .project-grid,
+      .footer-grid,
+      .contact-grid {
+        grid-template-columns: 1fr !important; /* Paksa semua grid 2-3 kolom menjadi 1 kolom saja */
+        gap: 30px;
+      }
+      .services,
+      .about,
+      .project,
+      .application,
+      .career,
+      .contact {
+        padding: 60px 20px !important;
+        /* Sesuaikan seluruh padding konten agar tidak terlalu mepet */
+      }
+    }
