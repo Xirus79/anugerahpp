@@ -1222,8 +1222,10 @@
   }
   /* --- PERBAIKAN SECTIONS LAIN (ABOUT & SERVICES) --- */
   .about-grid,
+  .service-col,
   .service-cols,
   .project-grid,
+  .project-card,
   .footer-grid,
   .contact-grid {
     grid-template-columns: 1fr !important; /* Paksa semua grid 2-3 kolom menjadi 1 kolom saja */
@@ -1256,29 +1258,31 @@
 
   /* 4. Memperbaiki grid angka statistik (100%, 24/7, dll) agar tidak menumpuk kaku */
   .about-stats {
-    grid-template-columns: 1fr 1fr !important; /* Ubah menjadi 2 kolom yang rapi di HP */
-    gap: 15px !important;
+    /* grid-template-columns: 1fr 1fr !important; Ubah menjadi 2 kolom yang rapi di HP */
+    flex-direction: column !important;
+    display: flex !important;
+    gap: 24px !important;
     width: 100% !important;
     margin-top: 20px !important;
-    display: grid !important;
   }
-  .project-card,
-  .service-col,
+  
   /* 5. Merapikan kotak pembungkus statistik individual */
   .about-stat {
-    padding: 15px 10px !important;
     width: 100% !important;
+    max-width: 100% !important;
     height: auto !important; /* Bebaskan tinggi kaku agar teks deskripsi tidak terpotong */
-    display: flex;
-    padding: 20px 15px !important;
-    flex-direction: column;
+    /* display: flex; */
+    padding: 30px 24px !important;
+    box-sizing: border-box !important;
+    /* flex-direction: column;
     align-items: center;
-    text-align: center;
+    text-align: center; */
   }
   .project-card h3,
   .service-col h3 {
     font-size: 16px !important;
     line-height: 1.4 !important;
+    margin-bottom: 8px;
   }
 
   .about-stat strong {
