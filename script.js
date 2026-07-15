@@ -190,3 +190,37 @@ const scrollObserver = new IntersectionObserver((entries) => {
 // Cari semua elemen di HTML yang memiliki class hidden-scroll untuk diawasi
 const hiddenElements = document.querySelectorAll('.hidden-scroll');
 hiddenElements.forEach((el) => scrollObserver.observe(el));
+
+// ===== 8. DROPDOWN TO ACCORDION SYNC LOGIC =====
+const dropdownLinks = document.querySelectorAll('.dropdown-link');
+
+if (dropdownLinks.length > 0) {
+  dropdownLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+      // Ambil ID target dari atribut href (misal: "#about-history")
+      const targetId = this.getAttribute('href');
+      const targetAccordion = document.querySelector(targetId);
+
+      if (targetAccordion) {
+        // 1. Tutup semua akordeon lain terlebih dahulu agar rapi
+        document.querySelectorAll('.accordion-item').forEach(item => {
+          item.removeAttribute('open'); // Untuk tag <details> bawaan HTML
+          // Jika kamu menggunakan class JS kustom, sesuaikan menjadi: item.classList.remove('active');
+        });
+
+        // 2. Buka akordeon yang dituju secara spesifik
+        targetAccordion.setAttribute('open', ''); // Untuk tag <details> bawaan HTML
+        // Jika menggunakan class JS kustom, sesuaikan menjadi: targetAccordion.classList.add('active');
+
+        // 3. Gulir halaman secara mulus (smooth scroll) ke elemen akordeon tersebut
+        // Jeda sedikit agar proses scroll berjalan mulus setelah rendering buka-tutup selesai
+        setTimeout(() => {
+          targetAccordion.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center' // Memposisikan akordeon tepat di tengah layar monitor/HP
+          });
+        }, 100);
+      }
+    });
+  });
+}	

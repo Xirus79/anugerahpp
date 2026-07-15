@@ -233,6 +233,7 @@
   visibility: hidden;
   transition: all 0.3s ease;
   z-index: 100;
+  pointer-events: auto !important;
 }
 
 /* Desain Item Link di Dalam Dropdown */
@@ -538,7 +539,8 @@
   .accordion-item{
     border-bottom: 1px solid var(--line);
     display: grid;
-    
+    transition: grid-template-rows 0.4s ease-out;
+    scroll-margin-top: 120px;
   }
     /* 2. Saat status elemen 'open', buka tinggi grid-nya */
   .accordion-item[open] {
@@ -572,9 +574,9 @@
   .accordion-item .content {
     min-height: 0;
     padding: 0 4px 26px 44px;
-    color: var(--muted);
+    color: var(--navy);
     font-size: 15px;
-    max-width: 460px;
+    max-width: 700px;
   }
 
   .accordion-item summary::-webkit-details-marker{
