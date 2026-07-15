@@ -440,9 +440,9 @@
     font-weight: 5000;
     letter-spacing: 1px;
     padding: 5px 10px; /* border:1px solid var(--c); */
-    color: var(--paper-2);
+    color: var(--c);
     border-radius: 8px;
-    filter: drop-shadow(1px 1px 0px #00f2fe) drop-shadow(-1px -1px 0px #092efe);
+    
   }
   .btn-primary{
     display:inline-flex;
