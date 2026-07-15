@@ -23,7 +23,7 @@ if (filterTabs.length > 0) {
   });
 }
 
-// ===== 3. CLIENT CAROUSEL LOGIC (WITH AUTOPLAY) =====
+// ===== 3. CLIENT CAROUSEL LOGIC (WITH AUTOPLAY) - PERFECT LOOP =====
 (function(){
   const track = document.getElementById('clientTrack');
   const dots = document.querySelectorAll('#clientDots span');
@@ -33,21 +33,74 @@ if (filterTabs.length > 0) {
   
   if(!track || !dots.length) return; 
 
-  const totalPages = dots.length;
+  const totalPages = dots.length; // Jumlah halaman asli (misal: 4)
+
+  // 1. GANDAKAN KONTEN UNTUK ILUSI LOOP
+  track.innerHTML += track.innerHTML;
+  
+  const totalSlides = totalPages * 2; // Jumlah total setelah digandakan (misal: 8)
+  
+  // 2. KALKULASI LEBAR OTOMATIS (Mencegah pergerakan kecil / jeda besar)
+  // Ini akan menimpa CSS bawaan agar lebarnya selalu akurat
+  track.style.width = (totalSlides * 100) + '%';
+  const pages = track.querySelectorAll('.client-page');
+  pages.forEach(p => {
+    // Membagi rata ruang untuk setiap halaman
+    const pagePercentage = 100 / totalSlides;
+    p.style.flex = `0 0 ${pagePercentage}%`;
+    p.style.width = `${pagePercentage}%`; 
+  });
+
   let page = 0;
   let autoplayTimer = null;
+  let isTransitioning = false; // Pengunci agar tidak bisa digeser sampai kosong
 
-  function render(){
-    track.style.transform = 'translateX(-' + (page * (100/totalPages)) + '%)';
-    dots.forEach((d,i)=> d.classList.toggle('active', i===page));
+  function render(withTransition = true){
+    if (withTransition) {
+      track.style.transition = ''; // Gunakan efek transisi CSS aslimu
+      isTransitioning = true;      // Kunci pergerakan selama animasi berjalan
+    } else {
+      track.style.transition = 'none'; // Matikan transisi untuk teleport
+      isTransitioning = false;
+    }
+
+    track.style.transform = `translateX(-${page * (100 / totalSlides)}%)`;
+    
+    // Sinkronisasi indikator titik (dot)
+    const activeDot = page % totalPages;
+    dots.forEach((d, i) => d.classList.toggle('active', i === activeDot));
   }
 
   function nextPage() {
-    page = (page + 1) % totalPages;
-    render();
+    if (isTransitioning) return; // Abaikan perintah jika sedang bergeser
+    page++;
+    render(true);
   }
 
+  function prevPage() {
+    if (isTransitioning) return; // Abaikan perintah jika sedang bergeser
+    if (page === 0) {
+      // Teleport instan ke salinan terakhir sebelum mundur
+      page = totalPages;
+      render(false);
+      track.getBoundingClientRect(); // Paksa browser menerapkan teleport seketika
+    }
+    page--;
+    render(true);
+  }
+
+  // 3. TELEPORTASI SETELAH ANIMASI SELESAI
+  track.addEventListener('transitionend', () => {
+    isTransitioning = false; // Buka kunci pergerakan
+    // Jika pergeseran sudah sampai di batas awal salinan konten
+    if (page >= totalPages) {
+      page = 0; // Kembalikan indeks ke 0 secara rahasia
+      render(false);
+    }
+  });
+
   function startAutoplay() {
+    stopAutoplay();
     autoplayTimer = setInterval(nextPage, 3000); 
   }
 
@@ -55,17 +108,23 @@ if (filterTabs.length > 0) {
     if (autoplayTimer) clearInterval(autoplayTimer);
   }
 
-  if (prevBtn) prevBtn.addEventListener('click', ()=>{ page = (page - 1 + totalPages) % totalPages; render(); });
-  if (nextBtn) nextBtn.addEventListener('click', ()=>{ nextPage(); });
+  if (prevBtn) prevBtn.addEventListener('click', prevPage);
+  if (nextBtn) nextBtn.addEventListener('click', nextPage);
   
-  dots.forEach((d,i)=> d.addEventListener('click', ()=>{ page = i; render(); }));
+  dots.forEach((d, i) => d.addEventListener('click', () => { 
+    // Cegah error jika mengklik titik yang sama atau sedang bergeser
+    if (isTransitioning || page % totalPages === i) return;
+    page = i; 
+    render(true); 
+  }));
 
   if (container) {
     container.addEventListener('mouseenter', stopAutoplay);
     container.addEventListener('mouseleave', startAutoplay);
   }
 
-  render();
+  // Inisialisasi posisi web saat baru dimuat
+  render(false);
   startAutoplay();
 })();
 
