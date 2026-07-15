@@ -823,9 +823,7 @@
     opacity: 1;
   } 
   .client-logo-card {
-    background: var(--white);
-    border: 2px solid var(--line);
-    border-radius: 10px;
+    
     flex: 1;
     max-width: 220px;
     aspect-ratio: 1/1;
