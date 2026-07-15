@@ -115,58 +115,67 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== 6. FORM CONTACT SUBMIT & TOAST NOTIFICATION =====
-const contactForm = document.getElementById('contactForm');
+// ===== 6. REAL-TIME MAILTO GENERATOR (NATIVE HUMAN INTERACTION METHOD) =====
+function updateMailtoLink() {
+  const nameInput = document.getElementById('userName');
+  const phoneInput = document.getElementById('userPhone');
+  const emailInput = document.getElementById('userEmail');
+  const messageInput = document.getElementById('userMessage');
+  const submitBtn = document.getElementById('submitBtn');
+
+  if (!nameInput || !emailInput || !messageInput || !submitBtn) return;
+
+  const name = nameInput.value;
+  const phone = phoneInput.value || '-';
+  const email = emailInput.value;
+  const message = messageInput.value;
+
+  // Konfigurasi Email & Subjek
+  const emailTujuan = "ignatius.kevinm@gmail.com";
+  const subjectEmail = encodeURIComponent(`[OFFICIAL INQUIRY] Pesan Baru dari ${name || 'Pengunjung Website'}`);
+  
+  // Susun template draf email formal
+  const bodyEmail = encodeURIComponent(
+    `Yth. PT Anugerah Prima Printing,\n\n` +
+    `Berikut adalah pesan resmi yang dikirimkan melalui formulir kontak website:\n` +
+    `==================================================\n` +
+    `Nama Pengirim   : ${name}\n` +
+    `Nomor Telepon   : ${phone}\n` +
+    `Alamat Email    : ${email}\n` +
+    `==================================================\n\n` +
+    `Isi Pesan:\n` +
+    `"${message}"\n\n` +
+    `Mohon untuk segera menindaklanjuti pesan ini. Terima kasih.`
+  );
+
+  // Update atribut href milik tombol <a> secara real-time saat user mengetik
+  submitBtn.setAttribute('href', `mailto:${emailTujuan}?subject=${subjectEmail}&body=${bodyEmail}`);
+}
+
+// Tambahkan interaksi visual toast saat tombol diklik manusia
 const submitBtn = document.getElementById('submitBtn');
 const toast = document.getElementById('toastNotification');
+const contactForm = document.getElementById('contactForm');
 
-if (contactForm && submitBtn && toast) {
-  contactForm.addEventListener('submit', function(event) {
-    // 1. Cegah halaman bawaan melakukan reload/pindah halaman
-    event.preventDefault();
-    
-    // 2. Ubah tampilan tombol menjadi loading "Sending..."
-    const originalBtnText = submitBtn.innerHTML;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true; // Kunci tombol biar tidak diklik dua kali
-    
-    // 3. Ambil seluruh data dari inputan form
-    const formData = new FormData(contactForm);
-    
-    // 4. Kirim data ke Formspree menggunakan Fetch API (di latar belakang)
-    fetch(contactForm.action, {
-      method: contactForm.method,
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        // JIKA BERHASIL:
-        toast.textContent = 'Pesan Anda berhasil dikirim langsung ke email perusahaan!';
-        toast.className = 'toast-notification success';
-        contactForm.reset(); // Bersihkan isi form kembali
-      } else {
-        // JIKA SERVER MERESPONS ERROR:
-        throw new Error('Network response was not ok.');
-      }
-    })
-    .catch(error => {
-      // JIKA GAGAL (Koneksi putus/masalah jaringan):
-      toast.textContent = 'Gagal mengirim pesan, silakan coba lagi nanti';
-      toast.className = 'toast-notification error';
-    })
-    .finally(() => {
-      // 5. Kembalikan teks tombol ke kondisi semula setelah proses selesai
-      submitBtn.innerHTML = originalBtnText;
-      submitBtn.disabled = false;
+if (submitBtn && toast) {
+  submitBtn.addEventListener('click', function() {
+    // Jalankan update sekali lagi untuk memastikan data paling akhir ter-copy
+    updateMailtoLink();
+
+    // Munculkan toast notifikasi estetik di pojok kanan bawah
+    toast.textContent = 'Membuka draf email resmi... Silakan klik Send!';
+    toast.className = 'toast-notification success';
+
+    // Bersihkan form secara perlahan setelah 1.5 detik agar draf tidak langsung kosong saat aplikasi email terbuka
+    setTimeout(() => {
+      if (contactForm) contactForm.reset();
+      // Kembalikan tombol ke setelan href kosong bawaan
+      submitBtn.setAttribute('href', 'mailto:ignatius.kevinm@gmail.com');
       
-      // 6. Sembunyikan notifikasi toast secara otomatis setelah 4 detik
       setTimeout(() => {
         toast.className = 'toast-notification';
-      }, 4000);
-    });
+      }, 3000);
+    }, 1500);
   });
 }
 

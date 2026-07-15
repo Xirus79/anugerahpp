@@ -869,7 +869,7 @@
   }
 
   /* ===== PROJECT ===== */
-  .project{background:var(--white);}
+  .project{background:var(--paper);}
   .filter-row{display:flex;gap:10px;margin-bottom:56px;flex-wrap:wrap;}
   .filter-row .tab{color:var(--navy);border-color:var(--line);}
   .filter-row .tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
@@ -939,11 +939,11 @@
 
   .application th,
   .application td {
-    border: none;
+    /* border: none; */
     vertical-align: middle;
     text-align: center;
-    padding: 18px 20px;
-    white-space: normal;
+    /* padding: 18px 20px;
+    white-space: normal; */
   }
 
   .application thead th {
@@ -967,7 +967,12 @@
 
   .application th:last-child,
   .application td:last-child {
-    width: 65%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   .application td:first-child {
