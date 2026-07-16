@@ -19,9 +19,41 @@ if (filterTabs.length > 0) {
     btn.addEventListener('click', () => {
       btn.parentElement.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
+      const filter = btn.dataset.filter || 'all';
+      document.querySelectorAll('.project-card').forEach(card => {
+        const matches = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('is-hidden', !matches);
+        if (!matches) {
+          card.classList.remove('is-open');
+          const trigger = card.querySelector('.project-trigger');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
     });
   });
 }
+
+// ===== 2b. PROJECT CARD DROPDOWN TOGGLE =====
+document.querySelectorAll('.project-card .project-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const card = trigger.closest('.project-card');
+    if (!card) return;
+
+    const isOpen = card.classList.contains('is-open');
+
+    document.querySelectorAll('.project-card').forEach(item => {
+      item.classList.remove('is-open');
+      const itemTrigger = item.querySelector('.project-trigger');
+      if (itemTrigger) itemTrigger.setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      card.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
 
 // ===== 3. CLIENT CAROUSEL LOGIC (WITH AUTOPLAY) - PERFECT LOOP =====
 (function(){
