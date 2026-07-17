@@ -804,10 +804,8 @@
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
   }
   .client-page {
-    width: 100%;
-    /* Setiap page memakan 100% lebar kontainer carousel */
-    flex-shrink: 0;
-    /* PENTING: Mencegah page menyusut dan menumpuk di mobile */
+    width: 100%; /* Setiap page memakan 100% lebar kontainer carousel */
+    flex-shrink: 0; /* PENTING: Mencegah page menyusut dan menumpuk di mobile */
     flex: 0 0 25%;
     display: flex;
     gap: 24px;
@@ -1459,20 +1457,70 @@
     padding: 60px 20px !important;/* Sesuaikan seluruh padding konten agar tidak terlalu mepet */
   }
 
+  /* 1. Perkecil ukuran judul utama "About Us" agar proporsional di HP */
+  .section-head h2 {
+    font-size: 38px !important; /* Diubah dari ukuran desktop agar pas di layar HP */
+    line-height: 1.2 !important;
+    letter-spacing: -0.5px !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Sesuaikan paragraf di bawah judul utama */
+  .section-head p {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    max-width: 100% !important;
+  }
+
+  /* Sesuaikan teks intro paragraf About Us */
+  .about-intro {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 32px !important;
+    padding: 0 4px !important;
+  }
+
   /* 1. Paksa dua kartu gradient besar agar berbaris ke bawah, bukan ke samping */
   .about-highlight {
+    display: flex !important;
     flex-direction: column !important;
-    gap: 20px !important;
+    gap: 24px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
   }
   /* 2. Pastikan lebar masing-masing kartu menjadi penuh selebar layar HP */
   .about-card {
     width: 100% !important;
-    padding: 30px 20px !important; /* Sesuaikan padding dalam agar pas di HP */
+    max-width: 100% !important;
+    padding: 24px 20px !important; /* Sempurnakan bantalan dalam kartu di layar kecil */
+    box-sizing: border-box !important;
   }
   /* 3. Sesuaikan ukuran teks judul di dalam kartu agar tidak terlalu besar */
   .about-card h3 {
     font-size: 20px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 12px !important;
+  }
+  .about-card p {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Sesuaikan ukuran teks kutipan ("Excellent quality is born...") di kartu kedua */
+  .about-quote {
+    font-size: 18px !important;
     line-height: 1.4 !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* 4. Atur ulang susunan badge/list centang di dalam kartu */
+  .about-badges {
+    margin-top: 20px !important;
+    gap: 12px !important;
+  }
+
+  .about-badge {
+    font-size: 14px !important;
   }
 
   /* 4. Memperbaiki grid angka statistik (100%, 24/7, dll) agar tidak menumpuk kaku */
@@ -1485,30 +1533,162 @@
   }
   .project-card,
   .service-col,
+  .about-stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;  /* Bagi menjadi 2 kolom rapi (2 di atas, 2 di bawah) */
+    gap: 12px !important;
+    margin-top: 16px !important;
+  }
   /* 5. Merapikan kotak pembungkus statistik individual */
   .about-stat {
-    padding: 15px 10px !important;
+    padding: 12px 10px !important;
     width: 100% !important;
     height: auto !important; /* Bebaskan tinggi kaku agar teks deskripsi tidak terpotong */
     display: flex;
-    padding: 20px 15px !important;
+    padding: 12px 10px !important;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-  .project-card h3,
-  .service-col h3 {
-    font-size: 16px !important;
-    line-height: 1.4 !important;
+
+  /* 1. Beri jarak antara About dengan About Design */
+  .about-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important; /* Memastikan 1 kolom penuh di mobile */
+    gap: 40px !important; /* Jarak 40px ini memisahkan kotak atas dengan area akordeon di bawahnya */
+    margin-top: 40px !important; /* Dorong seluruh area akordeon ke bawah agar tidak menempel */
   }
 
+  /* 2. Sesuaikan Elemen Akordeon Individual (Details) */
+  .accordion-item {
+    border-bottom: 1px solid var(--line) !important;
+    scroll-margin-top: 100px !important; /* Penyesuaian agar tidak tertutup header saat smooth-scroll */
+  }
+
+  /* 3. Penyesuaian Tipografi & Font pada Judul Akordeon (Summary) */
+  .accordion-item summary {
+    padding: 18px 4px !important; /* Kurangi padding atas-bawah agar pas di layar HP */
+    font-family: 'Space Grotesk', sans-serif !important; /* Memastikan menggunakan font modern */
+    font-size: 16px !important; /* Kecilkan ukuran dari desktop agar serasi di HP */
+    font-weight: 600 !important; /* Gunakan semi-bold, tidak terlalu tebal kaku */
+    color: var(--navy) !important;
+  }
+
+  /* Sesuaikan nomor indikator (01, 02, 03) */
+  .accordion-item summary .num {
+    font-family: 'JetBrains Mono', monospace !important; /* Font monospace untuk angka agar estetik */
+    font-size: 16px !important; /* Samakan ukuran dengan teks judulnya */
+    font-weight: 700 !important;
+    margin-right: 12px !important; /* Jarak angka ke tulisan sedikit dirapatkan */
+  }
+
+  /* Sesuaikan ikon "+" di sebelah kanan */
+  .accordion-item summary::after {
+    font-size: 18px !important; /* Perkecil ukuran tanda tambah di HP */
+    font-weight: 600 !important;
+  }
+
+  /* 4. Sesuaikan Isi Konten Akordeon Saat Terbuka */
+  .accordion-item .content {
+    padding: 0 4px 20px 32px !important; /* Atur indentasi kiri (32px) agar lurus dengan tulisan judul (setelah angka) */
+    font-size: 13.5px !important; /* Skala teks isi diperkecil sedikit agar nyaman dibaca di HP */
+    line-height: 1.6 !important;
+    color: var(--muted) !important;
+  }
+
+  .project-card h3,
+
   .about-stat strong {
-    font-size: 24px !important; /* Sesuaikan ukuran angka agar proporsional */
+    font-size: 20px !important; /* Perkecil ukuran angka statistik agar tidak luap */
+    margin-bottom: 2px !important;
   }
   .about-stat span {
     font-size: 11px !important;
     line-height: 1.3 !important;
   }
+
+  .about-details {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin-top: 12px !important;
+  }
+
+  /* 1. Atur susunan tombol tab (Offset, Flexo, Security) di mobile agar seimbang */
+  .service-tabs {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin-bottom: 40px !important;
+  }
+
+  .service-tabs .tab {
+    font-size: 13px !important;
+    padding: 10px 16px !important;
+    flex: 1 !important; /* Membuat tombol membagi lebar secara rata di HP */
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* 2. Tata letak grid container panel */
+  .service-cols {
+    display: flex !important;
+    flex-direction: column !important; /* Susun kartu menumpuk ke bawah */
+    gap: 20px !important; /* Beri sela antar kartu agar tidak menempel kaku */
+    background: transparent !important;
+  }
+
+  /* 3. Desain struktur kartu individual (.service-col) */
+  .service-col {
+    padding: 32px 24px !important; /* Beri ruang sela dalam yang lega */
+    border-radius: 12px !important; /* Sempurnakan sudut melengkung kartu di HP */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* 4. EKSEKUSI CORETAN 1: Memperbesar Ukuran Ikon Utama */
+  .service-col .swatch-target {
+    width: 76px !important; /* Diperbesar signifikan sesuai coretan luar lingkaran */
+    height: 76px !important;
+    margin-bottom: 24px !important;
+    background: rgba(255, 255, 255, 0.05) !important; /* Beri alas lingkaran transparan tipis */
+  }
+
+  .service-col .service-icon {
+    width: 46px !important; /* Ukuran ikon SVG di dalam diperbesar agar tegas */
+    height: 46px !important;
+  }
+
+  /* 5. EKSEKUSI CORETAN 2: Memperbesar Judul Layanan (Design, Press, Finishing) */
+  .service-col h3 {
+    font-size: 24px !important; /* Diperbesar tebal sesuai rancangan coretan teks merah */
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin-bottom: 18px !important;
+  }
+
+  /* 6. EKSEKUSI CORETAN 3: Penyelarasan Paragraf Deskripsi di HP */
+  .service-col p {
+    font-size: 16px !important; /* Ukuran huruf dioptimalkan untuk bacaan mobile */
+    font-weight: 400 !important;
+    line-height: 1.6 !important; /* Beri sela baris yang renggang agar tidak menumpuk */
+    color: var(--line) !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto !important;
+    padding: 0 !important; /* Beri sela tipis kiri-kanan agar teks tidak menempel ke pinggir layar HP */
+    text-align: left !important ; /* Rata kiri-kanan agar teks lebih rapi di layar HP */
+    text-justify: inter-word !important; /* Pastikan teks rata kanan-kiri di HP */
+    word-spacing: -0.5px;
+  }
+
+  /* Rapikan penempatan nomor indeks pojok kanan atas (01, 02, 03) */
+  .service-col .idx {
+    top: 32px !important;
+    right: 24px !important;
+    font-size: 14px !important;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4) !important;
+  }
+  
   /* Kurangi lebar total track jika di mobile kolom grid-nya menyempit */
   .client-carousel {
     padding: 0 10px;
