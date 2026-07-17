@@ -265,7 +265,7 @@ if (submitBtn && toast) {
       
       setTimeout(() => {
         toast.className = 'toast-notification';
-      }, 3000);
+      }, 3000); 
     }, 1500);
   });
 }
