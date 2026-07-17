@@ -516,10 +516,6 @@
     transition: transform 0.2s ease;
   }
 
-  .about-card:hover .about-badge {
-    transform: translateX(7px);
-    /* Bergeser sedikit ke kanan secara elegan */
-  }
 
   .about-badge .badge-icon {
     display: flex;
@@ -527,13 +523,13 @@
     justify-content: center;
     width: 30px;
     height: 30px;
-    background-color: var(--blue-deep);
+    background-color:transparent;
     /* Warna biru muda transparan */
-    color: var(--paper);
+    color: var(--c);
     /* Simbol check berwarna biru brand utama */
     border-radius: 6px;
     /* Kotak membundar kecil yang estetik */
-    font-size: 11px;
+    font-size: 20px;
     font-weight: bold;
   }
   /* .about-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:var(--white);border:2px solid rgb(32, 42, 161);border-radius:999px;font-size:13px;font-weight:600;color:var(--navy);} */
@@ -705,7 +701,7 @@
   .service-panels{position:relative;}
   .service-panel{display:none;}
   .service-panel.active{display:block;}
-  .service-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.12);}
+  .service-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;background:rgba(255,255,255,.12);}
   .service-col{background:var(--navy);padding:44px 36px;position:relative;}
   .service-col .swatch-target{
     width: 46px; /* Ukuran disesuaikan sedikit lebih besar agar ikon pas */
