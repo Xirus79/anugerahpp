@@ -451,7 +451,6 @@
     padding: 5px 10px; /* border:1px solid var(--c); */
     color: var(--c);
     border-radius: 8px;
-    filter: drop-shadow(-1px 1.3px 0.2px #c1e9eb);
     
   }
   .btn-primary{
@@ -474,7 +473,7 @@
 
   /* ===== WHY CHOOSE APP ===== */
 .why-choose{
-  background:var(--lime-2);
+  background:var(--navy);
   padding:90px 56px;
   position:relative;
   overflow:hidden;
@@ -502,7 +501,7 @@
   z-index:1;
   font-size:clamp(30px,3.4vw,44px);
   font-weight:800;
-  color:var(--navy);
+  color:var(--white);
   letter-spacing:-.5px;
 }
 .why-header h2 span{
@@ -529,14 +528,14 @@
   font-size:26px;
   font-weight:800;
   font-style:italic;
-  color:var(--navy);
+  color:var(--white);
   background:rgba(255,255,255,.15);
   transition:transform .3s ease, background .3s ease;
 }
 .why-item:hover .why-num{
   transform:translateY(-6px);
-  background:var(--navy);
-  color:var(--lime-2);
+  background:var(--lime);
+  color:var(--white);
 }
 .why-item h3{
   font-size:16px;
@@ -548,7 +547,7 @@
 .why-item p{
   font-size:14px;
   line-height:1.6;
-  color:rgba(18,32,62,.75);
+  color:rgb(253, 253, 255);
   max-width:260px;
   margin:0 auto;
 }
@@ -556,7 +555,10 @@
 @media(max-width:960px){
   .why-grid{grid-template-columns:1fr 1fr;}
   .why-header{text-align:center;}
-  .why-bg-text{position:static;display:block;font-size:60px;margin-bottom:-10px;}
+  .why-bg-text{position:static;
+    display:block;
+    font-size:60px;
+    margin-bottom:-10px;}
 }
 @media(max-width:768px){
   .why-choose{padding:60px 20px !important;}
