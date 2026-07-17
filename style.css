@@ -850,8 +850,16 @@
 
   /* ===== CLIENTS ===== */
   .clients {
-    background: var(--white);
+    background: linear-gradient(180deg, #7ec2e5 0%, #d4e7f2 60%, #ffffff 100%) !important;
+    padding: 100px 56px;
+    position: relative;;
   } 
+
+  .clients .section-head p {
+    color: #3b527a !important; /* Warna biru gelap medium agar senada dan elegan */
+    font-size: 16px;
+  }
+
   .client-carousel {
     max-width: 100%;
     margin: 0 auto 40px;
@@ -919,7 +927,8 @@
     opacity: 1;
   } 
   .client-logo-card {
-    
+    background: transparent !important; /* Membuat latar belakang logo transparan */
+    box-shadow: none !important; /* Hilangkan bayangan kotak agar menyatu halus */
     flex: 1;
     max-width: 220px;
     aspect-ratio: 1/1;
@@ -938,7 +947,7 @@
     font-family: 'JetBrains Mono';
     font-size: 20px;
     letter-spacing: 1px;
-    color: var(--muted);
+    color: #4a5d80 !important; /* Disesuaikan agar kontrasnya pas */
   }
   .client-dots {
     display: flex;
@@ -1419,7 +1428,6 @@
 /* ==========================================================================
    PERBAIKAN HERO SECTION UNTUK VERSI MOBILE (MAX-WIDTH: 768px)
    ========================================================================== */
-@media screen and (max-width: 768px) {
 
   /* 0. Reset body dan html agar tidak bisa digeser ke kanan dan menghilangkan sela putih */
     html,
@@ -1526,12 +1534,17 @@
     justify-content: center;
     margin: 0 auto !important;
   }
-}
+
   
   /* --- PERBAIKAN SECTIONS LAIN (ABOUT & SERVICES) --- */
   .about-grid,
   .service-cols,
-  .project-grid,
+  .project-grid {
+    display: flex !important;
+    flex-direction: column !important; /* Susun 1 kolom penuh vertikal ke bawah */
+    gap: 20px !important;
+    width: 100% !important;
+  }
   .footer-grid,
   .contact-grid {
     grid-template-columns: 1fr !important; /* Paksa semua grid 2-3 kolom menjadi 1 kolom saja */
@@ -1620,7 +1633,15 @@
     margin-top: 20px !important;
     display: grid !important;
   }
-  .project-card,
+  .project-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important; /* Kembalikan ke block normal agar animasi dropdown di JS tetap aman */
+    margin-bottom: 10px;
+  }
+  .project-card.is-hidden {
+    display: none !important; /* Kartu yang tidak cocok akan benar-benar sembunyi */
+  }
   .service-col,
   .about-stats {
     display: grid !important;
@@ -1754,19 +1775,22 @@
     margin-bottom: 18px !important;
   }
 
-  /* 6. EKSEKUSI CORETAN 3: Penyelarasan Paragraf Deskripsi di HP */
+/* 6. EKSEKUSI CORETAN 3: Penyelarasan Paragraf Deskripsi di HP */
   .service-col p {
-    font-size: 16px !important; /* Ukuran huruf dioptimalkan untuk bacaan mobile */
-    font-weight: 400 !important;
+    font-size: 16px !important; /* Ukuran huruf tajam dan ideal untuk HP */
     line-height: 1.6 !important; /* Beri sela baris yang renggang agar tidak menumpuk */
-    color: var(--line) !important;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto !important;
-    padding: 0 !important; /* Beri sela tipis kiri-kanan agar teks tidak menempel ke pinggir layar HP */
-    text-align: left !important ; /* Rata kiri-kanan agar teks lebih rapi di layar HP */
-    text-justify: inter-word !important; /* Pastikan teks rata kanan-kiri di HP */
-    word-spacing: -0.5px;
+    color: #e3e0d8 !important; /* Warna teks putih tulang cerah agar kontras */
+    font-weight: 400 !important;
+    /* DOBRAK BATASAN DESKTOP: Buka sela agar teks membentang memenuhi kotak */
+    width: 100% !important;
+    max-width: 100% !important; /* !important di sini wajib untuk menimpa nilai 460px desktop */
+    margin: 0 !important;
+    padding: 0 !important;
+
+    /* PERATAAN ALUR BACA: Menggunakan rata kiri agar kata-kata panjang tidak patah kaku */
+    text-align: left !important;
+    word-spacing: normal !important;
+    letter-spacing: normal !important;
   }
 
   /* Rapikan penempatan nomor indeks pojok kanan atas (01, 02, 03) */
@@ -1777,26 +1801,131 @@
     font-weight: 600;
     color: rgba(255, 255, 255, 0.4) !important;
   }
+
+  .client-page .client-logo-card:nth-child(n+2) {
+    display: none !important;
+  }
   
   /* Kurangi lebar total track jika di mobile kolom grid-nya menyempit */
   .client-carousel {
-    padding: 0 10px;
+    padding: 0 8px !important;
+    gap: 16px !important;
+    min-height: 160px !important; /* Tingkatkan tinggi area agar logo lebih leluasa */
+    align-items: center !important;
+  }
+  /* 2. Perkecil tombol panah navigasi agar tidak terlalu dominan di HP */
+  .carousel-btn {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    font-size: 16px !important;
   }
 
+  /* 3. Maksimalkan lebar viewport penampung halaman logo */
+  .client-viewport {
+    max-width: 100% !important;
+    padding: 0 4px !important;
+  }
   .client-page {
-    gap: 12px !important;
-    /* Perkecil jarak antar logo di mobile */
-    justify-content: space-between !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important; /* Ubah ke center agar logo mengelompok rapi */
+    width: 100% !important;
+    gap: 20px !important; /* Beri jarak horizontal yang cukup antar logo */
+  }
+  /* 5. MEMPERBESAR LOGO & KOTAK CARD NYA */
+  .client-logo-card {
+    padding: 10px 20px !important;
+    width: 100% !important;
+    max-width: 220px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   /* Perkecil ukuran logo agar 3-4 logo bisa muat berjejer dengan rapi di layar HP */
   .client-page img {
-    max-width: 75px !important; /* Perkecil ukuran dari 140px menjadi 75px di HP */
-    max-height: 35px !important; /* Turunkan batas tinggi maksimal agar pas */
-    padding: 2px;
+    width: 100% !important;
+    max-width: 180px !important;  /* Logo otomatis mekar maksimal di HP */
+    max-height: 90px !important;
+    object-fit: contain !important;
   }
-  .application {
-    padding: 60px 20px !important;
+  /* Atur jarak titik indikator di bawahnya */
+  .client-dots {
+    display: none !important;
   }
+
+  /* 1. Perkecil tulisan pengantar "VARIOUS TRUSTED PARTNERS" */
+  .clients-note {
+    font-size: 14px !important; /* Diperkecil dari 20px agar tidak dominan */
+    letter-spacing: 0.5px !important;
+    margin-top: 16px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* 2. Sesuaikan ukuran dan bantalan kontainer tombol hijau */
+  .btn-whatsapp {
+    padding: 12px 20px !important; /* Perkecil padding atas-bawah dan kiri-kanan */
+    border-radius: 14px !important; /* Ubah dari membulat total menjadi rounded persegi yang modern */
+    max-width: 90% !important;
+    /* Beri sela kanan-kiri agar tidak menempel kaca HP */
+    margin: 0 auto !important;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.15) !important;
+  }
+
+  /* 3. Rapikan alur teks di dalam tombol agar tidak pecah berantakan */
+  .btn-whatsapp .btn-text {
+    font-size: 13px !important;
+    /* Kecilkan ukuran font dasar */
+    line-height: 1.4 !important;
+    display: inline-block !important;
+    /* Paksa mengalir normal horizontal */
+    text-align: center !important;
+    font-weight: 500 !important;
+  }
+
+  /* Beri penegasan sedikit lebih tebal pada teks tebal di dalam tombol */
+  .btn-whatsapp .btn-text strong {
+    font-weight: 700 !important;
+    display: inline !important;
+    /* Jaga agar tetap satu alur kalimat */
+  }
+
+  /* 4. Perkecil ikon WhatsApp di kanan dan kiri */
+  .btn-whatsapp .wa-icon svg {
+    width: 24px !important;
+    /* Perkecil dari ukuran raksasa desktop */
+    height: 24px !important;
+    box-shadow: none !important;
+    transform: translateY(2px) !important;
+    /* Selaraskan posisi vertikal dengan teks */
+  }
+
+  /* 1. Amankan posisi baris filter agar berada di layer paling atas (bisa di-klik) */
+  .filter-row {
+    display: flex !important;
+    flex-wrap: wrap !important; /* Biarkan tombol turun rapi saat layar HP sempit */
+    gap: 10px !important; /* Beri jarak antar kotak opsi */
+    margin: 16px 0 32px 0 !important;
+    position: relative !important; /* Aktifkan konteks posisi */
+    z-index: 10 !important; /* Angkat ke atas agar tidak tertutup grid portofolio */
+    width: 100% !important;
+  }
+
+  /* 2. Sesuaikan ukuran tombol filter opsi agar proporsional dan pas disentuh jari */
+  .filter-row .tab {
+    font-size: 13.5px !important;
+    /* Sesuaikan besar huruf */
+    padding: 12px 16px !important;
+    /* Beri bantalan sentuh yang pas untuk mobile */
+    flex: 1 1 calc(50% - 10px) !important;
+    /* Buat tombol membagi rata 2 kolom (kiri-kanan) di HP */
+    text-align: center !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    /* Pastikan menangkap respons sentuhan dengan mutlak */
+  }
+  
 
   /* Di mobile, judul dikembalikan ke tengah agar lebih seimbang dengan layar HP */
   .application .section-head {
