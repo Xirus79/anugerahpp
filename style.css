@@ -471,6 +471,97 @@
   }
   .btn-primary:hover{background:var(--navy-1);}
 
+  /* ===== WHY CHOOSE APP ===== */
+.why-choose{
+  background:var(--lime-2);
+  padding:90px 56px;
+  position:relative;
+  overflow:hidden;
+}
+.why-header{
+  position:relative;
+  text-align:right;
+  margin-bottom:56px;
+}
+.why-bg-text{
+  position:absolute;
+  top:-40px;
+  right:0;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(60px,9vw,140px);
+  font-weight:800;
+  color:rgba(255,255,255,.45);
+  letter-spacing:-2px;
+  line-height:1;
+  z-index:0;
+  pointer-events:none;
+}
+.why-header h2{
+  position:relative;
+  z-index:1;
+  font-size:clamp(30px,3.4vw,44px);
+  font-weight:800;
+  color:var(--navy);
+  letter-spacing:-.5px;
+}
+.why-header h2 span{
+  color:var(--white);
+}
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:36px;
+}
+.why-item{
+  text-align:center;
+}
+.why-num{
+  width:88px;
+  height:88px;
+  margin:0 auto 22px;
+  border-radius:50%;
+  border:2px solid var(--navy);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:26px;
+  font-weight:800;
+  font-style:italic;
+  color:var(--navy);
+  background:rgba(255,255,255,.15);
+  transition:transform .3s ease, background .3s ease;
+}
+.why-item:hover .why-num{
+  transform:translateY(-6px);
+  background:var(--navy);
+  color:var(--lime-2);
+}
+.why-item h3{
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.5px;
+  color:var(--navy);
+  margin-bottom:12px;
+}
+.why-item p{
+  font-size:14px;
+  line-height:1.6;
+  color:rgba(18,32,62,.75);
+  max-width:260px;
+  margin:0 auto;
+}
+
+@media(max-width:960px){
+  .why-grid{grid-template-columns:1fr 1fr;}
+  .why-header{text-align:center;}
+  .why-bg-text{position:static;display:block;font-size:60px;margin-bottom:-10px;}
+}
+@media(max-width:768px){
+  .why-choose{padding:60px 20px !important;}
+  .why-grid{grid-template-columns:1fr !important;gap:30px;}
+}
+
   /* ===== SECTION SHELL ===== */
   section{padding:25px 60px;position:relative;}
   .section-head{max-width:640px;margin-bottom:64px;}
