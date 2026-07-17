@@ -1196,6 +1196,46 @@
       gap: 50px;
       padding-bottom: 50px;
     }
+
+.contact-line{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:9px;
+  font-size:14.5px;
+  color:rgba(255,255,255,.6);
+  transition:color .2s;
+}
+.contact-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  flex-shrink:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  color:rgba(255,255,255,.75);
+  transition:background .2s, color .2s;
+}
+.contact-icon svg{
+  width:15px;
+  height:15px;
+  fill:currentColor;
+}
+
+/* Warna brand saat hover */
+.contact-line.link-mail:hover{ color:#EA4335; }
+.contact-line.link-mail:hover .contact-icon{
+  background:#EA4335;
+  color:#fff;
+}
+
+.contact-line.link-wa:hover{ color:#25D366; }
+.contact-line.link-wa:hover .contact-icon{
+  background:#25D366;
+  color:#fff;
+}
   
     .footer-grid h4 {
       margin-bottom: 18px;
