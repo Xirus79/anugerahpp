@@ -750,7 +750,7 @@
 
   /* Efek zoom interaktif saat frame foto di-hover, hanya untuk slide yang sedang tampil */
   .about-photo-frame:hover .about-slide.active {
-    transform: scale(1.08);
+    transform: scale(1.05);
   }
 
   /* Pastikan label teks tetap di atas slider foto */
@@ -1228,7 +1228,7 @@
   margin-bottom: 50px !important;
   max-width: 760px !important;
 }
-}
+
 
   /* ===== APPLICATION ===== */
   .application{
