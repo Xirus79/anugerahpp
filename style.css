@@ -875,15 +875,14 @@
   }
 
   .client-carousel {
-    max-width: 100%;
-    margin: 0 auto 0px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    justify-content: center;
-    overflow: hidden;
-    /* Sembunyikan logo yang ada di halaman berikutnya */
-    position: relative;
+    padding: 0 4px !important;
+    gap: 8px !important;
+    min-height: 140px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    overflow: hidden !important;
+    width: 100% !important;
   }
   .carousel-btn {
     width: 52px;
@@ -900,56 +899,80 @@
     justify-content: center;
     transition: all .4s;
   }
+  /* PAKSA PANAH KANAN-KIRI MUNCUL DI MOBILE */
+  .client-carousel .carousel-btn,
+  #clientPrev,
+  #clientNext {
+    display: flex !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    font-size: 14px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important; /* Tombol dibuat transparan saat idle */
+    color: var(--navy) !important; /* Warna panah mengikuti tema navy utama kamu */
+    border: 1px solid var(--navy) !important; /* Garis tepi tipis agar bentuk bulatnya tetap minimalis */
+    border-radius: 50% !important;
+    z-index: 10 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important; /* Transisi halus saat di-hover */
+  }
+
   .carousel-btn:hover {
     background: var(--navy);
     color: #fff;
   }
   .client-viewport {
-    overflow: hidden;
-    flex: 1;
-    max-width: 1080px;
+    max-width: calc(100% - 90px) !important; /* Beri ruang aman untuk panah di kanan kirinya */
+    overflow: hidden !important;
+    flex: 1 !important;
   }
   .client-track {
-    display: flex;
-    width: 400%;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex !important;
+    align-items: center !important;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
   }
   .client-page {
-    width: 100%; /* Setiap page memakan 100% lebar kontainer carousel */
-    flex-shrink: 0; /* PENTING: Mencegah page menyusut dan menumpuk di mobile */
-    flex: 0 0 25%;
-    display: flex;
-    gap: 24px;
-    padding: 1 0 0px;
-    justify-content: space-around;
-    align-items: center;
-    gap: 20px;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+  }
+  /* Hapus aturan lama yang menyembunyikan child ke-2 secara kaku di mobile */
+  .client-page .client-logo-card:nth-child(n+2) {
+    display: flex !important;
+    /* Ubah menjadi flex agar logo dalam halaman tetap terbaca normal oleh JS loop */
   }
   /* Mengatur ukuran gambar logo klien di dalam page */
+  /* Gambar logo di dalam card */ 
   .client-page img {
-    max-width: 180px;
-    /* Batasi lebar maksimal logo */
-    height: auto;
-    max-height: 70px;
-    /* Batasi tinggi maksimal agar seragam */
-    object-fit: contain;
-    /* Jaga proporsi logo agar tidak gepeng */
-    transition: all 0.4s ease;
-  } 
-  .client-page img:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-  } 
+    width: 100% !important;
+    max-width: 140px !important;
+    height: auto !important;
+    max-height: 65px !important;
+    object-fit: contain !important;
+  }
+  /* BERWARNA SOLID SAAT DIHOVER */
+  .client-carousel .carousel-btn:hover,
+  #clientPrev:hover,
+  #clientNext:hover {
+    background: var(--c) !important; /* Berubah jadi navy solid saat dihover */
+    color: var(--white) !important; /* Warna panahnya berubah jadi putih */
+    border-color: var(--c) !important; /* Garis tepi ikut berubah jadi navy solid */
+  }
+  /* Kotak pembungkus logo individual */
   .client-logo-card {
-    background: transparent !important; /* Membuat latar belakang logo transparan */
-    box-shadow: none !important; /* Hilangkan bayangan kotak agar menyatu halus */
-    flex: 1;
-    max-width: 280px;
-    aspect-ratio: 1/1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 30px 36px;
+    padding: 10px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 160px !important;
+    /* Ukuran proporsional di HP */
   }
   .client-logo-card img {
     max-width: 100%;
