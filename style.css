@@ -871,11 +871,12 @@
   .clients .section-head p {
     color: #3b527a !important; /* Warna biru gelap medium agar senada dan elegan */
     font-size: 16px;
+   
   }
 
   .client-carousel {
     max-width: 100%;
-    margin: 0 auto 40px;
+    margin: 0 auto 0px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -983,8 +984,8 @@
 
   /* ===== PROJECT ===== */
   .project{
-    background:var(--paper);
-    padding:75px 50px;
+    background:var(--white);
+    padding:50px 50px;
     max-width:1200px;
     margin:0 auto;
   }
@@ -1014,7 +1015,7 @@
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    align-items:stretch;
+    align-items: flex-start;
     gap:12px;
   }
   .project-page .project-card{
@@ -1059,15 +1060,14 @@
     background:var(--white);
     border:1px solid rgba(18,32,62,.08);
     border-radius:12px;
-    box-shadow:0 8px 18px rgba(18,32,62,.08);
     overflow:hidden;
-    transition:transform .28s ease, box-shadow .28s ease;
+    transition:transform .28s ease;
     display:flex;
     flex-direction:column;
-    height:100%;
+    height:max-content;
     min-width:0;
   }
-  .project-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(18,32,62,.14);}
+  .project-card:hover{transform:translateY(-3px);}
   .project-card .project-trigger{
     width:100%;
     background:transparent;
