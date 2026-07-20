@@ -12,37 +12,139 @@ if (serviceTabs.length > 0) {
   });
 }
 
-// ===== 2. PROJECT FILTER LOGIC =====
-const filterTabs = document.querySelectorAll('.filter-row .tab');
-if (filterTabs.length > 0) {
-  filterTabs.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btn.parentElement.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+// ===== 2. PROJECT CAROUSEL (mengikuti pola client-carousel) =====
+(function(){
+  const source = document.getElementById('projectSource');
+  const track = document.getElementById('projectTrack');
+  const dotsWrap = document.getElementById('projectDots');
+  const prevBtn = document.getElementById('projectPrev');
+  const nextBtn = document.getElementById('projectNext');
+  const carouselWrap = document.querySelector('.project-carousel');
+  const filterTabs = document.querySelectorAll('.filter-row .tab');
 
-      const filter = btn.dataset.filter || 'all';
-      document.querySelectorAll('.project-card').forEach(card => {
-        const matches = filter === 'all' || card.dataset.category === filter;
-        card.classList.toggle('is-hidden', !matches);
-        if (!matches) {
-          card.classList.remove('is-open');
-          const trigger = card.querySelector('.project-trigger');
-          if (trigger) trigger.setAttribute('aria-expanded', 'false');
-        }
+  if (!source || !track || !dotsWrap) return;
+
+  const allCards = Array.from(source.querySelectorAll('.project-card'));
+  let currentFilter = 'all';
+  let page = 0;
+  let totalPages = 0;
+  let isTransitioning = false;
+  let autoplayTimer = null;
+
+  function groupSize(){
+    const w = window.innerWidth;
+    if (w <= 576) return 1;
+    if (w <= 960) return 2;
+    return 4;
+  }
+
+  function getFiltered(){
+    return currentFilter === 'all'
+      ? allCards
+      : allCards.filter(card => card.dataset.category === currentFilter);
+  }
+
+  function buildPages(){
+    stopAutoplay();
+    const size = groupSize();
+    const cards = getFiltered();
+    track.innerHTML = '';
+    dotsWrap.innerHTML = '';
+
+    if (cards.length === 0){
+      totalPages = 0;
+      render(false);
+      return;
+    }
+
+    const groups = [];
+    for (let i = 0; i < cards.length; i += size){
+      groups.push(cards.slice(i, i + size));
+    }
+    totalPages = groups.length;
+
+    groups.forEach(group => {
+      const pageEl = document.createElement('div');
+      pageEl.className = 'project-page';
+      pageEl.style.setProperty('--project-cols', size);
+      group.forEach(card => pageEl.appendChild(card.cloneNode(true)));
+      track.appendChild(pageEl);
+    });
+
+    for (let i = 0; i < totalPages; i++){
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        if (isTransitioning || page === i) return;
+        page = i;
+        render(true);
+      });
+      dotsWrap.appendChild(dot);
+    }
+
+    page = 0;
+    render(false);
+    if (totalPages > 1) startAutoplay();
+  }
+
+  function render(withTransition){
+    if (totalPages <= 0) return;
+    track.style.transition = withTransition ? 'transform .6s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+    isTransitioning = withTransition;
+    track.style.transform = `translateX(-${page * 100}%)`;
+
+    dotsWrap.querySelectorAll('span').forEach((dot, index) => {
+      dot.classList.toggle('active', index === (page % totalPages));
+    });
+  }
+
+  function nextPage(){
+    if (isTransitioning || totalPages <= 1) return;
+    page = (page + 1) % totalPages;
+    render(true);
+  }
+
+  function prevPage(){
+    if (isTransitioning || totalPages <= 1) return;
+    page = (page - 1 + totalPages) % totalPages;
+    render(true);
+  }
+
+  function startAutoplay(){
+    stopAutoplay();
+    autoplayTimer = setInterval(nextPage, 3500);
+  }
+  function stopAutoplay(){
+    if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = null;
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', prevPage);
+  if (nextBtn) nextBtn.addEventListener('click', nextPage);
+  if (carouselWrap){
+    carouselWrap.addEventListener('mouseenter', stopAutoplay);
+    carouselWrap.addEventListener('mouseleave', () => { if (totalPages > 1) startAutoplay(); });
+  }
+
+  if (filterTabs.length){
+    filterTabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterTabs.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter || 'all';
+        buildPages();
       });
     });
-  });
-}
+  }
 
-// ===== 2b. PROJECT CARD DROPDOWN TOGGLE =====
-document.querySelectorAll('.project-card .project-trigger').forEach(trigger => {
-  trigger.addEventListener('click', () => {
+  track.addEventListener('click', (event) => {
+    const trigger = event.target.closest('.project-trigger');
+    if (!trigger) return;
     const card = trigger.closest('.project-card');
     if (!card) return;
 
     const isOpen = card.classList.contains('is-open');
-
-    document.querySelectorAll('.project-card').forEach(item => {
+    track.querySelectorAll('.project-card').forEach(item => {
       item.classList.remove('is-open');
       const itemTrigger = item.querySelector('.project-trigger');
       if (itemTrigger) itemTrigger.setAttribute('aria-expanded', 'false');
@@ -53,7 +155,15 @@ document.querySelectorAll('.project-card .project-trigger').forEach(trigger => {
       trigger.setAttribute('aria-expanded', 'true');
     }
   });
-});
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildPages, 250);
+  });
+
+  buildPages();
+})();
 
 // ===== 3. CLIENT CAROUSEL LOGIC (WITH AUTOPLAY) - PERFECT LOOP =====
 (function(){
