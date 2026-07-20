@@ -1185,11 +1185,26 @@
   .project-card.is-hidden{
     display:none !important;
   }
-  .project .section-head p {
-  text-align:left;
-  margin:0 auto 10px;
-  max-width:760px;
-  color:var(--muted);
+.project .section-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important; 
+  text-align: center !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+.project .section-head h2 {
+  text-align: center !important;
+  margin-bottom: 24px !important;
+  width: 100% !important;
+}
+
+.project .section-head p {
+  text-align: center !important;
+  margin-bottom: 50px !important;
+  max-width: 760px !important;
+}
 }
 
   /* ===== APPLICATION ===== */
