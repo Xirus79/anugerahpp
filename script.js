@@ -511,4 +511,51 @@ if (dropdownLinks.length > 0) {
       }
     });
   });
-}	
+}
+
+// ===== 9. ABOUT US AUTO IMAGE SLIDER (CROSS-FADE) =====
+(function(){
+  const slides = document.querySelectorAll('.about-slide');
+  const dotsWrap = document.getElementById('aboutSliderDots');
+  const frame = document.querySelector('.about-photo-frame');
+
+  if (slides.length <= 1 || !frame) return; // Tidak perlu slider kalau cuma 1 gambar
+
+  let current = 0;
+  let timer = null;
+
+  // Buat titik indikator sejumlah gambar
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goTo(i));
+    if (dotsWrap) dotsWrap.appendChild(dot);
+  });
+  const dots = dotsWrap ? dotsWrap.querySelectorAll('span') : [];
+
+  function goTo(index){
+    slides[current].classList.remove('active');
+    if (dots[current]) dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    if (dots[current]) dots[current].classList.add('active');
+  }
+
+  function next(){
+    goTo((current + 1) % slides.length);
+  }
+
+  function startAutoplay(){
+    stopAutoplay();
+    timer = setInterval(next, 2100); // Ganti gambar setiap 4 detik
+  }
+  function stopAutoplay(){
+    if (timer) clearInterval(timer);
+  }
+
+  // Jeda autoplay saat mouse di atas foto, lanjut lagi saat mouse pergi
+  frame.addEventListener('mouseenter', stopAutoplay);
+  frame.addEventListener('mouseleave', startAutoplay);
+
+  startAutoplay();
+})();
