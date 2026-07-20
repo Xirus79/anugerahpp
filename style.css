@@ -722,23 +722,65 @@
     letter-spacing:1px;
   }
   .about-photo-frame .halftone{position:absolute;inset:0;opacity:.15;background-image:radial-gradient(circle,#fff 1px,transparent 1.4px);background-size:12px 12px;}
-  .about-photo-frame .about-img {
+.about-slider{
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .about-slide {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Kunci agar foto proporsional mengikuti ukuran kotak */
-    object-position: center; /* Fokus potongan gambar di tengah */
-    z-index: 1; /* Di bawah teks dekorasi tapi di atas background */
-    opacity: 0.85; /* Sedikit transparan agar efek halftone di atasnya tetap terlihat estetik */
-    transition: transform 0.5s ease;
-    border:4px solid #080000;   /* warna putih */
-    border-radius:30px;   
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 1.4s ease, transform 6s ease;
+    border: 4px solid #080000;
+    border-radius: 30px;
   }
 
-  /* Efek zoom interaktif saat frame foto di-hover */
-  .about-photo-frame:hover .about-img {
-    transform: scale(1.05);
+  .about-slide.active {
+    opacity: 0.85;
+    z-index: 1;
+    transform: scale(1);
+  }
+
+  /* Efek zoom interaktif saat frame foto di-hover, hanya untuk slide yang sedang tampil */
+  .about-photo-frame:hover .about-slide.active {
+    transform: scale(1.08);
+  }
+
+  /* Pastikan label teks tetap di atas slider foto */
+  .about-photo-frame > span,
+  .about-photo-frame > .tag {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Titik indikator slider */
+  .about-slider-dots{
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+  }
+  .about-slider-dots span{
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.4);
+    cursor: pointer;
+    transition: background .3s ease, transform .3s ease;
+  }
+  .about-slider-dots span.active{
+    background: #fff;
+    transform: scale(1.3);
   }
 
   /* ===== SERVICES ===== */
