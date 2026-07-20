@@ -172,75 +172,126 @@ if (serviceTabs.length > 0) {
 // ===== 3. CLIENT CAROUSEL LOGIC (WITH AUTOPLAY) - PERFECT LOOP =====
 (function(){
   const track = document.getElementById('clientTrack');
-  const dots = document.querySelectorAll('#clientDots span');
+  const dotsWrap = document.getElementById('clientDots');
   const prevBtn = document.getElementById('clientPrev');
   const nextBtn = document.getElementById('clientNext');
   const container = document.querySelector('.client-carousel');
   
-  if(!track || !dots.length) return; 
+  if (!track) return; 
 
-  const totalPages = dots.length; // Jumlah halaman asli (misal: 4)
-
-  // 1. GANDAKAN KONTEN UNTUK ILUSI LOOP
-  track.innerHTML += track.innerHTML;
-  
-  const totalSlides = totalPages * 2; // Jumlah total setelah digandakan (misal: 8)
-  
-  // 2. KALKULASI LEBAR OTOMATIS (Mencegah pergerakan kecil / jeda besar)
-  // Ini akan menimpa CSS bawaan agar lebarnya selalu akurat
-  track.style.width = (totalSlides * 100) + '%';
-  const pages = track.querySelectorAll('.client-page');
-  pages.forEach(p => {
-    // Membagi rata ruang untuk setiap halaman
-    const pagePercentage = 100 / totalSlides;
-    p.style.flex = `0 0 ${pagePercentage}%`;
-    p.style.width = `${pagePercentage}%`; 
-  });
+  // Ambil semua card logo asli dari HTML sebelum dikloning
+  const allCards = Array.from(track.querySelectorAll('.client-logo-card'));
+  if (allCards.length === 0) return;
 
   let page = 0;
+  let totalPages = 0;
+  let isTransitioning = false; 
   let autoplayTimer = null;
-  let isTransitioning = false; // Pengunci agar tidak bisa digeser sampai kosong
 
-  function render(withTransition = true){
+  // Tentukan jumlah logo per halaman berdasarkan lebar layar perangkat
+  function getItemsPerPage() {
+    return window.innerWidth <= 768 ? 1 : 2; 
+  }
+
+  // Bangun ulang struktur halaman (slide) secara dinamis
+  function buildClientPages() {
+    stopAutoplay();
+    const itemsPerPage = getItemsPerPage();
+    
+    // Bersihkan track dan dots lama
+    track.innerHTML = '';
+    if (dotsWrap) dotsWrap.innerHTML = '';
+
+    // Kelompokkan kartu logo ke dalam halaman-halaman baru
+    const groups = [];
+    for (let i = 0; i < allCards.length; i += itemsPerPage) {
+      groups.push(allCards.slice(i, i + itemsPerPage));
+    }
+    totalPages = groups.length;
+
+    if (totalPages === 0) return;
+
+    // Masukkan halaman asli ke dalam track
+    groups.forEach(group => {
+      const pageEl = document.createElement('div');
+      pageEl.className = 'client-page';
+      group.forEach(card => pageEl.appendChild(card.cloneNode(true)));
+      track.appendChild(pageEl);
+    });
+
+    // Kloning halaman untuk efek Perfect Loop (Infinite Scroll)
+    const originalPages = Array.from(track.querySelectorAll('.client-page'));
+    originalPages.forEach(p => track.appendChild(p.cloneNode(true)));
+
+    const totalSlides = totalPages * 2;
+    track.style.width = (totalSlides * 100) + '%';
+    
+    track.querySelectorAll('.client-page').forEach(p => {
+      p.style.flex = `0 0 ${100 / totalSlides}%`;
+      p.style.width = `${100 / totalSlides}%`;
+    });
+
+    // Bangun indicator dots jika elemennya ada di HTML
+    if (dotsWrap) {
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('span');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+          if (isTransitioning || page === i) return;
+          page = i;
+          render(true);
+        });
+        dotsWrap.appendChild(dot);
+      }
+    }
+
+    page = 0;
+    render(false);
+    if (totalPages > 1) startAutoplay();
+  }
+
+  function render(withTransition = true) {
+    const totalSlides = totalPages * 2;
+    if (totalSlides <= 0) return;
+
     if (withTransition) {
-      track.style.transition = ''; // Gunakan efek transisi CSS aslimu
-      isTransitioning = true;      // Kunci pergerakan selama animasi berjalan
+      track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+      isTransitioning = true;
     } else {
-      track.style.transition = 'none'; // Matikan transisi untuk teleport
+      track.style.transition = 'none';
       isTransitioning = false;
     }
 
     track.style.transform = `translateX(-${page * (100 / totalSlides)}%)`;
     
-    // Sinkronisasi indikator titik (dot)
-    const activeDot = page % totalPages;
-    dots.forEach((d, i) => d.classList.toggle('active', i === activeDot));
+    if (dotsWrap) {
+      const dots = dotsWrap.querySelectorAll('span');
+      const activeDot = page % totalPages;
+      dots.forEach((d, i) => d.classList.toggle('active', i === activeDot));
+    }
   }
 
   function nextPage() {
-    if (isTransitioning) return; // Abaikan perintah jika sedang bergeser
+    if (isTransitioning || totalPages <= 1) return;
     page++;
     render(true);
   }
 
   function prevPage() {
-    if (isTransitioning) return; // Abaikan perintah jika sedang bergeser
+    if (isTransitioning || totalPages <= 1) return;
     if (page === 0) {
-      // Teleport instan ke salinan terakhir sebelum mundur
       page = totalPages;
       render(false);
-      track.getBoundingClientRect(); // Paksa browser menerapkan teleport seketika
+      track.getBoundingClientRect(); // Force reflow browser
     }
     page--;
     render(true);
   }
 
-  // 3. TELEPORTASI SETELAH ANIMASI SELESAI
   track.addEventListener('transitionend', () => {
-    isTransitioning = false; // Buka kunci pergerakan
-    // Jika pergeseran sudah sampai di batas awal salinan konten
+    isTransitioning = false;
     if (page >= totalPages) {
-      page = 0; // Kembalikan indeks ke 0 secara rahasia
+      page = 0;
       render(false);
     }
   });
@@ -252,26 +303,26 @@ if (serviceTabs.length > 0) {
 
   function stopAutoplay() {
     if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = null;
   }
 
-  if (prevBtn) prevBtn.addEventListener('click', prevPage);
-  if (nextBtn) nextBtn.addEventListener('click', nextPage);
-  
-  dots.forEach((d, i) => d.addEventListener('click', () => { 
-    // Cegah error jika mengklik titik yang sama atau sedang bergeser
-    if (isTransitioning || page % totalPages === i) return;
-    page = i; 
-    render(true); 
-  }));
+  if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); prevPage(); });
+  if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); nextPage(); });
 
   if (container) {
     container.addEventListener('mouseenter', stopAutoplay);
-    container.addEventListener('mouseleave', startAutoplay);
+    container.addEventListener('mouseleave', () => { if (totalPages > 1) startAutoplay(); });
   }
 
-  // Inisialisasi posisi web saat baru dimuat
-  render(false);
-  startAutoplay();
+  // Jalankan ulang kalkulasi jika layar diputar/di-resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildClientPages, 250);
+  });
+
+  // Init pertama kali
+  buildClientPages();
 })();
 
 // ===== 4. SMART HEADER LOGIC =====
