@@ -524,7 +524,7 @@
   height:88px;
   margin:0 auto 22px;
   border-radius:50%;
-  border:2px solid var(--navy);
+  border:2px solid var(--line);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -538,14 +538,14 @@
 }
 .why-item:hover .why-num{
   transform:translateY(-6px);
-  background:var(--lime);
+  background:var(--blue);
   color:var(--white);
 }
 .why-item h3{
   font-size:16px;
   font-weight:700;
   letter-spacing:.5px;
-  color:var(--navy);
+  color:var(--c);
   margin-bottom:12px;
 }
 .why-item p{
@@ -623,7 +623,7 @@
     height: 30px;
     background-color:transparent;
     /* Warna biru muda transparan */
-    color: var(--c);
+    color: var(--blue);
     /* Simbol check berwarna biru brand utama */
     border-radius: 6px;
     /* Kotak membundar kecil yang estetik */
@@ -800,7 +800,7 @@
   .service-panel{display:none;}
   .service-panel.active{display:block;}
   .service-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;background:rgba(255,255,255,.12);}
-  .service-col{background:var(--navy);padding:44px 36px;position:relative;}
+  .service-col{background:var(--navy);padding:44px 36px;position:relative;border-radius: 3px;}
   .service-col .swatch-target{
     width: 46px; /* Ukuran disesuaikan sedikit lebih besar agar ikon pas */
     height: 46px;
@@ -1638,7 +1638,26 @@
     margin: 0 auto !important;
   }
 
-  
+    /* 1. Mengubah teks aksen latar belakang "WHY" di mobile */
+    .why-header .why-bg-text {
+      position: relative !important; /* Ubah dari absolute agar tidak menumpuk */
+      top: 0 !important;
+      font-size: 44px !important; /* Diperkecil dari 140px desktop agar pas di HP */
+      margin-bottom: 5px !important;
+      display: block !important;
+      text-align: center !important;
+      color: rgba(255, 255, 255, .3) !important;
+    }
+
+    /* 2. Mengubah judul utama "CHOOSE ANUGERAH PRIMA PRINTING" di mobile */
+    .why-header h2 {
+      font-size: 22px !important; /* Diperkecil dari ukuran desktop agar pas dalam 2 baris pendek */
+      line-height: 1.3 !important; /* Merapatkan jarak antar baris */
+      text-align: center !important; /* Paksa rata tengah di layar handphone */
+      letter-spacing: 0.5px !important;
+      padding: 0 10px !important; /* Jaga sela agar tidak mentok ke sisi kaca HP */
+    }
+    
   /* --- PERBAIKAN SECTIONS LAIN (ABOUT & SERVICES) --- */
   .about-grid,
   .service-cols,
@@ -1858,6 +1877,7 @@
     padding: 24px !important; /* Beri ruang dalam yang seimbang */
     width: 100% !important;
     max-width: 100% !important;
+    border-radius: 10px ; /* Sudut membulat agar lebih ramah di HP */
   }
 
   /* 2. Satukan Icon, Judul "Design", dan nomor "01" di bagian atas kartu */
@@ -1875,7 +1895,7 @@
     width: 76px !important; /* Diperbesar signifikan sesuai coretan luar lingkaran */
     height: 76px !important;
     margin-bottom: 24px !important;
-    background: rgba(255, 255, 255, 0.05) !important; /* Beri alas lingkaran transparan tipis */
+    background: rgba(5, 48, 88, 0.226) !important; /* Beri alas lingkaran transparan tipis */
   }
 
   .service-col .service-icon {
