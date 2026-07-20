@@ -321,68 +321,50 @@ window.addEventListener('scroll', () => {
 });
 
 // ===== 6. REAL-TIME MAILTO GENERATOR (NATIVE HUMAN INTERACTION METHOD) =====
-function updateMailtoLink() {
-  const nameInput = document.getElementById('userName');
-  const phoneInput = document.getElementById('userPhone');
-  const emailInput = document.getElementById('userEmail');
-  const messageInput = document.getElementById('userMessage');
-  const submitBtn = document.getElementById('submitBtn');
 
-  if (!nameInput || !emailInput || !messageInput || !submitBtn) return;
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. Cari elemen form berdasarkan ID di HTML kamu (misal id="contactForm")
+  const contactForm = document.getElementById('contactForm'); 
 
-  const name = nameInput.value;
-  const phone = phoneInput.value || '-';
-  const email = emailInput.value;
-  const message = messageInput.value;
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // Mencegah browser reload halaman saat klik kirim
 
-  // Konfigurasi Email & Subjek
-  const emailTujuan = "ignatius.kevinm@gmail.com";
-  const subjectEmail = encodeURIComponent(`[OFFICIAL INQUIRY] Pesan Baru dari ${name || 'Pengunjung Website'}`);
-  
-  // Susun template draf email formal
-  const bodyEmail = encodeURIComponent(
-    `Yth. PT Anugerah Prima Printing,\n\n` +
-    `Berikut adalah pesan resmi yang dikirimkan melalui formulir kontak website:\n` +
-    `==================================================\n` +
-    `Nama Pengirim   : ${name}\n` +
-    `Nomor Telepon   : ${phone}\n` +
-    `Alamat Email    : ${email}\n` +
-    `==================================================\n\n` +
-    `Isi Pesan:\n` +
-    `"${message}"\n\n` +
-    `Mohon untuk segera menindaklanjuti pesan ini. Terima kasih.`
-  );
+      // Mengubah teks tombol secara dinamis saat proses mengirim agar user tahu sistem sedang bekerja
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.innerText : "Send Message";
+      if (submitBtn) submitBtn.innerText = "Sending...";
 
-  // Update atribut href milik tombol <a> secara real-time saat user mengetik
-  submitBtn.setAttribute('href', `mailto:${emailTujuan}?subject=${subjectEmail}&body=${bodyEmail}`);
-}
+      // 2. Eksekusi pengiriman formulir langsung ke Gmail via EmailJS
+      // Ganti parameter dengan ID asli dari dasbor EmailJS kamu
+      emailjs.sendForm('service_mjulr7l', 'template_8qhk1uf', this)
+        .then(function() {
+          // JIKA BERHASIL:
+          if (submitBtn) submitBtn.innerText = originalBtnText;
+          
+          // Panggil fungsi notifikasi toast sukses yang sudah kamu miliki[cite: 1]
+          if (typeof showToast === "function") {
+            showToast("Pesan Anda sukses dikirim langsung ke Gmail kami!");
+          } else {
+            alert("Pesan sukses dikirim!");
+          }
 
-// Tambahkan interaksi visual toast saat tombol diklik manusia
-const submitBtn = document.getElementById('submitBtn');
-const toast = document.getElementById('toastNotification');
-const contactForm = document.getElementById('contactForm');
+          contactForm.reset(); // Bersihkan isi kotak form agar kosong kembali
+        }, function(error) {
+          // JIKA GAGAL:
+          if (submitBtn) submitBtn.innerText = originalBtnText;
+          console.error("EmailJS Error:", error);
 
-if (submitBtn && toast) {
-  submitBtn.addEventListener('click', function() {
-    // Jalankan update sekali lagi untuk memastikan data paling akhir ter-copy
-    updateMailtoLink();
-
-    // Munculkan toast notifikasi estetik di pojok kanan bawah
-    toast.textContent = 'Membuka draf email resmi... Silakan klik Send!';
-    toast.className = 'toast-notification success';
-
-    // Bersihkan form secara perlahan setelah 1.5 detik agar draf tidak langsung kosong saat aplikasi email terbuka
-    setTimeout(() => {
-      if (contactForm) contactForm.reset();
-      // Kembalikan tombol ke setelan href kosong bawaan
-      submitBtn.setAttribute('href', 'mailto:ignatius.kevinm@gmail.com');
-      
-      setTimeout(() => {
-        toast.className = 'toast-notification';
-      }, 3000); 
-    }, 1500);
-  });
-}
+          // Panggil fungsi notifikasi toast error kamu[cite: 1]
+          if (typeof showToast === "function") {
+            showToast("Gagal mengirim pesan, silakan coba lagi nanti.", "error");
+          } else {
+            alert("Gagal mengirim pesan.");
+          }
+        });
+    });
+  }
+});
 
 // ===== 7. INTERSECTION OBSERVER FOR SCROLL REVEAL =====
 const scrollObserver = new IntersectionObserver((entries) => {

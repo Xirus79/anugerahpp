@@ -677,32 +677,26 @@
       <!-- <div class="eyebrow">07 — Get In Touch</div> -->
       <h2>Contact Us</h2>
         <p class="lead">Feel free to get in touch with us. We welcome new business opportunities and collaborations.</p>
-          <form id="contactForm" class="contact-form" onsubmit="return false;">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="userName">Your Name</label>
-                    <input type="text" id="userName" placeholder="Your Name" required oninput="updateMailtoLink()">
-                </div>
-                <div class="form-group">
-                    <label for="userPhone">Phone</label>
-                    <input type="text" id="userPhone" placeholder="08xx xxxx xxxx" oninput="updateMailtoLink()">
-                </div>
-            </div>
+        <form id="contactForm">
+    <!-- Input Nama -->
+    <label>YOUR NAME</label>
+    <input type="text" name="nama_user" placeholder="Your Name" required>
 
-            <div class="form-group">
-                <label for="userEmail">Email</label>
-                <input type="email" id="userEmail" placeholder="name@email.com" required oninput="updateMailtoLink()">
-            </div>
+    <!-- Input Phone -->
+    <label>PHONE</label>
+    <input type="text" name="phone" placeholder="08xx xxxx xxxx">
 
-            <div class="form-group">
-                <label for="userMessage">Message</label>
-                <textarea id="userMessage" rows="3" placeholder="Write your message..." required oninput="updateMailtoLink()"></textarea>
-            </div>
-            
-            <a href="mailto:ignatius.kevinm@gmail.com" id="submitBtn" class="btn-primary" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none;">
-                Send Message →
-            </a>
-        </form>
+    <!-- Input Email -->
+    <label>EMAIL</label>
+    <input type="email" name="email_user" placeholder="name@email.com" required>
+
+    <!-- Input Message -->
+    <label>MESSAGE</label>
+    <textarea name="message" placeholder="Write your message..." required></textarea>
+
+    <!-- Tombol Submit -->
+    <button type="submit">Send Message →</button>
+</form>
 
         <div id="toastNotification" class="toast-notification"></div>
     </div>
@@ -765,6 +759,16 @@
   </div>
 </footer>
 
+<!-- Masukkan library EmailJS resmi -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function () {
+    // GANTI dengan Public Key asli yang kamu salin dari dasbor EmailJS
+    emailjs.init("L5njiG1HFHPLjRFb2");
+  })();
+</script>
+
+<!-- File script.js kamu harus berada DI BAWAH inisialisasi EmailJS -->
 <script src="script.js"></script>
 
 </body>
