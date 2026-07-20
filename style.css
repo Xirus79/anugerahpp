@@ -843,11 +843,19 @@
   }
   .service-col h3{font-size:22px;margin-bottom:14px;font-weight:600;}
   .service-col p{
-    font-size:16.5px;
-    font-weight:450;
-    color:var(--line);
-    min-height: 120px;
+    font-size: 16px !important; /* Ukuran huruf tajam dan ideal untuk HP */
+    line-height: 1.6 !important; /* Jarak antar baris agar teks mengalir luang */
+    color: #e3e0d8 !important; /* Warna teks putih tulang cerah */
+    font-weight: 400 !important;
 
+    width: 100% !important;
+    max-width: 100% !important; /* Dobrak batasan 460px bawaan desktop[cite: 1, 3] */
+    margin: 0 !important;
+    padding: 0 !important;
+
+    text-align: justify !important;
+    text-justify: inter-word !important; /* Membagi sela antar-kata dengan sangat halus di HP */
+    word-spacing: -0.2px;
   }
   .service-col .idx{
     position:absolute;top:36px;right:32px;font-family:'JetBrains Mono';font-size:12px;color:rgba(255,255,255,.3);
@@ -974,21 +982,92 @@
   }
 
   /* ===== PROJECT ===== */
-  .project{background:var(--white);padding:120px 56px;}
-  .filter-row{display:flex;gap:10px;margin:8px 0 36px;flex-wrap:wrap;}
+  .project{
+    background:var(--paper);
+    padding:75px 50px;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .filter-row{display:flex;gap:10px;margin:8px 0 24px;flex-wrap:wrap;justify-content:center;}
   .filter-row .tab{color:var(--navy);border-color:var(--line);background:var(--white);}
   .filter-row .tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
-  .project-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;background:transparent;}
+
+  .project-carousel{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-top:12px;
+  }
+  .project-viewport{
+    overflow:hidden;
+    flex:1;
+    min-width:0;
+  }
+  .project-track{
+    display:flex;
+    transition:transform .6s cubic-bezier(0.25, 1, 0.5, 1);
+    width:100%;
+  }
+  .project-page{
+    flex:0 0 100%;
+    width:100%;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:stretch;
+    gap:12px;
+  }
+  .project-page .project-card{
+    flex:0 0 calc((100% - (var(--project-cols, 4) - 1) * 12px) / var(--project-cols, 4));
+    max-width:calc((100% - (var(--project-cols, 4) - 1) * 12px) / var(--project-cols, 4));
+  }
+  .project-dots{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    margin-top:18px;
+  }
+  .project-dots span{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--line);
+    cursor:pointer;
+    transition:background .4s;
+  }
+  .project-dots span.active{background:var(--navy);}
+
+  .carousel-btn{
+    width:44px;
+    height:44px;
+    min-width:44px;
+    border-radius:50%;
+    border:1px solid var(--navy);
+    background:transparent;
+    color:var(--navy);
+    cursor:pointer;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .4s;
+  }
+  .carousel-btn:hover{background:var(--navy);color:#fff;}
+
   .project-card{
     position:relative;
     background:var(--white);
     border:1px solid rgba(18,32,62,.08);
-    border-radius:16px;
-    box-shadow:0 12px 30px rgba(18,32,62,.08);
+    border-radius:12px;
+    box-shadow:0 8px 18px rgba(18,32,62,.08);
     overflow:hidden;
     transition:transform .28s ease, box-shadow .28s ease;
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    min-width:0;
   }
-  .project-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(18,32,62,.16);}
+  .project-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(18,32,62,.14);}
   .project-card .project-trigger{
     width:100%;
     background:transparent;
@@ -1001,61 +1080,75 @@
   }
   .project-card .project-media{
     position:relative;
-    padding:14px 14px 0;
+    padding:8px 8px 0;
     display:flex;
     align-items:center;
     justify-content:center;
     background:linear-gradient(135deg, rgba(18,32,62,.04), rgba(18,32,62,.02));
+    aspect-ratio:5/4;
+    overflow:hidden;
   }
   .project-card img{
     display:block;
     width:100%;
-    height:auto;
-    max-height:320px;
-    object-fit:contain;
-    border-radius:12px;
+    height:100%;
+    object-fit:cover;
+    border-radius:8px;
     transition:transform .45s ease;
   }
-  .project-card:hover img{transform:scale(1.02);}
-  .project-card .halftone{position:absolute;inset:14px 14px 0;opacity:.12;background-image:radial-gradient(circle,#fff 1px,transparent 1.4px);background-size:10px 10px;pointer-events:none;border-radius:12px;}
+  .project-card:hover img{transform:scale(1.03);}
+  .project-card .halftone{
+    position:absolute;
+    inset:10px 10px 0;
+    opacity:.12;
+    background-image:radial-gradient(circle,#fff 1px,transparent 1.4px);
+    background-size:10px 10px;
+    pointer-events:none;
+    border-radius:10px;
+  }
   .project-card .project-title-row{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:12px;
-    padding:16px 18px 12px;
+    gap:10px;
+    padding:10px 12px 10px;
     color:var(--navy);
   }
   .project-card .project-title-row h3{
-    font-size:16px;line-height:1.3;font-weight:600;margin:0;
+    font-size:13px;
+    line-height:1.25;
+    font-weight:600;
+    margin:0;
   }
   .project-card .project-caret{
-    font-size:14px;
+    font-size:18px;
     color:var(--blue);
     transition:transform .25s ease;
   }
   .project-card .project-dropdown{
     max-height:0;
     overflow:hidden;
-    padding:0 18px;
+    padding:0 14px;
     transition:max-height .28s ease, padding .28s ease;
   }
   .project-card .project-dropdown p{
-    margin:0 0 16px;
-    font-size:13px;line-height:1.55;color:var(--muted);
+    margin:0 0 10px;
+    font-size:11.5px;line-height:1.45;color:var(--muted);
   }
   .project-card.is-open .project-dropdown{
     max-height:120px;
-    padding:0 18px 16px;
+    padding:0 14px 12px;
   }
   .project-card.is-open .project-caret{transform:rotate(180deg);} 
-  .project-card.is-hidden{display:none;}
+  .project-card.is-hidden{
+    display:none !important;
+  }
   .project .section-head p {
-  text-align: left;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 3000px;
-}
+    text-align:center;
+    margin:0 auto 10px;
+    max-width:760px;
+    color:var(--muted);
+  }
 
   /* ===== APPLICATION ===== */
   .application{
@@ -1387,10 +1480,15 @@
     section{padding:80px 24px;}
     .about-grid, .career-grid, .contact-grid{grid-template-columns:1fr;}
     .service-cols{grid-template-columns:1fr;}
-    .project-grid{grid-template-columns:repeat(2,1fr);}
     .footer-grid{grid-template-columns:1fr 1fr;}
     .form-row{grid-template-columns:1fr;}
     .client-strip{gap:50px;}
+  }
+
+@media(max-width:576px){
+    .project-carousel{gap:10px;}
+    .carousel-btn{display:none;}
+    .project-card .project-media{aspect-ratio:3/2;}
   }
 
 /* ==========================================================================
@@ -1754,9 +1852,22 @@
 
   /* 3. Desain struktur kartu individual (.service-col) */
   .service-col {
-    padding: 32px 24px !important; /* Beri ruang sela dalam yang lega */
-    border-radius: 12px !important; /* Sempurnakan sudut melengkung kartu di HP */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    display: flex !important;
+    flex-direction: column !important; /* Susun konten dari atas ke bawah */
+    align-items: stretch !important; /* Paksa semua isi di dalamnya melebar ke kanan-kiri */
+    padding: 24px !important; /* Beri ruang dalam yang seimbang */
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 2. Satukan Icon, Judul "Design", dan nomor "01" di bagian atas kartu */
+  .service-col .service-header,
+  .service-col>div:first-child {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important; /* Judul di kiri, nomor/icon menyesuaikan */
+    width: 100% !important;
+    margin-bottom: 20px !important; /* Jarak aman sebelum masuk ke teks detail */
   }
 
   /* 4. EKSEKUSI CORETAN 1: Memperbesar Ukuran Ikon Utama */
@@ -1782,20 +1893,18 @@
 
 /* 6. EKSEKUSI CORETAN 3: Penyelarasan Paragraf Deskripsi di HP */
   .service-col p {
-    font-size: 16px !important; /* Ukuran huruf tajam dan ideal untuk HP */
-    line-height: 1.6 !important; /* Beri sela baris yang renggang agar tidak menumpuk */
-    color: #e3e0d8 !important; /* Warna teks putih tulang cerah agar kontras */
-    font-weight: 400 !important;
-    /* DOBRAK BATASAN DESKTOP: Buka sela agar teks membentang memenuhi kotak */
-    width: 100% !important;
-    max-width: 100% !important; /* !important di sini wajib untuk menimpa nilai 460px desktop */
+    display: block !important;
+    width: 100% !important; /* Paksa 100% tanpa kompromi */
+    max-width: 100% !important;  /* Hancurkan batasan lebar desktop */
     margin: 0 !important;
     padding: 0 !important;
-
-    /* PERATAAN ALUR BACA: Menggunakan rata kiri agar kata-kata panjang tidak patah kaku */
-    text-align: left !important;
-    word-spacing: normal !important;
-    letter-spacing: normal !important;
+  
+    /* Perataan teks premium khusus mobile */
+    text-align: justify !important; /* Rata kanan-kiri */
+    text-justify: inter-word !important;
+    font-size: 15px !important; /* Ukuran pas di mata pengguna HP */
+    line-height: 1.6 !important; /* Jarak antar baris yang lega */
+    color: #e3e0d8 !important;
   }
 
   /* Rapikan penempatan nomor indeks pojok kanan atas (01, 02, 03) */
