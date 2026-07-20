@@ -839,10 +839,19 @@
   }
   .service-col h3{font-size:22px;margin-bottom:14px;font-weight:600;}
   .service-col p{
-    font-size:16.5px;
-    font-weight:450;
-    color:var(--line);
+    font-size: 16px !important; /* Ukuran huruf tajam dan ideal untuk HP */
+    line-height: 1.6 !important; /* Jarak antar baris agar teks mengalir luang */
+    color: #e3e0d8 !important; /* Warna teks putih tulang cerah */
+    font-weight: 400 !important;
 
+    width: 100% !important;
+    max-width: 100% !important; /* Dobrak batasan 460px bawaan desktop[cite: 1, 3] */
+    margin: 0 !important;
+    padding: 0 !important;
+
+    text-align: justify !important;
+    text-justify: inter-word !important; /* Membagi sela antar-kata dengan sangat halus di HP */
+    word-spacing: -0.2px;
   }
   .service-col .idx{
     position:absolute;top:36px;right:32px;font-family:'JetBrains Mono';font-size:12px;color:rgba(255,255,255,.3);
@@ -982,6 +991,8 @@
     box-shadow:0 12px 30px rgba(18,32,62,.08);
     overflow:hidden;
     transition:transform .28s ease, box-shadow .28s ease;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   .project-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(18,32,62,.16);}
   .project-card .project-trigger{
@@ -1044,7 +1055,9 @@
     padding:0 18px 16px;
   }
   .project-card.is-open .project-caret{transform:rotate(180deg);} 
-  .project-card.is-hidden{display:none;}
+  .project-card.is-hidden{
+    display:none !important;
+  }
   .project .section-head p {
   text-align: left;
   margin-left: auto;
@@ -1388,9 +1401,9 @@
     .client-strip{gap:50px;}
   }
 
-/* ==========================================================================
-  8. RESPONSIVE MOBILE LAYOUT (BREAKPOINT: 768px)
-  ========================================================================== */
+/* =========================================================================
+   RESPONSIVE MOBILE LAYOUT (BREAKPOINT: 768px)
+   ========================================================================= */
 @media screen and (max-width: 768px) {
 
   /* --- PERBAIKAN HEADER --- */
@@ -1749,9 +1762,22 @@
 
   /* 3. Desain struktur kartu individual (.service-col) */
   .service-col {
-    padding: 32px 24px !important; /* Beri ruang sela dalam yang lega */
-    border-radius: 12px !important; /* Sempurnakan sudut melengkung kartu di HP */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    display: flex !important;
+    flex-direction: column !important; /* Susun konten dari atas ke bawah */
+    align-items: stretch !important; /* Paksa semua isi di dalamnya melebar ke kanan-kiri */
+    padding: 24px !important; /* Beri ruang dalam yang seimbang */
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 2. Satukan Icon, Judul "Design", dan nomor "01" di bagian atas kartu */
+  .service-col .service-header,
+  .service-col>div:first-child {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important; /* Judul di kiri, nomor/icon menyesuaikan */
+    width: 100% !important;
+    margin-bottom: 20px !important; /* Jarak aman sebelum masuk ke teks detail */
   }
 
   /* 4. EKSEKUSI CORETAN 1: Memperbesar Ukuran Ikon Utama */
@@ -1777,20 +1803,18 @@
 
 /* 6. EKSEKUSI CORETAN 3: Penyelarasan Paragraf Deskripsi di HP */
   .service-col p {
-    font-size: 16px !important; /* Ukuran huruf tajam dan ideal untuk HP */
-    line-height: 1.6 !important; /* Beri sela baris yang renggang agar tidak menumpuk */
-    color: #e3e0d8 !important; /* Warna teks putih tulang cerah agar kontras */
-    font-weight: 400 !important;
-    /* DOBRAK BATASAN DESKTOP: Buka sela agar teks membentang memenuhi kotak */
-    width: 100% !important;
-    max-width: 100% !important; /* !important di sini wajib untuk menimpa nilai 460px desktop */
+    display: block !important;
+    width: 100% !important; /* Paksa 100% tanpa kompromi */
+    max-width: 100% !important;  /* Hancurkan batasan lebar desktop */
     margin: 0 !important;
     padding: 0 !important;
-
-    /* PERATAAN ALUR BACA: Menggunakan rata kiri agar kata-kata panjang tidak patah kaku */
-    text-align: left !important;
-    word-spacing: normal !important;
-    letter-spacing: normal !important;
+  
+    /* Perataan teks premium khusus mobile */
+    text-align: justify !important; /* Rata kanan-kiri */
+    text-justify: inter-word !important;
+    font-size: 15px !important; /* Ukuran pas di mata pengguna HP */
+    line-height: 1.6 !important; /* Jarak antar baris yang lega */
+    color: #e3e0d8 !important;
   }
 
   /* Rapikan penempatan nomor indeks pojok kanan atas (01, 02, 03) */
