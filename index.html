@@ -393,12 +393,10 @@
 <!-- PROJECT -->
 <section id="project" class="project hidden-scroll">
   <div class="section-head">
-    <!-- <div class="eyebrow">04 — Portfolio</div> -->
     <h2>PORTOFOLIO</h2>
-    <p class= "detail hidden-scroll delay-200">Explore our track record of dedication in delivering top-tier print and packaging solutions. 
-      From the flexibility of shrink labels to the high precision of offset printing, discover how we help brands elevate and showcase their product value in the market.</p>
+    <p class="detail hidden-scroll delay-200">Explore our track record of dedication in delivering top-tier print and packaging solutions. From the flexibility of shrink labels to the high precision of offset printing, discover how we help brands elevate and showcase their product value in the market.</p>
   </div>
-  
+
   <div class="filter-row hidden-scroll delay-200">
     <button class="tab active" data-filter="all">All</button>
     <button class="tab" data-filter="offset">Offset Printing</button>
@@ -406,7 +404,16 @@
     <button class="tab" data-filter="security">Security Printing</button>
   </div>
 
-  <div class="project-grid hidden-scroll delay-600">
+  <div class="project-carousel hidden-scroll delay-600">
+    <button class="carousel-btn" id="projectPrev" type="button" aria-label="Sebelumnya">←</button>
+    <div class="project-viewport">
+      <div class="project-track" id="projectTrack"></div>
+    </div>
+    <button class="carousel-btn" id="projectNext" type="button" aria-label="Berikutnya">→</button>
+  </div>
+  <div class="project-dots" id="projectDots"></div>
+
+  <div id="projectSource" style="display:none;">
     <article class="project-card" data-category="offset">
       <button class="project-trigger" type="button" aria-expanded="false">
         <div class="project-media">
@@ -439,21 +446,21 @@
       </div>
     </article>
 
-  <article class="project-card" data-category="security">
-   <button class="project-trigger" type="button" aria-expanded="false">
-      <div class="project-media">
-        <img src="Images/Project Serukiti FAS BUled.png" alt="Cargo Security Seal Tape">
-        <div class="halftone"></div>
+    <article class="project-card" data-category="security">
+      <button class="project-trigger" type="button" aria-expanded="false">
+        <div class="project-media">
+          <img src="Images/Project Serukiti FAS BUled.png" alt="Cargo Security Seal Tape">
+          <div class="halftone"></div>
+        </div>
+        <div class="project-title-row">
+          <h3>Cargo Security Seal Tape</h3>
+          <span class="project-caret">▾</span>
+        </div>
+      </button>
+      <div class="project-dropdown">
+        <p>Tamper-evident seal tape for regulated cargo agents, certifying secured shipments from origin to destination.</p>
       </div>
-      <div class="project-title-row">
-        <h3>Cargo Security Seal Tape</h3>
-       <span class="project-caret">▾</span>
-     </div>
-    </button>
-    <div class="project-dropdown">
-      <p>Tamper-evident seal tape for regulated cargo agents, certifying secured shipments from origin to destination.</p>
-    </div>
-  </article>
+    </article>
 
     <article class="project-card" data-category="offset">
       <button class="project-trigger" type="button" aria-expanded="false">
@@ -487,21 +494,21 @@
       </div>
     </article>
 
-  <article class="project-card" data-category="security">
-    <button class="project-trigger" type="button" aria-expanded="false">
-      <div class="project-media">
-        <img src="Images/Project Serukiti FAS kotak.jpeg" alt="Cargo Security Seal Tape - Square Stamp">
-        <div class="halftone"></div>
+    <article class="project-card" data-category="security">
+      <button class="project-trigger" type="button" aria-expanded="false">
+        <div class="project-media">
+          <img src="Images/Project Serukiti FAS kotak.jpeg" alt="Cargo Security Seal Tape - Square Stamp">
+          <div class="halftone"></div>
+        </div>
+        <div class="project-title-row">
+          <h3>Security Seal Tape — Square Stamp</h3>
+          <span class="project-caret">▾</span>
+        </div>
+      </button>
+      <div class="project-dropdown">
+        <p>An alternate seal design with a square agent stamp, offering the same tamper-evident cargo protection.</p>
       </div>
-      <div class="project-title-row">
-        <h3>Security Seal Tape — Square Stamp</h3>
-        <span class="project-caret">▾</span>
-      </div>
-    </button>
-    <div class="project-dropdown">
-      <p>An alternate seal design with a square agent stamp, offering the same tamper-evident cargo protection.</p>
-    </div>
-  </article>
+    </article>
 
     <article class="project-card" data-category="offset">
       <button class="project-trigger" type="button" aria-expanded="false">
@@ -535,21 +542,21 @@
       </div>
     </article>
 
-  <article class="project-card" data-category="security">
-    <button class="project-trigger" type="button" aria-expanded="false">
-      <div class="project-media">
-        <img src="Images/Project serukiti R Tiga Crown.png" alt="Cigarette Packaging Box">
-        <div class="halftone"></div>
+    <article class="project-card" data-category="security">
+      <button class="project-trigger" type="button" aria-expanded="false">
+        <div class="project-media">
+          <img src="Images/Project serukiti R Tiga Crown.png" alt="Cigarette Packaging Box">
+          <div class="halftone"></div>
+        </div>
+        <div class="project-title-row">
+          <h3>Cigarette Packaging Box</h3>
+          <span class="project-caret">▾</span>
+        </div>
+      </button>
+      <div class="project-dropdown">
+        <p>Foil-finished packaging complete with mandatory health warning labels and batch coding.</p>
       </div>
-      <div class="project-title-row">
-        <h3>Cigarette Packaging Box</h3>
-        <span class="project-caret">▾</span>
-      </div>
-    </button>
-    <div class="project-dropdown">
-      <p>Foil-finished packaging complete with mandatory health warning labels and batch coding.</p>
-    </div>
-  </article>
+    </article>
 
     <article class="project-card" data-category="offset">
       <button class="project-trigger" type="button" aria-expanded="false">
@@ -582,7 +589,6 @@
         <p>Efficient production for durable packaging with strong branding.</p>
       </div>
     </article>
-
   </div>
 </section>
 
