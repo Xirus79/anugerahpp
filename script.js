@@ -23,11 +23,15 @@ if (filterTabs.length > 0) {
       const filter = btn.dataset.filter || 'all';
       document.querySelectorAll('.project-card').forEach(card => {
         const matches = filter === 'all' || card.dataset.category === filter;
-        card.classList.toggle('is-hidden', !matches);
-        if (!matches) {
-          card.classList.remove('is-open');
-          const trigger = card.querySelector('.project-trigger');
-          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        
+        if (matches) {
+          // Jika cocok, tampilkan dengan menghapus inline style dan class tersembunyi
+          card.classList.remove('is-hidden');
+          card.style.setProperty('display', '', 'important'); 
+        } else {
+          // Jika tidak cocok, PAKSA HILANG langsung via JavaScript inline style dengan !important
+          card.classList.add('is-hidden');
+          card.style.setProperty('display', 'none', 'important');
         }
       });
     });
