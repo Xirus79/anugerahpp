@@ -1367,11 +1367,23 @@
     display:block;margin-bottom:8px;
   }
   .field{margin-bottom:22px;}
+
   .contact-form input, .contact-form textarea{
-    width:100%;padding:14px 0;border:none;border-bottom:1px solid var(--line);background:transparent;
-    font-family:inherit;font-size:15px;color:var(--ink);transition:border-color .2s;
+    width:100%;
+    padding:14px 16px;
+    border:1.5px solid black;
+    border-radius:10px;
+    background:var(--white);
+    font-family:inherit;
+    font-size:15px;
+    color:var(--ink);
+    transition:border-color .2s, box-shadow .2s;
   }
-  .contact-form input:focus, .contact-form textarea:focus{outline:none;border-color:var(--blue);}
+  .contact-form input:focus, .contact-form textarea:focus{
+    outline:none;
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(47, 111, 237, 0.12);
+  }
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
