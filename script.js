@@ -331,6 +331,15 @@ document.addEventListener('DOMContentLoaded', function() {
       event.preventDefault(); // Mencegah browser reload halaman saat klik kirim
 
       // Mengubah teks tombol secara dinamis saat proses mengirim agar user tahu sistem sedang bekerja
+      const opsiWaktu = { 
+        year: 'numeric', month: 'long', day: 'numeric', 
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        timeZoneName: 'short' 
+      };
+      // Mengambil waktu sekarang format Indonesia
+      const waktuSekarang = new Date().toLocaleString('id-ID', opsiWaktu);
+
+      document.getElementById('waktuKirim').value = waktuSekarang;
       const submitBtn = this.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn ? submitBtn.innerText : "Send Message";
       if (submitBtn) submitBtn.innerText = "Sending...";
