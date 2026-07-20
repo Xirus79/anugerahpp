@@ -1144,11 +1144,11 @@
     display:none !important;
   }
   .project .section-head p {
-    text-align:center;
-    margin:0 auto 10px;
-    max-width:760px;
-    color:var(--muted);
-  }
+  text-align:left;
+  margin:0 auto 10px;
+  max-width:760px;
+  color:var(--muted);
+}
 
   /* ===== APPLICATION ===== */
   .application{
