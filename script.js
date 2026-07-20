@@ -86,6 +86,10 @@ if (serviceTabs.length > 0) {
     render(false);
     if (totalPages > 1) startAutoplay();
   }
+  
+    track.addEventListener('transitionend', () => {
+    isTransitioning = false;
+  });
 
   function render(withTransition){
     if (totalPages <= 0) return;

@@ -1007,10 +1007,15 @@
   .project-page{
     flex:0 0 100%;
     width:100%;
-    display:grid;
-    grid-template-columns:repeat(var(--project-cols, 4), minmax(0, 1fr));
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:stretch;
     gap:12px;
-    align-items:start;
+  }
+  .project-page .project-card{
+    flex:0 0 calc((100% - (var(--project-cols, 4) - 1) * 12px) / var(--project-cols, 4));
+    max-width:calc((100% - (var(--project-cols, 4) - 1) * 12px) / var(--project-cols, 4));
   }
   .project-dots{
     display:flex;
@@ -1477,7 +1482,6 @@
   }
 
 @media(max-width:576px){
-    .project-page{grid-template-columns:1fr;}
     .project-carousel{gap:10px;}
     .carousel-btn{display:none;}
     .project-card .project-media{aspect-ratio:3/2;}
