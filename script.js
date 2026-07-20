@@ -547,7 +547,7 @@ if (dropdownLinks.length > 0) {
 
   function startAutoplay(){
     stopAutoplay();
-    timer = setInterval(next, 2100); // Ganti gambar setiap 4 detik
+    timer = setInterval(next, 2500); // Ganti gambar setiap 2.5 detik
   }
   function stopAutoplay(){
     if (timer) clearInterval(timer);
