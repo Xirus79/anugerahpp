@@ -444,13 +444,17 @@
   }   
   .hero-tags{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px;}
   .hero-tags span {
-    font-family: 'normal';
-    font-size: 18px;
-    font-weight: 5000;
-    letter-spacing: 1px;
-    padding: 5px 10px; /* border:1px solid var(--c); */
-    color: var(--c);
-    border-radius: 8px;
+  font-family: inherit; /* Akan otomatis mengikuti font tulisan atas dan bawahnya */
+  font-size: 16px; /* Dikecilkan sedikit agar lebih rapi, silakan ubah jika kurang besar */
+  font-weight: 600; /* Gunakan nilai yang valid (misal 500, 600, atau 700) */
+  letter-spacing: 1px;
+  padding: 5px 10px; 
+  color: var(--c); /* Biarkan menggunakan warna biru bawaanmu */
+  border-radius: 8px;
+  
+  /* --- TAMBAHAN UNTUK MENGHILANGKAN PUTIH-PUTIH --- */
+  text-shadow: none !important; 
+  -webkit-text-stroke: 0 !important;
     
   }
   .btn-primary{
@@ -576,7 +580,7 @@
   .center .eyebrow::before{display:none;}
 
   /* ===== ABOUT ===== */
-  .about{background:var(--paper);}
+  .about{background:var(--white);}
   .about-intro{max-width:980px;margin:0 auto 42px;text-align:center;color:var(--muted);font-size:16px;line-height:1.8;}
   .about-intro strong{color:var(--navy);font-weight:600;}
   .about-highlight{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;max-width:1180px;margin:0 auto 36px;}
@@ -741,7 +745,7 @@
   .services{
     background: var(--navy); /* Warna dasar tetap navy jika gambar belum termuat */
     color: #ffffff;
-    padding: 100px 56px;
+    padding: 25px 56px;
     position: relative;
     overflow: hidden; /* Penting agar gambar yang bergerak tidak meluap keluar */
     isolation: isolate;
@@ -788,7 +792,7 @@
     background:var(--navy);
     color:rgba(255,255,255,.8);
     transition:all .2s;
-    font-family:'JetBrains Mono';
+
     border-radius: 8px;
   }
   .tab.active, .tab:hover{background:var(--blue);border-color:var(--blue);color:#fff;}
@@ -860,7 +864,7 @@
   /* ===== CLIENTS ===== */
   .clients {
     background: linear-gradient(180deg, #7ec2e5 0%, #d4e7f2 60%, #ffffff 100%) !important;
-    padding: 100px 56px;
+    padding: 25px 56px;
     position: relative;;
   } 
 
@@ -902,7 +906,7 @@
   .client-viewport {
     overflow: hidden;
     flex: 1;
-    max-width: 560px;
+    max-width: 1080px;
   }
   .client-track {
     display: flex;
@@ -922,10 +926,10 @@
   }
   /* Mengatur ukuran gambar logo klien di dalam page */
   .client-page img {
-    max-width: 140px;
+    max-width: 180px;
     /* Batasi lebar maksimal logo */
     height: auto;
-    max-height: 50px;
+    max-height: 70px;
     /* Batasi tinggi maksimal agar seragam */
     object-fit: contain;
     /* Jaga proporsi logo agar tidak gepeng */
@@ -939,7 +943,7 @@
     background: transparent !important; /* Membuat latar belakang logo transparan */
     box-shadow: none !important; /* Hilangkan bayangan kotak agar menyatu halus */
     flex: 1;
-    max-width: 220px;
+    max-width: 280px;
     aspect-ratio: 1/1;
     display: flex;
     align-items: center;
@@ -1328,7 +1332,7 @@
   .contact-map-frame {
     width: 100%;
     height: 480px; /* Atur tinggi kotak peta sesuai keinginanmu */
-    background: var(--paper-2);
+    background: var(--white);
     border: 1px solid var(--line);
     border-radius: 20px; /* Membuat sudut kotak peta melengkung halus */
     overflow: hidden; /* Memotong ujung tajam iFrame agar ikut membundar */
