@@ -320,55 +320,87 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== 6. REAL-TIME MAILTO GENERATOR (NATIVE HUMAN INTERACTION METHOD) =====
+// ===== 6. REAL-TIME MAILTO GENERATOR (WITH SNACKBAR NOTIFICATION) =====
+
+// Fungsi global untuk membuat dan memunculkan Snackbar / Toast
+function showToast(type, message) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return; // Mencegah error jika kontainer belum dirender di HTML
+  
+  // Buat elemen toast baru
+  const toast = document.createElement('div');
+  toast.className = `custom-toast ${type}`;
+  
+  // Berikan ikon simbol sederhana di depan teks
+  const icon = type === 'success' ? '✓' : '×';
+  toast.innerHTML = `<span style="font-weight: bold; color: ${type === 'success' ? '#2ecc71' : '#e74c3c'}">${icon}</span> <span>${message}</span>`;
+  
+  // Masukkan ke dalam container
+  container.appendChild(toast);
+  
+  // Trigger animasi masuk
+  setTimeout(() => {
+    toast.classList.add('show');
+  }, 10);
+  
+  // Hapus toast otomatis setelah 4 detik
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => {
+      toast.remove();
+    }, 400);
+  }, 4000);
+}
 
 document.addEventListener('DOMContentLoaded', function() {
-  // 1. Cari elemen form berdasarkan ID di HTML kamu (misal id="contactForm")
   const contactForm = document.getElementById('contactForm'); 
 
   if (contactForm) {
     contactForm.addEventListener('submit', function(event) {
-      event.preventDefault(); // Mencegah browser reload halaman saat klik kirim
+      event.preventDefault(); // Mencegah browser reload halaman
 
-      // Mengubah teks tombol secara dinamis saat proses mengirim agar user tahu sistem sedang bekerja
+      // Mengambil waktu sekarang format Indonesia untuk input tersembunyi
       const opsiWaktu = { 
         year: 'numeric', month: 'long', day: 'numeric', 
         hour: '2-digit', minute: '2-digit', second: '2-digit',
         timeZoneName: 'short' 
       };
-      // Mengambil waktu sekarang format Indonesia
       const waktuSekarang = new Date().toLocaleString('id-ID', opsiWaktu);
+      
+      const hiddenWaktuInput = document.getElementById('waktuKirim');
+      if (hiddenWaktuInput) {
+        hiddenWaktuInput.value = waktuSekarang;
+      }
 
-      document.getElementById('waktuKirim').value = waktuSekarang;
+      // Mengubah teks tombol secara dinamis saat proses mengirim
       const submitBtn = this.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn ? submitBtn.innerText : "Send Message";
-      if (submitBtn) submitBtn.innerText = "Sending...";
+      const originalBtnText = submitBtn ? submitBtn.innerHTML : "Send Message →";
+      if (submitBtn) {
+        submitBtn.innerText = "Sending...";
+        submitBtn.disabled = true; // Kunci tombol agar user tidak klik berkali-kali
+      }
 
-      // 2. Eksekusi pengiriman formulir langsung ke Gmail via EmailJS
-      // Ganti parameter dengan ID asli dari dasbor EmailJS kamu
+      // Eksekusi pengiriman formulir via EmailJS
+      // Sesuai template, ganti 'YOUR_SERVICE_ID' dan 'YOUR_TEMPLATE_ID' dengan ID aslimu
       emailjs.sendForm('service_mjulr7l', 'template_8qhk1uf', this)
         .then(function() {
-          // JIKA BERHASIL:
-          if (submitBtn) submitBtn.innerText = originalBtnText;
+          // Panggil Snackbar Sukses
+          showToast('success', "Pesan berhasil dikirim! Terima kasih, kami akan segera menghubungi Anda.");
+          contactForm.reset();
           
-          // Panggil fungsi notifikasi toast sukses yang sudah kamu miliki[cite: 1]
-          if (typeof showToast === "function") {
-            showToast("Pesan Anda sukses dikirim langsung ke Gmail kami!");
-          } else {
-            alert("Pesan sukses dikirim!");
+          // Kembalikan tombol ke kondisi semula
+          if (submitBtn) {
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
           }
-
-          contactForm.reset(); // Bersihkan isi kotak form agar kosong kembali
         }, function(error) {
-          // JIKA GAGAL:
-          if (submitBtn) submitBtn.innerText = originalBtnText;
-          console.error("EmailJS Error:", error);
-
-          // Panggil fungsi notifikasi toast error kamu[cite: 1]
-          if (typeof showToast === "function") {
-            showToast("Gagal mengirim pesan, silakan coba lagi nanti.", "error");
-          } else {
-            alert("Gagal mengirim pesan.");
+          // Panggil Snackbar Gagal
+          showToast('error', "Gagal mengirim pesan. Silakan coba beberapa saat lagi.");
+          
+          // Kembalikan tombol ke kondisi semula
+          if (submitBtn) {
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
           }
         });
     });
