@@ -193,14 +193,13 @@
   bottom: 0;
   left: 0;
   width: 0;
-  height: 0;
-  background-color: transparent;
-  transition: none;
+  height: 2px;
+  background-color: var(--blue  );
+  transition: width 0.2s ease;
 }
 
-.header-nav .nav-links > li > a.active::after,
-.header-nav .nav-links > li > a:hover::after {
-  width: 0;
+.header-nav .nav-links > li > a.active::after {
+  width: 100%;
 }
 
 /* ===== EFFECT HOVER: FOKUS & REDUP ===== */
@@ -919,8 +918,8 @@
 
   .client-carousel {
     padding: 0 4px !important;
-    gap: 8px !important;
-    min-height: 140px !important;
+    gap: 20px !important;
+    min-height: 220px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
@@ -947,15 +946,16 @@
   #clientPrev,
   #clientNext {
     display: flex !important;
-    width: 38px !important;
-    height: 38px !important;
-    min-width: 38px !important;
-    font-size: 14px !important;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    font-size: 20px !important;
     align-items: center !important;
     justify-content: center !important;
     background: transparent !important; /* Tombol dibuat transparan saat idle */
     color: var(--navy) !important; /* Warna panah mengikuti tema navy utama kamu */
-    border: 1px solid var(--navy) !important; /* Garis tepi tipis agar bentuk bulatnya tetap minimalis */
+    border: 1px solid var(--navy) !important; 
+    border-width: 2px !important;
     border-radius: 50% !important;
     z-index: 10 !important;
     cursor: pointer !important;
@@ -992,10 +992,11 @@
   /* Gambar logo di dalam card */ 
   .client-page img {
     width: 100% !important;
-    max-width: 140px !important;
+    max-width: 320px !important;
     height: auto !important;
-    max-height: 65px !important;
+    max-height: 130px !important;
     object-fit: contain !important;
+    transition: transform 0.3s ease !important;
   }
   /* BERWARNA SOLID SAAT DIHOVER */
   .client-carousel .carousel-btn:hover,
@@ -1014,7 +1015,8 @@
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    max-width: 160px !important;
+    max-width: 380px !important;
+    height: 180px !important;
     /* Ukuran proporsional di HP */
   }
   .client-logo-card img {
@@ -2143,7 +2145,7 @@
   .client-carousel {
     padding: 0 8px !important;
     gap: 16px !important;
-    min-height: 160px !important; /* Tingkatkan tinggi area agar logo lebih leluasa */
+    min-height: 180px !important; /* Tingkatkan tinggi area agar logo lebih leluasa */
     align-items: center !important;
   }
   /* 2. Perkecil tombol panah navigasi agar tidak terlalu dominan di HP */
@@ -2170,7 +2172,8 @@
   .client-logo-card {
     padding: 10px 20px !important;
     width: 100% !important;
-    max-width: 220px !important;
+    max-width: 280px !important;
+    height: 140px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2178,9 +2181,17 @@
   /* Perkecil ukuran logo agar 3-4 logo bisa muat berjejer dengan rapi di layar HP */
   .client-page img {
     width: 100% !important;
-    max-width: 180px !important;  /* Logo otomatis mekar maksimal di HP */
-    max-height: 90px !important;
+    max-width: 240px !important;  /* Logo otomatis mekar maksimal di HP */
+    max-height: 100px !important;
     object-fit: contain !important;
+  }
+  .client-carousel .carousel-btn,
+  #clientPrev,
+  #clientNext {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    font-size: 16px !important;
   }
   /* Atur jarak titik indikator di bawahnya */
   .client-dots {
