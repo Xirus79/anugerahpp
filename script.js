@@ -352,6 +352,7 @@ if (headerMain) {
 // ===== 5. EFEK PARALLAX HERO & SERVICES =====
 const hero = document.querySelector('.hero');
 const services = document.querySelector('.services');
+const application = document.querySelector('.application');
 
 window.addEventListener('scroll', () => {
     const scrollPos = window.scrollY;
@@ -367,6 +368,14 @@ window.addEventListener('scroll', () => {
         if (servicesRect.top < windowHeight && servicesRect.bottom > 0) {
             const servicesSpeed = (windowHeight - servicesRect.top) * 0.15; 
             services.style.setProperty('--services-parallax', `${servicesSpeed}px`);
+        }
+    }
+
+    if (application) {
+        const applicationRect = application.getBoundingClientRect();
+        if (applicationRect.top < windowHeight && applicationRect.bottom > 0) {
+            const applicationSpeed = (windowHeight - applicationRect.top) * 0.15;
+            application.style.setProperty('--application-parallax', `${applicationSpeed}px`);
         }
     }
 });
