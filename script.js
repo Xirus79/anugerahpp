@@ -352,6 +352,7 @@ if (headerMain) {
 // ===== 5. EFEK PARALLAX HERO & SERVICES =====
 const hero = document.querySelector('.hero');
 const services = document.querySelector('.services');
+const application = document.querySelector('.application');
 
 window.addEventListener('scroll', () => {
     const scrollPos = window.scrollY;
@@ -367,6 +368,14 @@ window.addEventListener('scroll', () => {
         if (servicesRect.top < windowHeight && servicesRect.bottom > 0) {
             const servicesSpeed = (windowHeight - servicesRect.top) * 0.15; 
             services.style.setProperty('--services-parallax', `${servicesSpeed}px`);
+        }
+    }
+
+    if (application) {
+        const applicationRect = application.getBoundingClientRect();
+        if (applicationRect.top < windowHeight && applicationRect.bottom > 0) {
+            const applicationSpeed = (windowHeight - applicationRect.top) * 0.15;
+            application.style.setProperty('--application-parallax', `${applicationSpeed}px`);
         }
     }
 });
@@ -558,4 +567,25 @@ if (dropdownLinks.length > 0) {
   frame.addEventListener('mouseleave', startAutoplay);
 
   startAutoplay();
+})();
+
+// ===== 10. ACCORDION "ABOUT US" — HANYA SATU YANG BISA TERBUKA =====
+(function(){
+  const accordionItems = document.querySelectorAll('.about-grid .accordion-item');
+
+  if (accordionItems.length === 0) return;
+
+  accordionItems.forEach(item => {
+    // Event 'toggle' otomatis terpicu tiap kali <details> dibuka ATAU ditutup
+    item.addEventListener('toggle', function () {
+      // Hanya proses ketika item ini BARU SAJA dibuka
+      if (this.open) {
+        accordionItems.forEach(other => {
+          if (other !== this && other.hasAttribute('open')) {
+            other.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
 })();
