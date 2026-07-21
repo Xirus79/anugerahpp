@@ -574,7 +574,7 @@
   section{padding:25px 60px;position:relative;}
   .section-head{max-width:640px;margin-bottom:64px;}
   .section-head h2{font-size:clamp(70px,3.4vw,80px);font-weight:800;letter-spacing:-1px;color:var(--blue-deep);margin-top: -10px;}
-  .section-head p{font-size:16px;margin-top:10px;max-width:520px;}
+  .section-head p{font-size:17px;margin-top:10px;max-width:520px;}
   .center{text-align:center;margin-left:auto;margin-right:auto;}
   .center p{margin-left:auto;margin-right:auto;}
   .center .eyebrow{justify-content:center;}
@@ -582,61 +582,8 @@
 
   /* ===== ABOUT ===== */
   .about{background:var(--white);}
-  .about-intro{max-width:980px;margin:0 auto 42px;text-align:center;color:var(--muted);font-size:16px;line-height:1.8;}
-  .about-intro strong{color:var(--navy);font-weight:600;}
-  .about-highlight{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;max-width:1180px;margin:0 auto 36px;}
-  .about-card{position:relative;overflow:hidden;background:linear-gradient(135deg, rgba(167, 240, 189, 0.642), rgb(47, 81, 250));border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:0 20px 60px rgb(202, 202, 202);}
-  .about-card::before{content:"";position:absolute;inset:auto -20px -30px auto;width:140px;height:140px;background:radial-gradient(circle, rgba(242, 243, 244, 0.151), transparent 70%);pointer-events:none;}
-  .about-card h3{font-size:26px;line-height:1.2;color:var(--navy);margin-bottom:14px;}
-  .about-card p{margin-bottom:12px;}
-  .about-badges {
-    display: flex;
-    flex-direction: column;
-    /* Mengubah susunan menjadi list vertikal agar lebih rapi */
-    gap: 16px;
-    margin-top: 26px;
-  }
 
-  .about-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 4px 0;
-    /* Hapus padding tebal khas tombol */
-    background: transparent;
-    /* Hilangkan background solid */
-    border: none;
-    /* Hilangkan border hitam yang membuatnya mirip tombol */
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--paper);
-    letter-spacing: 0.3px;
-    transition: transform 0.2s ease;
-  }
-
-
-  .about-badge .badge-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    background-color:transparent;
-    /* Warna biru muda transparan */
-    color: var(--blue);
-    /* Simbol check berwarna biru brand utama */
-    border-radius: 6px;
-    /* Kotak membundar kecil yang estetik */
-    font-size: 20px;
-    font-weight: bold;
-  }
   /* .about-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:var(--white);border:2px solid rgb(32, 42, 161);border-radius:999px;font-size:13px;font-weight:600;color:var(--navy);} */
-  .about-quote{font-size:24px;line-height:1.5;font-weight:600;color:#000000;margin-bottom:18px;}
-  .about-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px;}
-  .about-stat{padding:16px;background:rgba(242, 243, 247, 0.878);border:1px solid rgb(0, 0, 0);border-radius:16px;}
-  .about-stat strong{display:block;font-size:24px;color:var(--blue);margin-bottom:4px;}
-  .about-stat span{font-size:13px;color:var(--muted);}
   .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:start;}
 
     /* 1. Kontainer utama: Menggunakan Grid untuk animasi tinggi */
@@ -1895,65 +1842,8 @@
     max-width: 100% !important;
   }
 
-  /* Sesuaikan teks intro paragraf About Us */
-  .about-intro {
-    font-size: 14px !important;
-    line-height: 1.6 !important;
-    margin-bottom: 32px !important;
-    padding: 0 4px !important;
-  }
-
-  /* 1. Paksa dua kartu gradient besar agar berbaris ke bawah, bukan ke samping */
-  .about-highlight {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 24px !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-  }
-  /* 2. Pastikan lebar masing-masing kartu menjadi penuh selebar layar HP */
-  .about-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 24px 20px !important; /* Sempurnakan bantalan dalam kartu di layar kecil */
-    box-sizing: border-box !important;
-  }
-  /* 3. Sesuaikan ukuran teks judul di dalam kartu agar tidak terlalu besar */
-  .about-card h3 {
-    font-size: 20px !important;
-    line-height: 1.3 !important;
-    margin-bottom: 12px !important;
-  }
-  .about-card p {
-    font-size: 14px !important;
-    line-height: 1.5 !important;
-  }
-
-  /* Sesuaikan ukuran teks kutipan ("Excellent quality is born...") di kartu kedua */
-  .about-quote {
-    font-size: 18px !important;
-    line-height: 1.4 !important;
-    margin-bottom: 14px !important;
-  }
-
-  /* 4. Atur ulang susunan badge/list centang di dalam kartu */
-  .about-badges {
-    margin-top: 20px !important;
-    gap: 12px !important;
-  }
-
-  .about-badge {
-    font-size: 14px !important;
-  }
 
   /* 4. Memperbaiki grid angka statistik (100%, 24/7, dll) agar tidak menumpuk kaku */
-  .about-stats {
-    grid-template-columns: 1fr 1fr !important; /* Ubah menjadi 2 kolom yang rapi di HP */
-    gap: 15px !important;
-    width: 100% !important;
-    margin-top: 20px !important;
-    display: grid !important;
-  }
   .project-card {
     width: 100% !important;
     max-width: 100% !important;
@@ -1964,23 +1854,6 @@
     display: none !important; /* Kartu yang tidak cocok akan benar-benar sembunyi */
   }
   .service-col,
-  .about-stats {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;  /* Bagi menjadi 2 kolom rapi (2 di atas, 2 di bawah) */
-    gap: 12px !important;
-    margin-top: 16px !important;
-  }
-  /* 5. Merapikan kotak pembungkus statistik individual */
-  .about-stat {
-    padding: 12px 10px !important;
-    width: 100% !important;
-    height: auto !important; /* Bebaskan tinggi kaku agar teks deskripsi tidak terpotong */
-    display: flex;
-    padding: 12px 10px !important;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
 
   /* 1. Beri jarak antara About dengan About Design */
   .about-grid {
@@ -2028,15 +1901,6 @@
   }
 
   .project-card h3,
-
-  .about-stat strong {
-    font-size: 20px !important; /* Perkecil ukuran angka statistik agar tidak luap */
-    margin-bottom: 2px !important;
-  }
-  .about-stat span {
-    font-size: 11px !important;
-    line-height: 1.3 !important;
-  }
 
   .about-details {
     font-size: 13px !important;
