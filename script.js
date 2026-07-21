@@ -559,3 +559,24 @@ if (dropdownLinks.length > 0) {
 
   startAutoplay();
 })();
+
+// ===== 10. ACCORDION "ABOUT US" — HANYA SATU YANG BISA TERBUKA =====
+(function(){
+  const accordionItems = document.querySelectorAll('.about-grid .accordion-item');
+
+  if (accordionItems.length === 0) return;
+
+  accordionItems.forEach(item => {
+    // Event 'toggle' otomatis terpicu tiap kali <details> dibuka ATAU ditutup
+    item.addEventListener('toggle', function () {
+      // Hanya proses ketika item ini BARU SAJA dibuka
+      if (this.open) {
+        accordionItems.forEach(other => {
+          if (other !== this && other.hasAttribute('open')) {
+            other.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
+})();
