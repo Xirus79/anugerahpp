@@ -131,7 +131,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 90px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -159,9 +159,10 @@
   }
 
   .logo-lockup img {
-  height: 65px;
+  height: 45px;
   width: auto;
   object-fit: contain;
+  margin-left: 18px;
   }
 
   /* Susunan Menu Navigasi Utama */
@@ -179,7 +180,7 @@
   display: inline-block;
   text-decoration: none;
   color: var(--navy);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   position: relative;
   padding: 8px 0;
@@ -302,8 +303,8 @@
 }
 
 .header-socials svg {
-  width: 27px;
-  height: 27px;
+  width: 20px;
+  height: 20px;
   fill: var(--navy);
   transition: fill 0.2s ease;
 }
@@ -1184,32 +1185,55 @@
  /* ===== APPLICATION ===== */
   .application {
     padding: 64px 40px 56px;
-    
-    /* 1. GANTI BACKGROUND MENJADI GAMBAR */
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    display: flex;
+    /* 1. GANTI BACKGROUND MENJADI GAMBAR 
     background-image: 
-    linear-gradient(rgba(18, 32, 62, 0.85), rgba(18, 32, 62, 0.85)),    url('assets/Produksi_images.jpg');
+    linear-gradient(rgba(18, 32, 62, 0.642), rgba(18, 32, 62, 0.724)),    url('assets/Produksi_images.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     /* Opsional: Tambahkan efek gelap (overlay) jika foto terlalu terang */
     /* background-color: rgba(8, 18, 35, 0.6); */
     /* background-blend-mode: overlay; */
-
-    display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    /* max-width: 1080px; dihapus agar foto background bisa full satu layar kiri-kanan */
     margin: 0 auto;
   }
   
+  .application::before {
+    content: "";
+    position: absolute;
+    top: -25%;
+    left: 0;
+    width: 100%;
+    height: 150%;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(18, 32, 62, 0.642), rgba(18, 32, 62, 0.724)),
+      url('assets/Produksi_images.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transform: translate3d(0, var(--application-parallax, 0px), 0);
+    will-change: transform;
+  }
+
   .application .section-head {
     width: 100%;
     max-width: 960px;
     text-align: center;
     margin-bottom: 48px;
   }
-  
+  .application .section-head,
+  .application table,
+  .application .entries-count {
+    position: relative;
+    z-index: 2;
+  }
   /* Pastikan teks judul tetap terbaca di atas foto */
   .application .section-head h2 {
     color: var(--white, #ffffff); 
