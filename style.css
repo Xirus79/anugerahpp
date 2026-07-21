@@ -193,13 +193,14 @@
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2px;
-  background-color: var(--blue  );
-  transition: width 0.2s ease;
+  height: 0;
+  background-color: transparent;
+  transition: none;
 }
 
-.header-nav .nav-links > li > a.active::after {
-  width: 100%;
+.header-nav .nav-links > li > a.active::after,
+.header-nav .nav-links > li > a:hover::after {
+  width: 0;
 }
 
 /* ===== EFFECT HOVER: FOKUS & REDUP ===== */
