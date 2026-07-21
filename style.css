@@ -131,7 +131,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 90px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -159,9 +159,10 @@
   }
 
   .logo-lockup img {
-  height: 65px;
+  height: 45px;
   width: auto;
   object-fit: contain;
+  margin-left: 18px;
   }
 
   /* Susunan Menu Navigasi Utama */
@@ -179,7 +180,7 @@
   display: inline-block;
   text-decoration: none;
   color: var(--navy);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   position: relative;
   padding: 8px 0;
@@ -302,8 +303,8 @@
 }
 
 .header-socials svg {
-  width: 27px;
-  height: 27px;
+  width: 20px;
+  height: 20px;
   fill: var(--navy);
   transition: fill 0.2s ease;
 }
