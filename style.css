@@ -846,6 +846,7 @@
     text-align: justify !important;
     text-justify: inter-word !important; /* Membagi sela antar-kata dengan sangat halus di HP */
     word-spacing: -0.2px;
+    min-height: 105px !important;
   }
   .service-col .idx{
     position:absolute;top:36px;right:32px;font-family:'JetBrains Mono';font-size:12px;color:rgba(255,255,255,.3);
@@ -1178,57 +1179,82 @@
 }
 
 
-  /* ===== APPLICATION ===== */
-  .application{
+ /* ===== APPLICATION ===== */
+  .application {
     padding: 64px 40px 56px;
-    background:var(--white);
+    
+    /* 1. GANTI BACKGROUND MENJADI GAMBAR */
+    background-image: 
+    linear-gradient(rgba(18, 32, 62, 0.85), rgba(18, 32, 62, 0.85)),    url('assets/Produksi_images.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Opsional: Tambahkan efek gelap (overlay) jika foto terlalu terang */
+    /* background-color: rgba(8, 18, 35, 0.6); */
+    /* background-blend-mode: overlay; */
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width:1080px;
+    width: 100%;
+    /* max-width: 1080px; dihapus agar foto background bisa full satu layar kiri-kanan */
     margin: 0 auto;
   }
+  
   .application .section-head {
     width: 100%;
-    max-width: 960px; /* Samakan dengan batas maksimal lebar tabel agar sejajar sempurna */
+    max-width: 960px;
     text-align: center;
     margin-bottom: 48px;
   }
-  .app-toolbar{display:flex;justify-content:flex-end;margin-bottom:24px;}
-  .search-box{
-    padding:11px 14px;border:1px solid var(--line);background:var(--paper);width:220px;
-    color:var(--muted);font-size:13px;font-family:'JetBrains Mono';border-radius:8px;
+  
+  /* Pastikan teks judul tetap terbaca di atas foto */
+  .application .section-head h2 {
+    color: var(--white, #ffffff); 
+  }
+  .application .section-head p {
+    color: rgba(255, 255, 255, 0.8);
   }
 
-  /* Slim, modern table with colored chips for entries */
+  .app-toolbar{display:flex;justify-content:flex-end;margin-bottom:24px;}
+  .search-box{
+    padding:11px 14px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);width:220px;
+    color:#fff;font-size:13px;font-family:'JetBrains Mono';border-radius:8px;
+  }
+
+  /* 2. TABEL MENJADI NAVY */
   .application table{
     width:100%;
     font-family: 'Space Grotesk', sans-serif;
     border-collapse:collapse;
     border-spacing:0;
     table-layout: fixed;
-    background:var(--white);
+    
+    background: rgba(18, 32, 62, 0.50); /* Angka 0.70 adalah tingkat transparansinya (70%) */
+    backdrop-filter: blur(5px); /* Memberikan efek blur di belakang tabel */    color: #ffffff; /* Warna teks dasar di tabel menjadi putih */
+    border-radius: 16px; /* Memberikan efek lengkung pada sudut tabel agar manis */
+    overflow: hidden; 
+    
     max-width:960px;
     margin: 0 auto;
   }
 
   .application th,
   .application td {
-    /* border: none; */
     vertical-align: middle;
     text-align: center;
-    /* padding: 18px 20px;
-    white-space: normal; */
   }
 
+  /* 3. UBAH WARNA GARIS PEMBATAS MENJADI TERANG */
   .application thead th {
-    border-bottom:2px solid rgba(18,32,62,0.35);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Garis putih transparan */
     padding-top: 22px;
     padding-bottom: 22px;
+    color: #ffffff;
   }
 
   .application tbody tr {
-    border-bottom:1px solid rgba(18,32,62,0.24);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Garis putih transparan */
   }
 
   .application tbody tr:last-child {
@@ -1252,19 +1278,9 @@
 
   .application td:first-child {
     font-weight:700;
-    color:var(--navy);
+    color: #ffffff; /* Warna teks kolom pertama diubah putih */
     font-family:'Space Grotesk';
-    border-right:1px solid rgba(18,32,62,0.24);
-  }
-
-  .application tbody td:nth-child(2) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    border-right: 1px solid rgba(255, 255, 255, 0.15); /* Garis batas kolom */
   }
 
   .application tr td:first-child,
@@ -1277,40 +1293,29 @@
     border-right: none;
   }
 
-  /* Make each application item look like a colorful pill/chip */
+  /* 4. PENYESUAIAN WARNA CHIPS/PILL AGAR KONTRAST DENGAN NAVY */
   .application td span{
     display:inline-block;
-    color:var(--navy);
+    color: #ffffff; /* Teks dalam chip menjadi putih */
+    background: rgba(255, 255, 255, 0.1); /* Background chip sedikit putih transparan */
     margin-bottom:8px;
     margin-right:8px;
     padding:10px 14px;
     border-radius:999px;
-    border:none;
     font-size:13px;
     font-weight:600;
     backdrop-filter: blur(2px);
   }
 
-  .application td span:nth-child(4n+1) {
-    border-color: rgba(15, 111, 244, 0.24);
-    color: #12386a;
-  }
-
-  .application td span:nth-child(4n+2) {
-    border-color: rgba(15, 111, 244, 0.24);
-    color: #12386a;
-  }
-
-
+  .application td span:nth-child(4n+1),
+  .application td span:nth-child(4n+2),
   .application td span:nth-child(4n+3) {
-    border-color: rgba(15, 111, 244, 0.24);
-    color: #12386a;
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
-
 
   .application td span:nth-child(4n) {
-    border-color: rgba(140, 204, 63, 0.22);
-    color: #3b5d16;
+    border: 1px solid rgba(140, 204, 63, 0.4);
+    color: var(--lime-2, #a7f0bd); /* Warna hijau terang untuk item ke-4 */
   }
 
   /* Center chips horizontally within the Application column */
@@ -1330,8 +1335,14 @@
       justify-content: flex-start;
     }
   }
-  .entries-count{margin-top:16px;margin-bottom:10px;font-size:12.5px;color:var(--muted);font-family:'JetBrains Mono';}
-
+  
+  .entries-count{
+    margin-top:16px;
+    margin-bottom:10px;
+    font-size:12.5px;
+    color: var(--white); /* Diubah jadi putih agar terlihat di atas background foto */
+    font-family:'JetBrains Mono';
+  }
   /* ===== CAREER ===== */
   .career{background:var(--navy);color:#fff;}
   .career .section-head h2{color:#fff;}
