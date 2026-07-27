@@ -569,17 +569,35 @@ if (dropdownLinks.length > 0) {
   startAutoplay();
 })();
 
-// ===== 10. ACCORDION "ABOUT US" — HANYA SATU YANG BISA TERBUKA =====
+// ===== 10. ACCORDION "ABOUT US" WITH TOGGLE SWITCH =====
 (function(){
   const accordionItems = document.querySelectorAll('.about-grid .accordion-item');
+  const toggleInput = document.getElementById('accordionToggle');
+  const toggleStatus = document.getElementById('toggleStatus');
 
   if (accordionItems.length === 0) return;
 
+  // 1. Logika untuk mengubah teks label (Disabled / Enabled) saat sakelar diklik
+  if (toggleInput && toggleStatus) {
+    toggleInput.addEventListener('change', function() {
+      if (this.checked) {
+        toggleStatus.textContent = 'Enabled';
+        toggleStatus.style.color = 'var(--blue-deep)';
+      } else {
+        toggleStatus.textContent = 'Disabled';
+        toggleStatus.style.color = 'var(--muted)';
+      }
+    });
+  }
+
+  // 2. Logika membuka/menutup item accordion
   accordionItems.forEach(item => {
-    // Event 'toggle' otomatis terpicu tiap kali <details> dibuka ATAU ditutup
     item.addEventListener('toggle', function () {
-      // Hanya proses ketika item ini BARU SAJA dibuka
-      if (this.open) {
+      const isAlwaysOpenEnabled = toggleInput && toggleInput.checked;
+
+      // Jika fitur 'Column remains open' DISABLED (default):
+      // Hanya tutup item lain jika item yang ini BARU SAJA dibuka
+      if (this.open && !isAlwaysOpenEnabled) {
         accordionItems.forEach(other => {
           if (other !== this && other.hasAttribute('open')) {
             other.removeAttribute('open');

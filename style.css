@@ -443,6 +443,34 @@
     margin-bottom:40px;
     font-weight:400;
   }   
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 28px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    margin-bottom: 35px;
+    transition: all 0.25s ease;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+  }
+  .btn-secondary:hover {
+    background: var(--white);
+    color: var(--navy);
+    border-color: var(--white);
+    transform: translateY(-2px);
+  }
   .hero-tags{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px;}
   .hero-tags span {
   font-family: inherit; /* Akan otomatis mengikuti font tulisan atas dan bawahnya */
@@ -452,6 +480,19 @@
   padding: 5px 10px; 
   color: var(--c); /* Biarkan menggunakan warna biru bawaanmu */
   border-radius: 8px;
+  .hero-tags .tag-chip {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    color: var(--c);
+    background: rgba(0, 174, 239, 0.1);
+    border: 1px solid rgba(0, 174, 239, 0.3);
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+  }
   
   /* --- TAMBAHAN UNTUK MENGHILANGKAN PUTIH-PUTIH --- */
   text-shadow: none !important; 
@@ -570,6 +611,13 @@
   .why-grid{grid-template-columns:1fr !important;gap:30px;}
 }
 
+/* Penyesuaian responsif tampilan list di mobile */
+@media screen and (max-width: 576px) {
+  .ethic-list {
+    grid-template-columns: 1fr;
+  }
+}
+
   /* ===== SECTION SHELL ===== */
   section{padding:25px 60px;position:relative;}
   .section-head{max-width:640px;margin-bottom:64px;}
@@ -586,6 +634,45 @@
   /* .about-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:var(--white);border:2px solid rgb(32, 42, 161);border-radius:999px;font-size:13px;font-weight:600;color:var(--navy);} */
   .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:start;}
 
+  /* Formatting Visi & Misi di dalam accordion */
+  .about .label-accent {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--blue-deep);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .about .divider-line {
+    height: 1px;
+    background: var(--line);
+    margin: 14px 0;
+    width: 100%;
+  }
+  /* Styling List Work Ethic agar modern & rapi */
+  .ethic-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 16px;
+    margin-top: 12px;
+    list-style: none;
+    padding: 0;
+  }
+  .ethic-list li {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ethic-list li::before {
+    content: "✦";
+    color: var(--blue);
+    font-size: 12px;
+  }
     /* 1. Kontainer utama: Menggunakan Grid untuk animasi tinggi */
   .accordion-item{
     border-bottom: 1.5px solid black;
@@ -655,6 +742,72 @@
     color:var(--muted);
     font-size:15px;
     max-width:460px;}
+  
+  /* ===== ACCORDION TOGGLE SWITCH ===== */
+  .accordion-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .toggle-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    transition: color 0.3s ease;
+  }
+
+  /* Kustomisasi Sakelar Toggle HTML */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+  }
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--line);
+    transition: 0.3s ease;
+    border-radius: 22px;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--white);
+    transition: 0.3s ease;
+    border-radius: 50%;
+  }
+
+  /* Status Dicentang (Enabled) */
+  .switch input:checked+.slider {
+    background-color: var(--blue-deep);
+  }
+  .switch input:checked+.slider:before {
+    transform: translateX(20px);
+  }
+
+
   .about-photo-frame{
     position:relative;
     background:var(--navy);
@@ -1786,6 +1939,16 @@
     margin: 0 auto 24px auto !important;
     max-width: 100%;
     color: rgba(255, 255, 255, 0.9);
+  }
+  .hero-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .btn-secondary {
+    width: 100%;
+    max-width: 290px;
+    margin-bottom: 10px;
   }
 
   /* 5. PERBAIKAN TAG LAYANAN (Offset, Flexo, Security Printing) */
