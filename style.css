@@ -919,7 +919,7 @@
     z-index: 2;
   }
 
-  .services .section-head h2{color:var(--paper);}
+  .services .section-head h2{color:var(--paper);font-size: 55px;font-weight:800;letter-spacing:-1.5px;margin-top:-10px;max-width:100px;}
   .services .section-head p{color:rgba(255,255,255,.6);}
   .services .eyebrow{color:var(--lime-2);}
   .services .eyebrow::before{background:var(--lime-2);}
@@ -1226,16 +1226,12 @@
   .carousel-btn:hover{background:var(--navy);color:#fff;}
 
   .project-card{
-    position:relative;
-    background:var(--white);
-    border:1px solid rgba(18,32,62,.08);
-    border-radius:12px;
-    overflow:hidden;
-    transition:transform .28s ease;
-    display:flex;
-    flex-direction:column;
-    height:max-content;
-    min-width:0;
+    background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   .project-card:hover{transform:translateY(-3px);}
   .project-card .project-trigger{
@@ -1366,7 +1362,7 @@
     height: 150%;
     z-index: 0;
     background-image:
-      linear-gradient(rgba(18, 32, 62, 0.642), rgba(18, 32, 62, 0.724)),
+      linear-gradient(rgba(5, 18, 44, 0.918), rgba(10, 21, 41, 0.717)),
       url('assets/Produksi_images.jpg');
     background-size: cover;
     background-position: center center;
@@ -1409,7 +1405,7 @@
     border-spacing:0;
     table-layout: fixed;
     
-    background: rgba(18, 32, 62, 0.50); /* Angka 0.70 adalah tingkat transparansinya (70%) */
+    background: rgba(35, 59, 111, 0.50); /* Angka 0.70 adalah tingkat transparansinya (70%) */
     backdrop-filter: blur(5px); /* Memberikan efek blur di belakang tabel */    color: #ffffff; /* Warna teks dasar di tabel menjadi putih */
     border-radius: 16px; /* Memberikan efek lengkung pada sudut tabel agar manis */
     overflow: hidden; 
@@ -1426,7 +1422,7 @@
 
   /* 3. UBAH WARNA GARIS PEMBATAS MENJADI TERANG */
   .application thead th {
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Garis putih transparan */
+    border-bottom: 1px solid rgba(17, 59, 227, 0.897); /* Garis putih transparan */
     padding-top: 22px;
     padding-bottom: 22px;
     color: #ffffff;
@@ -1459,7 +1455,7 @@
     font-weight:700;
     color: #ffffff; /* Warna teks kolom pertama diubah putih */
     font-family:'Space Grotesk';
-    border-right: 1px solid rgba(255, 255, 255, 0.15); /* Garis batas kolom */
+    border-right: 1px solid rgba(17, 125, 227, 0.897); /* Garis batas kolom */
   }
 
   .application tr td:first-child,

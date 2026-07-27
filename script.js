@@ -607,3 +607,62 @@ if (dropdownLinks.length > 0) {
     });
   });
 })();
+
+// ===== PORTFOLIO DROPDOWN & MODAL LIGHTBOX LOGIC =====
+(function() {
+  const portfolioCards = document.querySelectorAll('.portfolio-card');
+  const modal = document.getElementById('portfolioModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalClose = document.querySelector('.modal-close-btn');
+
+  if (!portfolioCards.length) return;
+
+  portfolioCards.forEach(card => {
+    const toggleBtn = card.querySelector('.dropdown-toggle-btn');
+    const imageWrapper = card.querySelector('.card-image-wrapper');
+    const titleText = card.querySelector('.card-title-row h4').innerText;
+    const descText = card.querySelector('.card-dropdown-content p').innerText;
+    const imgSrc = card.querySelector('.card-image-wrapper img').src;
+
+    // 1. Toggle Dropdown saat tombol panah diklik
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // Mencegah pemicu event modal
+        card.classList.toggle('open');
+      });
+    }
+
+    // 2. Pop-up Modal saat Gambar diklik
+    if (imageWrapper && modal) {
+      imageWrapper.addEventListener('click', function() {
+        modalImg.src = imgSrc;
+        modalTitle.innerText = titleText;
+        modalDesc.innerText = descText;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Kunci scroll halaman belakang
+      });
+    }
+  });
+
+  // 3. Menutup Modal Pop-up (Tombol X atau klik di luar gambar)
+  if (modalClose) {
+    modalClose.addEventListener('click', closeModal);
+  }
+
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  }
+
+  function closeModal() {
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = ''; // Kembalikan scroll
+    }
+  }
+})();
