@@ -569,17 +569,35 @@ if (dropdownLinks.length > 0) {
   startAutoplay();
 })();
 
-// ===== 10. ACCORDION "ABOUT US" — HANYA SATU YANG BISA TERBUKA =====
+// ===== 10. ACCORDION "ABOUT US" WITH TOGGLE SWITCH =====
 (function(){
   const accordionItems = document.querySelectorAll('.about-grid .accordion-item');
+  const toggleInput = document.getElementById('accordionToggle');
+  const toggleStatus = document.getElementById('toggleStatus');
 
   if (accordionItems.length === 0) return;
 
+  // 1. Logika untuk mengubah teks label (Disabled / Enabled) saat sakelar diklik
+  if (toggleInput && toggleStatus) {
+    toggleInput.addEventListener('change', function() {
+      if (this.checked) {
+        toggleStatus.textContent = 'Enabled';
+        toggleStatus.style.color = 'var(--blue-deep)';
+      } else {
+        toggleStatus.textContent = 'Disabled';
+        toggleStatus.style.color = 'var(--muted)';
+      }
+    });
+  }
+
+  // 2. Logika membuka/menutup item accordion
   accordionItems.forEach(item => {
-    // Event 'toggle' otomatis terpicu tiap kali <details> dibuka ATAU ditutup
     item.addEventListener('toggle', function () {
-      // Hanya proses ketika item ini BARU SAJA dibuka
-      if (this.open) {
+      const isAlwaysOpenEnabled = toggleInput && toggleInput.checked;
+
+      // Jika fitur 'Column remains open' DISABLED (default):
+      // Hanya tutup item lain jika item yang ini BARU SAJA dibuka
+      if (this.open && !isAlwaysOpenEnabled) {
         accordionItems.forEach(other => {
           if (other !== this && other.hasAttribute('open')) {
             other.removeAttribute('open');
@@ -588,4 +606,63 @@ if (dropdownLinks.length > 0) {
       }
     });
   });
+})();
+
+// ===== PORTFOLIO DROPDOWN & MODAL LIGHTBOX LOGIC =====
+(function() {
+  const portfolioCards = document.querySelectorAll('.portfolio-card');
+  const modal = document.getElementById('portfolioModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalClose = document.querySelector('.modal-close-btn');
+
+  if (!portfolioCards.length) return;
+
+  portfolioCards.forEach(card => {
+    const toggleBtn = card.querySelector('.dropdown-toggle-btn');
+    const imageWrapper = card.querySelector('.card-image-wrapper');
+    const titleText = card.querySelector('.card-title-row h4').innerText;
+    const descText = card.querySelector('.card-dropdown-content p').innerText;
+    const imgSrc = card.querySelector('.card-image-wrapper img').src;
+
+    // 1. Toggle Dropdown saat tombol panah diklik
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // Mencegah pemicu event modal
+        card.classList.toggle('open');
+      });
+    }
+
+    // 2. Pop-up Modal saat Gambar diklik
+    if (imageWrapper && modal) {
+      imageWrapper.addEventListener('click', function() {
+        modalImg.src = imgSrc;
+        modalTitle.innerText = titleText;
+        modalDesc.innerText = descText;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Kunci scroll halaman belakang
+      });
+    }
+  });
+
+  // 3. Menutup Modal Pop-up (Tombol X atau klik di luar gambar)
+  if (modalClose) {
+    modalClose.addEventListener('click', closeModal);
+  }
+
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  }
+
+  function closeModal() {
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = ''; // Kembalikan scroll
+    }
+  }
 })();
