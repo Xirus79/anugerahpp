@@ -1500,7 +1500,7 @@
 
   /* 4. PENYESUAIAN TEKS MENJADI LIST DENGAN TITIK (BULLET DOT) */
   .application td span {
-    display: inline-flex; /* Menggunakan flex agar titik dan teks sejajar secara horizontal */
+    display: inline-block; /* Menggunakan flex agar titik dan teks sejajar secara horizontal */
     align-items: center;
     gap: 8px; /* Mengatur jarak antara titik dan huruf pertama teks */
     color: var(--white); /* Warna teks putih agar kontras di atas background foto */
@@ -1508,16 +1508,20 @@
     margin-right: 16px; /* Jarak yang cukup antar item agar tidak berdempetan */
     font-size: 13.5px;
     font-weight: 600;
+    text-align: center; /* Memastikan jika teks turun baris, posisinya tetap di tengah */
   }
 
   /* Membuat elemen titik bulat sebelum teks */
   .application td span::before {
     content: "";
-    display: block;
-    width: 5px;  /* Lebar titik */
+    display: inline-block; /* Titik ikut menjadi bagian dari alur teks */    width: 5px;  /* Lebar titik */
     height: 5px; /* Tinggi titik */
     background-color: var(--c); /* Warna titik otomatis mengikuti warna teksnya */
     border-radius: 50%; /* Membuat sudutnya melengkung 100% (bulat sempurna) */
+    margin-right: 8px; /* Jarak antara titik dan huruf pertama */
+    vertical-align: middle; /* Sejajarkan titik dengan tinggi huruf */
+    position: relative;
+    top: -1px; /* Mengangkat titik sedikit ke atas agar sejajar sempurna di mata */
   }
 
   /* Memastikan tidak ada sisa border/garis tepi dari kode sebelumnya */
