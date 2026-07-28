@@ -166,6 +166,31 @@ if (serviceTabs.length > 0) {
     resizeTimer = setTimeout(buildPages, 250);
   });
 
+  /* === TAMBAHKAN KODE SWIPE PROJECT DI SINI === */
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  track.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, {passive: true});
+  
+  track.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, {passive: true});
+  
+  function handleSwipe() {
+    const swipeDistance = touchEndX - touchStartX;
+    const minDistance = 50; // Jarak minimal jari bergeser agar terhitung (50px)
+    
+    if (swipeDistance < -minDistance) {
+      nextPage(); // Geser ke kiri -> slide selanjutnya
+    } else if (swipeDistance > minDistance) {
+      prevPage(); // Geser ke kanan -> slide sebelumnya
+    }
+  }
+  /* =========================================== */
+
   buildPages();
 })();
 
@@ -320,6 +345,33 @@ if (serviceTabs.length > 0) {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(buildClientPages, 250);
   });
+
+  /* === TAMBAHKAN KODE SWIPE CLIENT DI SINI === */
+  let clientTouchStartX = 0;
+  let clientTouchEndX = 0;
+  
+  track.addEventListener('touchstart', e => {
+    clientTouchStartX = e.changedTouches[0].screenX;
+    stopAutoplay(); // Hentikan autoplay saat jari menempel
+  }, {passive: true});
+  
+  track.addEventListener('touchend', e => {
+    clientTouchEndX = e.changedTouches[0].screenX;
+    handleClientSwipe();
+    if (totalPages > 1) startAutoplay(); // Lanjutkan autoplay saat jari dilepas
+  }, {passive: true});
+  
+  function handleClientSwipe() {
+    const swipeDistance = clientTouchEndX - clientTouchStartX;
+    const minDistance = 40; // Dibuat sedikit lebih sensitif untuk klien
+    
+    if (swipeDistance < -minDistance) {
+      nextPage();
+    } else if (swipeDistance > minDistance) {
+      prevPage();
+    }
+  }
+  /* =========================================== */
 
   // Init pertama kali
   buildClientPages();
