@@ -2195,6 +2195,7 @@ body.is-zoomed .project-viewport {
   .project-card.is-hidden {
     display: none !important; /* Kartu yang tidak cocok akan benar-benar sembunyi */
   }
+  
   .service-col,
 
   /* 1. Beri jarak antara About dengan About Design */
