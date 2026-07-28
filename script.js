@@ -130,6 +130,36 @@ if (serviceTabs.length > 0) {
     carouselWrap.addEventListener('mouseleave', () => { if (totalPages > 1) startAutoplay(); });
   }
 
+  // ==========================================
+  // --- TAMBAHAN LOGIKA SWIPE (TOUCH) ---
+  // ==========================================
+  let touchStartX = 0;
+  let touchEndX = 0;
+  // 1. Catat titik koordinat X saat jari pertama kali menyentuh layar
+  track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoplay(); // Hentikan pergerakan otomatis saat layar sedang disentuh
+  }, { passive: true });
+  // 2. Terus perbarui koordinat X saat jari bergeser
+  track.addEventListener('touchmove', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  // 3. Eksekusi perpindahan saat jari dilepas dari layar
+  track.addEventListener('touchend', () => {
+    const swipeThreshold = 50; // Jarak minimal geseran (dalam pixel) agar dianggap valid
+    // Jika jarak sentuh awal dikurangi jarak akhir melebihi threshold (Geser Kiri)
+    if (touchStartX - touchEndX > swipeThreshold) {
+      nextPage();
+    } 
+    // Jika jarak sentuh akhir dikurangi jarak awal melebihi threshold (Geser Kanan)
+    else if (touchEndX - touchStartX > swipeThreshold) {
+      prevPage();
+    }
+    // Lanjutkan kembali autoplay setelah selesai swipe
+    if (totalPages > 1) startAutoplay();
+  });
+  // ==========================================
+
   if (filterTabs.length){
     filterTabs.forEach(btn => {
       btn.addEventListener('click', () => {
