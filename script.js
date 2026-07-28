@@ -130,6 +130,36 @@ if (serviceTabs.length > 0) {
     carouselWrap.addEventListener('mouseleave', () => { if (totalPages > 1) startAutoplay(); });
   }
 
+  // ==========================================
+  // --- TAMBAHAN LOGIKA SWIPE (TOUCH) ---
+  // ==========================================
+  let touchStartX = 0;
+  let touchEndX = 0;
+  // 1. Catat titik koordinat X saat jari pertama kali menyentuh layar
+  track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoplay(); // Hentikan pergerakan otomatis saat layar sedang disentuh
+  }, { passive: true });
+  // 2. Terus perbarui koordinat X saat jari bergeser
+  track.addEventListener('touchmove', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  // 3. Eksekusi perpindahan saat jari dilepas dari layar
+  track.addEventListener('touchend', () => {
+    const swipeThreshold = 50; // Jarak minimal geseran (dalam pixel) agar dianggap valid
+    // Jika jarak sentuh awal dikurangi jarak akhir melebihi threshold (Geser Kiri)
+    if (touchStartX - touchEndX > swipeThreshold) {
+      nextPage();
+    } 
+    // Jika jarak sentuh akhir dikurangi jarak awal melebihi threshold (Geser Kanan)
+    else if (touchEndX - touchStartX > swipeThreshold) {
+      prevPage();
+    }
+    // Lanjutkan kembali autoplay setelah selesai swipe
+    if (totalPages > 1) startAutoplay();
+  });
+  // ==========================================
+
   if (filterTabs.length){
     filterTabs.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -668,75 +698,121 @@ if (dropdownLinks.length > 0) {
   });
 })();
 
-
-/// ===== IMAGE FOCUS MODE (ZOOM 1.5X & DARK BACKDROP) =====
+// ===== IMAGE FOCUS MODE (CENTER ZOOM & CAPTION VIA CLONE) =====
 (function() {
   const overlay = document.getElementById('focusOverlay');
   const projectTrack = document.getElementById('projectTrack');
 
   if (!overlay || !projectTrack) return;
 
-  let activeFocusedWrapper = null;
-  let activeFocusedCard = null; // Tambahan variabel baru
+  let activeClone = null;
+  let activeCaption = null; // Menyimpan elemen teks caption
   let startScrollY = 0;
 
-  // 1. Klik Gambar untuk Zoom 1.5x & Gelapkan Sekitar
   projectTrack.addEventListener('click', (e) => {
     const imgWrapper = e.target.closest('.card-image-wrapper');
     if (!imgWrapper) return;
 
-    if (imgWrapper === activeFocusedWrapper) {
+    if (activeClone) {
       closeFocus();
       return;
     }
 
-    closeFocus(); 
+    // A. Ambil Data Teks dari Kartu yang Diklik
+    const card = imgWrapper.closest('.project-card');
+    const titleText = card.querySelector('.card-title-row h4').innerText;
+    const descText = card.querySelector('.card-dropdown-content p').innerText;
 
-    activeFocusedWrapper = imgWrapper;
-    activeFocusedCard = imgWrapper.closest('.project-card');
-    
-    // SUNTIKAN CLASS PENDOBRAK Z-INDEX
-    document.body.classList.add('is-zoomed');
-    if (activeFocusedCard) activeFocusedCard.classList.add('is-focused-parent');
-    
-    imgWrapper.classList.add('is-focused');
+    // B. Ambil Posisi Gambar Asli
+    const rect = imgWrapper.getBoundingClientRect();
+
+    // C. Buat Clone Gambar
+    activeClone = imgWrapper.cloneNode(true);
+    const textOverlay = activeClone.querySelector('.image-overlay');
+    if (textOverlay) textOverlay.style.display = 'none';
+
+    activeClone.style.position = 'fixed';
+    activeClone.style.top = rect.top + 'px';
+    activeClone.style.left = rect.left + 'px';
+    activeClone.style.width = rect.width + 'px';
+    activeClone.style.height = rect.height + 'px';
+    activeClone.style.margin = '0';
+    activeClone.style.zIndex = '99999';
+    activeClone.style.cursor = 'zoom-out';
+    activeClone.style.boxShadow = '0 25px 60px rgba(0,0,0,0.9)';
+    activeClone.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease';
+
+    document.body.appendChild(activeClone);
+
+    // D. Buat dan Masukkan Elemen Caption
+    activeCaption = document.createElement('div');
+    activeCaption.className = 'focus-caption';
+    activeCaption.innerHTML = `<h4>${titleText}</h4><p>${descText}</p>`;
+    document.body.appendChild(activeCaption);
+
+    // E. Tampilkan Latar Gelap
     overlay.classList.add('active');
     overlay.style.opacity = '1';
 
+    // F. PERHITUNGAN MATEMATIKA: Bawa Gambar ke Tengah Layar
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const cloneCenterX = rect.left + (rect.width / 2);
+    const cloneCenterY = rect.top + (rect.height / 2);
+    
+    // Jarak pixel yang harus digeser (Translate)
+    const translateX = centerX - cloneCenterX;
+    const translateY = centerY - cloneCenterY - 30; // -30px agar naik sedikit memberi ruang untuk caption
+
+    // Pancing browser merender posisi
+    activeClone.getBoundingClientRect();
+
+    // G. Animasi ke Tengah & Tampilkan Teks
+    // scale(1.6) memperbesar gambar, translate memindahkannya
+    activeClone.style.transform = `translate(${translateX}px, ${translateY}px) scale(1.6)`;
+    activeCaption.classList.add('show');
+
     startScrollY = window.scrollY;
     window.addEventListener('scroll', handleScrollFade);
+
+    activeClone.addEventListener('click', closeFocus);
   });
 
-  // 2. Klik di luar gambar (Latar Gelap) untuk keluar
   overlay.addEventListener('click', closeFocus);
 
-  // 3. Efek Hilang Perlahan saat Di-scroll
   function handleScrollFade() {
-    if (!activeFocusedWrapper) return;
-
+    if (!activeClone) return;
     const scrollDistance = Math.abs(window.scrollY - startScrollY);
-    const fadeThreshold = 120; 
-
+    const fadeThreshold = 120;
     let newOpacity = 1 - (scrollDistance / fadeThreshold);
 
     if (newOpacity <= 0) {
       closeFocus();
     } else {
       overlay.style.opacity = newOpacity;
+      activeClone.style.opacity = newOpacity;
+      if (activeCaption) activeCaption.style.opacity = newOpacity;
     }
   }
 
   function closeFocus() {
-    if (activeFocusedWrapper) {
-      activeFocusedWrapper.classList.remove('is-focused');
-      activeFocusedWrapper = null;
+    if (activeClone) {
+      // Animasi kembalikan ke tempat asal
+      activeClone.style.transform = 'translate(0px, 0px) scale(1)';
+      activeClone.style.opacity = '0';
+      if (activeCaption) activeCaption.classList.remove('show');
+
+      // Hapus elemen clone dan caption setelah animasi CSS selesai
+      const cloneToRemove = activeClone;
+      const captionToRemove = activeCaption;
+      setTimeout(() => {
+        if (cloneToRemove && cloneToRemove.parentNode) cloneToRemove.parentNode.removeChild(cloneToRemove);
+        if (captionToRemove && captionToRemove.parentNode) captionToRemove.parentNode.removeChild(captionToRemove);
+      }, 400);
+
+      activeClone = null;
+      activeCaption = null;
     }
-    // BERSIHKAN CLASS PENDOBRAK SAAT DITUTUP
-    if (activeFocusedCard) {
-      activeFocusedCard.classList.remove('is-focused-parent');
-      activeFocusedCard = null;
-    }
-    document.body.classList.remove('is-zoomed');
     
     overlay.classList.remove('active');
     overlay.style.opacity = '0';
