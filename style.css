@@ -1394,6 +1394,38 @@ margin-left: 18px;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
+/* ===== CAPTION UNTUK MODE FOKUS ===== */
+.focus-caption {
+  position: fixed;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  color: #ffffff;
+  text-align: center;
+  width: 90%;
+  max-width: 650px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.focus-caption h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: #ffffff;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+}
+.focus-caption p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+}
+.focus-caption.show {
+  opacity: 1;
+}
 .focus-overlay.active {
   opacity: 1;
   pointer-events: auto;
@@ -1442,15 +1474,6 @@ body.is-zoomed .project-viewport {
     overflow: hidden;
     isolation: isolate;
     display: flex;
-    /* 1. GANTI BACKGROUND MENJADI GAMBAR 
-    background-image: 
-    linear-gradient(rgba(18, 32, 62, 0.642), rgba(18, 32, 62, 0.724)),    url('assets/Produksi_images.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* Opsional: Tambahkan efek gelap (overlay) jika foto terlalu terang */
-    /* background-color: rgba(8, 18, 35, 0.6); */
-    /* background-blend-mode: overlay; */
     flex-direction: column;
     align-items: center;
     width: 100%;
