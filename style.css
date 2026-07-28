@@ -1724,6 +1724,17 @@
     padding-bottom: 50px;
   }
 
+    /* Membersihkan background putih dan jarak pada logo di footer */
+  .footer-grid img {
+    background: transparent !important; /* Membuang kotak background putih */
+    padding: 0 !important; /* Menghapus jarak dalam yang membuat logo terdorong ke kanan */
+    margin-left: 0 !important; /* Memastikan posisinya rata kiri sejajar dengan teks di bawahnya */
+    width: auto !important; /* Memastikan lebarnya pas dengan ukuran aslinya */
+    max-width: 180px; /* Batasi maksimal besarnya agar tidak raksasa, silakan sesuaikan angkanya */
+    display: block; 
+    margin-bottom: 0px; /* Jarak antara logo dan teks "Trusted partner..." */
+  }
+
 .contact-line{
   display:flex;
   align-items:center;
