@@ -762,14 +762,20 @@ if (dropdownLinks.length > 0) {
     
     // Jarak pixel yang harus digeser (Translate)
     const translateX = centerX - cloneCenterX;
-    const translateY = centerY - cloneCenterY - 30; // -30px agar naik sedikit memberi ruang untuk caption
+    const translateY = centerY - cloneCenterY - 50; // -30px agar naik sedikit memberi ruang untuk caption
 
     // Pancing browser merender posisi
     activeClone.getBoundingClientRect();
 
     // G. Animasi ke Tengah & Tampilkan Teks
-    // scale(1.6) memperbesar gambar, translate memindahkannya
-    activeClone.style.transform = `translate(${translateX}px, ${translateY}px) scale(1.6)`;
+    // --- Logika Pendeteksi Layar ---
+    let zoomScale = 3; // Rasio zoom untuk Desktop (Silakan ubah sesuai seleramu)
+    
+    // Jika lebar layar 768px ke bawah (berarti ini HP / Mobile)
+    if (window.innerWidth <= 768) {
+      zoomScale = 1.2; // Rasio zoom untuk Mobile (Dikecilkan agar pas di HP)
+    }
+    activeClone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${zoomScale})`;
     activeCaption.classList.add('show');
 
     startScrollY = window.scrollY;
