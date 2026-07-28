@@ -2195,6 +2195,25 @@
   .contact-form button[type="submit"],
   #contactForm button[type="submit"] {
     width: 100% !important;
-    /* Paksa tombol memanjang penuh selebar layar di handphone */
+  }
+
+} /* Ini adalah kurung kurawal penutup untuk @media screen and (max-width: 768px) */
+
+
+/* === KODE PAKSAAN UNTUK MENGHAPUS PANAH DI HP === */
+/* PASTIKAN KODE INI BERADA DI LUAR KURUNG KURAWAL APAPUN */
+@media screen and (max-width: 960px) {
+  .nav-caret,
+  .header-nav ul.nav-links li.dropdown-container a.dropdown-toggle .nav-caret,
+  .nav-links .dropdown-toggle .nav-caret {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    content: none !important;
   }
 }
