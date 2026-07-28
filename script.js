@@ -12,7 +12,7 @@ if (serviceTabs.length > 0) {
   });
 }
 
-// ===== 2. PROJECT CAROUSEL (mengikuti pola client-carousel) =====
+// ===== 2. PORTFOLIO CAROUSEL, FILTER, DROPDOWN & MODAL =====
 (function(){
   const source = document.getElementById('projectSource');
   const track = document.getElementById('projectTrack');
@@ -87,7 +87,7 @@ if (serviceTabs.length > 0) {
     if (totalPages > 1) startAutoplay();
   }
   
-    track.addEventListener('transitionend', () => {
+  track.addEventListener('transitionend', () => {
     isTransitioning = false;
   });
 
@@ -141,56 +141,32 @@ if (serviceTabs.length > 0) {
     });
   }
 
-  track.addEventListener('click', (event) => {
-    const trigger = event.target.closest('.project-trigger');
-    if (!trigger) return;
-    const card = trigger.closest('.project-card');
-    if (!card) return;
-
-    const isOpen = card.classList.contains('is-open');
-    track.querySelectorAll('.project-card').forEach(item => {
-      item.classList.remove('is-open');
-      const itemTrigger = item.querySelector('.project-trigger');
-      if (itemTrigger) itemTrigger.setAttribute('aria-expanded', 'false');
-    });
-
-    if (!isOpen) {
-      card.classList.add('is-open');
-      trigger.setAttribute('aria-expanded', 'true');
-    }
-  });
-
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(buildPages, 250);
   });
 
-  /* === TAMBAHKAN KODE SWIPE PROJECT DI SINI === */
-  let touchStartX = 0;
-  let touchEndX = 0;
-  
-  track.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, {passive: true});
-  
-  track.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }, {passive: true});
-  
-  function handleSwipe() {
-    const swipeDistance = touchEndX - touchStartX;
-    const minDistance = 50; // Jarak minimal jari bergeser agar terhitung (50px)
-    
-    if (swipeDistance < -minDistance) {
-      nextPage(); // Geser ke kiri -> slide selanjutnya
-    } else if (swipeDistance > minDistance) {
-      prevPage(); // Geser ke kanan -> slide sebelumnya
+  // --- EVENT DELEGATION UNTUK INTERAKSI PORTFOLIO BARU ---
+  track.addEventListener('click', (event) => {
+    // 1. Logika Klik Tombol Dropdown
+    const toggleBtn = event.target.closest('.dropdown-toggle-btn');
+    if (toggleBtn) {
+      event.stopPropagation(); // Cegah merembet ke gambar
+      const card = toggleBtn.closest('.project-card');
+      
+      // Tutup kartu lain (opsional, jika ingin satu-satu terbuka)
+      track.querySelectorAll('.project-card').forEach(item => {
+        if (item !== card) item.classList.remove('open');
+      });
+      
+      if (card) card.classList.toggle('open');
+      return;
     }
-  }
-  /* =========================================== */
 
+  });
+
+  // Render awal
   buildPages();
 })();
 
@@ -692,61 +668,78 @@ if (dropdownLinks.length > 0) {
   });
 })();
 
-// ===== PORTFOLIO DROPDOWN & MODAL LIGHTBOX LOGIC =====
+
+/// ===== IMAGE FOCUS MODE (ZOOM 1.5X & DARK BACKDROP) =====
 (function() {
-  const portfolioCards = document.querySelectorAll('.portfolio-card');
-  const modal = document.getElementById('portfolioModal');
-  const modalImg = document.getElementById('modalImg');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalDesc = document.getElementById('modalDesc');
-  const modalClose = document.querySelector('.modal-close-btn');
+  const overlay = document.getElementById('focusOverlay');
+  const projectTrack = document.getElementById('projectTrack');
 
-  if (!portfolioCards.length) return;
+  if (!overlay || !projectTrack) return;
 
-  portfolioCards.forEach(card => {
-    const toggleBtn = card.querySelector('.dropdown-toggle-btn');
-    const imageWrapper = card.querySelector('.card-image-wrapper');
-    const titleText = card.querySelector('.card-title-row h4').innerText;
-    const descText = card.querySelector('.card-dropdown-content p').innerText;
-    const imgSrc = card.querySelector('.card-image-wrapper img').src;
+  let activeFocusedWrapper = null;
+  let activeFocusedCard = null; // Tambahan variabel baru
+  let startScrollY = 0;
 
-    // 1. Toggle Dropdown saat tombol panah diklik
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', function(e) {
-        e.stopPropagation(); // Mencegah pemicu event modal
-        card.classList.toggle('open');
-      });
+  // 1. Klik Gambar untuk Zoom 1.5x & Gelapkan Sekitar
+  projectTrack.addEventListener('click', (e) => {
+    const imgWrapper = e.target.closest('.card-image-wrapper');
+    if (!imgWrapper) return;
+
+    if (imgWrapper === activeFocusedWrapper) {
+      closeFocus();
+      return;
     }
 
-    // 2. Pop-up Modal saat Gambar diklik
-    if (imageWrapper && modal) {
-      imageWrapper.addEventListener('click', function() {
-        modalImg.src = imgSrc;
-        modalTitle.innerText = titleText;
-        modalDesc.innerText = descText;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Kunci scroll halaman belakang
-      });
-    }
+    closeFocus(); 
+
+    activeFocusedWrapper = imgWrapper;
+    activeFocusedCard = imgWrapper.closest('.project-card');
+    
+    // SUNTIKAN CLASS PENDOBRAK Z-INDEX
+    document.body.classList.add('is-zoomed');
+    if (activeFocusedCard) activeFocusedCard.classList.add('is-focused-parent');
+    
+    imgWrapper.classList.add('is-focused');
+    overlay.classList.add('active');
+    overlay.style.opacity = '1';
+
+    startScrollY = window.scrollY;
+    window.addEventListener('scroll', handleScrollFade);
   });
 
-  // 3. Menutup Modal Pop-up (Tombol X atau klik di luar gambar)
-  if (modalClose) {
-    modalClose.addEventListener('click', closeModal);
-  }
+  // 2. Klik di luar gambar (Latar Gelap) untuk keluar
+  overlay.addEventListener('click', closeFocus);
 
-  if (modal) {
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-  }
+  // 3. Efek Hilang Perlahan saat Di-scroll
+  function handleScrollFade() {
+    if (!activeFocusedWrapper) return;
 
-  function closeModal() {
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = ''; // Kembalikan scroll
+    const scrollDistance = Math.abs(window.scrollY - startScrollY);
+    const fadeThreshold = 120; 
+
+    let newOpacity = 1 - (scrollDistance / fadeThreshold);
+
+    if (newOpacity <= 0) {
+      closeFocus();
+    } else {
+      overlay.style.opacity = newOpacity;
     }
+  }
+
+  function closeFocus() {
+    if (activeFocusedWrapper) {
+      activeFocusedWrapper.classList.remove('is-focused');
+      activeFocusedWrapper = null;
+    }
+    // BERSIHKAN CLASS PENDOBRAK SAAT DITUTUP
+    if (activeFocusedCard) {
+      activeFocusedCard.classList.remove('is-focused-parent');
+      activeFocusedCard = null;
+    }
+    document.body.classList.remove('is-zoomed');
+    
+    overlay.classList.remove('active');
+    overlay.style.opacity = '0';
+    window.removeEventListener('scroll', handleScrollFade);
   }
 })();
