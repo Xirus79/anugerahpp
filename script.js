@@ -12,7 +12,7 @@ if (serviceTabs.length > 0) {
   });
 }
 
-// ===== 2. PROJECT CAROUSEL (mengikuti pola client-carousel) =====
+// ===== 2. PORTFOLIO CAROUSEL, FILTER, DROPDOWN & MODAL =====
 (function(){
   const source = document.getElementById('projectSource');
   const track = document.getElementById('projectTrack');
@@ -87,7 +87,7 @@ if (serviceTabs.length > 0) {
     if (totalPages > 1) startAutoplay();
   }
   
-    track.addEventListener('transitionend', () => {
+  track.addEventListener('transitionend', () => {
     isTransitioning = false;
   });
 
@@ -130,6 +130,36 @@ if (serviceTabs.length > 0) {
     carouselWrap.addEventListener('mouseleave', () => { if (totalPages > 1) startAutoplay(); });
   }
 
+  // ==========================================
+  // --- TAMBAHAN LOGIKA SWIPE (TOUCH) ---
+  // ==========================================
+  let touchStartX = 0;
+  let touchEndX = 0;
+  // 1. Catat titik koordinat X saat jari pertama kali menyentuh layar
+  track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoplay(); // Hentikan pergerakan otomatis saat layar sedang disentuh
+  }, { passive: true });
+  // 2. Terus perbarui koordinat X saat jari bergeser
+  track.addEventListener('touchmove', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  // 3. Eksekusi perpindahan saat jari dilepas dari layar
+  track.addEventListener('touchend', () => {
+    const swipeThreshold = 50; // Jarak minimal geseran (dalam pixel) agar dianggap valid
+    // Jika jarak sentuh awal dikurangi jarak akhir melebihi threshold (Geser Kiri)
+    if (touchStartX - touchEndX > swipeThreshold) {
+      nextPage();
+    } 
+    // Jika jarak sentuh akhir dikurangi jarak awal melebihi threshold (Geser Kanan)
+    else if (touchEndX - touchStartX > swipeThreshold) {
+      prevPage();
+    }
+    // Lanjutkan kembali autoplay setelah selesai swipe
+    if (totalPages > 1) startAutoplay();
+  });
+  // ==========================================
+
   if (filterTabs.length){
     filterTabs.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -141,56 +171,32 @@ if (serviceTabs.length > 0) {
     });
   }
 
-  track.addEventListener('click', (event) => {
-    const trigger = event.target.closest('.project-trigger');
-    if (!trigger) return;
-    const card = trigger.closest('.project-card');
-    if (!card) return;
-
-    const isOpen = card.classList.contains('is-open');
-    track.querySelectorAll('.project-card').forEach(item => {
-      item.classList.remove('is-open');
-      const itemTrigger = item.querySelector('.project-trigger');
-      if (itemTrigger) itemTrigger.setAttribute('aria-expanded', 'false');
-    });
-
-    if (!isOpen) {
-      card.classList.add('is-open');
-      trigger.setAttribute('aria-expanded', 'true');
-    }
-  });
-
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(buildPages, 250);
   });
 
-  /* === TAMBAHKAN KODE SWIPE PROJECT DI SINI === */
-  let touchStartX = 0;
-  let touchEndX = 0;
-  
-  track.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, {passive: true});
-  
-  track.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }, {passive: true});
-  
-  function handleSwipe() {
-    const swipeDistance = touchEndX - touchStartX;
-    const minDistance = 50; // Jarak minimal jari bergeser agar terhitung (50px)
-    
-    if (swipeDistance < -minDistance) {
-      nextPage(); // Geser ke kiri -> slide selanjutnya
-    } else if (swipeDistance > minDistance) {
-      prevPage(); // Geser ke kanan -> slide sebelumnya
+  // --- EVENT DELEGATION UNTUK INTERAKSI PORTFOLIO BARU ---
+  track.addEventListener('click', (event) => {
+    // 1. Logika Klik Tombol Dropdown
+    const toggleBtn = event.target.closest('.dropdown-toggle-btn');
+    if (toggleBtn) {
+      event.stopPropagation(); // Cegah merembet ke gambar
+      const card = toggleBtn.closest('.project-card');
+      
+      // Tutup kartu lain (opsional, jika ingin satu-satu terbuka)
+      track.querySelectorAll('.project-card').forEach(item => {
+        if (item !== card) item.classList.remove('open');
+      });
+      
+      if (card) card.classList.toggle('open');
+      return;
     }
-  }
-  /* =========================================== */
 
+  });
+
+  // Render awal
   buildPages();
 })();
 
@@ -692,61 +698,130 @@ if (dropdownLinks.length > 0) {
   });
 })();
 
-// ===== PORTFOLIO DROPDOWN & MODAL LIGHTBOX LOGIC =====
+// ===== IMAGE FOCUS MODE (CENTER ZOOM & CAPTION VIA CLONE) =====
 (function() {
-  const portfolioCards = document.querySelectorAll('.portfolio-card');
-  const modal = document.getElementById('portfolioModal');
-  const modalImg = document.getElementById('modalImg');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalDesc = document.getElementById('modalDesc');
-  const modalClose = document.querySelector('.modal-close-btn');
+  const overlay = document.getElementById('focusOverlay');
+  const projectTrack = document.getElementById('projectTrack');
 
-  if (!portfolioCards.length) return;
+  if (!overlay || !projectTrack) return;
 
-  portfolioCards.forEach(card => {
-    const toggleBtn = card.querySelector('.dropdown-toggle-btn');
-    const imageWrapper = card.querySelector('.card-image-wrapper');
+  let activeClone = null;
+  let activeCaption = null; // Menyimpan elemen teks caption
+  let startScrollY = 0;
+
+  projectTrack.addEventListener('click', (e) => {
+    const imgWrapper = e.target.closest('.card-image-wrapper');
+    if (!imgWrapper) return;
+
+    if (activeClone) {
+      closeFocus();
+      return;
+    }
+
+    // A. Ambil Data Teks dari Kartu yang Diklik
+    const card = imgWrapper.closest('.project-card');
     const titleText = card.querySelector('.card-title-row h4').innerText;
     const descText = card.querySelector('.card-dropdown-content p').innerText;
-    const imgSrc = card.querySelector('.card-image-wrapper img').src;
 
-    // 1. Toggle Dropdown saat tombol panah diklik
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', function(e) {
-        e.stopPropagation(); // Mencegah pemicu event modal
-        card.classList.toggle('open');
-      });
-    }
+    // B. Ambil Posisi Gambar Asli
+    const rect = imgWrapper.getBoundingClientRect();
 
-    // 2. Pop-up Modal saat Gambar diklik
-    if (imageWrapper && modal) {
-      imageWrapper.addEventListener('click', function() {
-        modalImg.src = imgSrc;
-        modalTitle.innerText = titleText;
-        modalDesc.innerText = descText;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Kunci scroll halaman belakang
-      });
+    // C. Buat Clone Gambar
+    activeClone = imgWrapper.cloneNode(true);
+    const textOverlay = activeClone.querySelector('.image-overlay');
+    if (textOverlay) textOverlay.style.display = 'none';
+
+    activeClone.style.position = 'fixed';
+    activeClone.style.top = rect.top + 'px';
+    activeClone.style.left = rect.left + 'px';
+    activeClone.style.width = rect.width + 'px';
+    activeClone.style.height = rect.height + 'px';
+    activeClone.style.margin = '0';
+    activeClone.style.zIndex = '99999';
+    activeClone.style.cursor = 'zoom-out';
+    activeClone.style.boxShadow = '0 25px 60px rgba(0,0,0,0.9)';
+    activeClone.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease';
+
+    document.body.appendChild(activeClone);
+
+    // D. Buat dan Masukkan Elemen Caption
+    activeCaption = document.createElement('div');
+    activeCaption.className = 'focus-caption';
+    activeCaption.innerHTML = `<h4>${titleText}</h4><p>${descText}</p>`;
+    document.body.appendChild(activeCaption);
+
+    // E. Tampilkan Latar Gelap
+    overlay.classList.add('active');
+    overlay.style.opacity = '1';
+
+    // F. PERHITUNGAN MATEMATIKA: Bawa Gambar ke Tengah Layar
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const cloneCenterX = rect.left + (rect.width / 2);
+    const cloneCenterY = rect.top + (rect.height / 2);
+    
+    // Jarak pixel yang harus digeser (Translate)
+    const translateX = centerX - cloneCenterX;
+    const translateY = centerY - cloneCenterY - 50; // -30px agar naik sedikit memberi ruang untuk caption
+
+    // Pancing browser merender posisi
+    activeClone.getBoundingClientRect();
+
+    // G. Animasi ke Tengah & Tampilkan Teks
+    // --- Logika Pendeteksi Layar ---
+    let zoomScale = 3; // Rasio zoom untuk Desktop (Silakan ubah sesuai seleramu)
+    
+    // Jika lebar layar 768px ke bawah (berarti ini HP / Mobile)
+    if (window.innerWidth <= 768) {
+      zoomScale = 1.2; // Rasio zoom untuk Mobile (Dikecilkan agar pas di HP)
     }
+    activeClone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${zoomScale})`;
+    activeCaption.classList.add('show');
+
+    startScrollY = window.scrollY;
+    window.addEventListener('scroll', handleScrollFade);
+
+    activeClone.addEventListener('click', closeFocus);
   });
 
-  // 3. Menutup Modal Pop-up (Tombol X atau klik di luar gambar)
-  if (modalClose) {
-    modalClose.addEventListener('click', closeModal);
-  }
+  overlay.addEventListener('click', closeFocus);
 
-  if (modal) {
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-  }
+  function handleScrollFade() {
+    if (!activeClone) return;
+    const scrollDistance = Math.abs(window.scrollY - startScrollY);
+    const fadeThreshold = 120;
+    let newOpacity = 1 - (scrollDistance / fadeThreshold);
 
-  function closeModal() {
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = ''; // Kembalikan scroll
+    if (newOpacity <= 0) {
+      closeFocus();
+    } else {
+      overlay.style.opacity = newOpacity;
+      activeClone.style.opacity = newOpacity;
+      if (activeCaption) activeCaption.style.opacity = newOpacity;
     }
+  }
+
+  function closeFocus() {
+    if (activeClone) {
+      // Animasi kembalikan ke tempat asal
+      activeClone.style.transform = 'translate(0px, 0px) scale(1)';
+      activeClone.style.opacity = '0';
+      if (activeCaption) activeCaption.classList.remove('show');
+
+      // Hapus elemen clone dan caption setelah animasi CSS selesai
+      const cloneToRemove = activeClone;
+      const captionToRemove = activeCaption;
+      setTimeout(() => {
+        if (cloneToRemove && cloneToRemove.parentNode) cloneToRemove.parentNode.removeChild(cloneToRemove);
+        if (captionToRemove && captionToRemove.parentNode) captionToRemove.parentNode.removeChild(captionToRemove);
+      }, 400);
+
+      activeClone = null;
+      activeCaption = null;
+    }
+    
+    overlay.classList.remove('active');
+    overlay.style.opacity = '0';
+    window.removeEventListener('scroll', handleScrollFade);
   }
 })();
