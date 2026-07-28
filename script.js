@@ -322,6 +322,33 @@ if (serviceTabs.length > 0) {
     resizeTimer = setTimeout(buildClientPages, 250);
   });
 
+  /* === TAMBAHKAN KODE SWIPE CLIENT DI SINI === */
+  let clientTouchStartX = 0;
+  let clientTouchEndX = 0;
+  
+  track.addEventListener('touchstart', e => {
+    clientTouchStartX = e.changedTouches[0].screenX;
+    stopAutoplay(); // Hentikan autoplay saat jari menempel
+  }, {passive: true});
+  
+  track.addEventListener('touchend', e => {
+    clientTouchEndX = e.changedTouches[0].screenX;
+    handleClientSwipe();
+    if (totalPages > 1) startAutoplay(); // Lanjutkan autoplay saat jari dilepas
+  }, {passive: true});
+  
+  function handleClientSwipe() {
+    const swipeDistance = clientTouchEndX - clientTouchStartX;
+    const minDistance = 40; // Dibuat sedikit lebih sensitif untuk klien
+    
+    if (swipeDistance < -minDistance) {
+      nextPage();
+    } else if (swipeDistance > minDistance) {
+      prevPage();
+    }
+  }
+  /* =========================================== */
+
   // Init pertama kali
   buildClientPages();
 })();
@@ -566,6 +593,38 @@ if (dropdownLinks.length > 0) {
   // Jeda autoplay saat mouse di atas foto, lanjut lagi saat mouse pergi
   frame.addEventListener('mouseenter', stopAutoplay);
   frame.addEventListener('mouseleave', startAutoplay);
+  
+  /* === 1. TAMBAHKAN FUNGSI MUNDUR (PREV) DULU === */
+  function prev(){
+    goTo((current - 1 + slides.length) % slides.length);
+  }
+
+  /* === 2. KODE SWIPE ABOUT SLIDER === */
+  let aboutTouchStartX = 0;
+  let aboutTouchEndX = 0;
+  
+  frame.addEventListener('touchstart', e => {
+    aboutTouchStartX = e.changedTouches[0].screenX;
+    stopAutoplay(); // Hentikan pergantian otomatis saat disentuh
+  }, {passive: true});
+  
+  frame.addEventListener('touchend', e => {
+    aboutTouchEndX = e.changedTouches[0].screenX;
+    handleAboutSwipe();
+    startAutoplay(); // Lanjutkan putar otomatis setelah dilepas
+  }, {passive: true});
+  
+  function handleAboutSwipe() {
+    const swipeDistance = aboutTouchEndX - aboutTouchStartX;
+    const minDistance = 40; // Sensitivitas geser
+    
+    if (swipeDistance < -minDistance) {
+      next(); // Geser ke kiri -> foto selanjutnya
+    } else if (swipeDistance > minDistance) {
+      prev(); // Geser ke kanan -> foto sebelumnya
+    }
+  }
+  /* =========================================== */
 
   startAutoplay();
 })();
