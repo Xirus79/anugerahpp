@@ -167,6 +167,14 @@ width: auto;
 object-fit: contain;
 margin-left: 18px;
 }
+
+/* Menjejarkan menu teks dan ikon sosmed di Desktop */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Jarak antara barisan teks menu dan ikon sosmed */
+}
+
 /* Susunan Menu Navigasi Utama */
 .header-nav .nav-links {
   display: flex;
@@ -2078,6 +2086,7 @@ body.is-zoomed .project-viewport {
     height: 22px !important;
     fill: var(--navy) !important; /* Memastikan warnanya biru gelap */
   }
+ 
   
 /* ==========================================================================
    PERBAIKAN HERO SECTION UNTUK VERSI MOBILE (MAX-WIDTH: 768px)
@@ -2592,7 +2601,10 @@ body.is-zoomed .project-viewport {
   #contactForm button[type="submit"] {
     width: 100% !important;
   }
-  
+/* Menghapus jarak 40px bawaan desktop agar di HP tidak terlalu renggang */
+  .header-nav {
+    gap: 0 !important;
+  }   
 } /* Ini adalah kurung kurawal penutup untuk @media screen and (max-width: 768px) */
 
 
