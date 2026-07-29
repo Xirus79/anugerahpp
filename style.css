@@ -2007,7 +2007,7 @@ body.is-zoomed .project-viewport {
   .header-nav {
     position: fixed !important;
     top: 70px !important; 
-    left: 0 !important; /* Kunci selalu di kiri (tidak disembunyikan ke samping lagi) */
+    left: 0 !important; 
     width: 100% !important;
     height: calc(100vh - 70px) !important; 
     background-color: var(--white) !important;
@@ -2018,19 +2018,22 @@ body.is-zoomed .project-viewport {
     align-items: center !important;
     padding-top: 40px !important; 
     
-    /* --- INI KUNCI ANIMASI ATAS-BAWAH --- */
-    transform: translateY(-120%) !important; /* Sembunyikan jauh ke atas layar */
-    opacity: 0 !important; /* Dibuat pudar agar munculnya lebih halus */
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease !important; 
+    /* --- ANIMASI EXPAND DARI BAWAH HEADER (Efek Tirai Buka) --- */
+    transform: none !important; /* Pastikan tidak ada pergerakan posisi */
+    -webkit-clip-path: inset(0 0 100% 0); /* (Safari/iOS) Potong penuh dari bawah */
+    clip-path: inset(0 0 100% 0); /* Sembunyikan menu seolah tergulung ke atas */
+    opacity: 0 !important; 
+    transition: clip-path 0.4s cubic-bezier(0.25, 1, 0.5, 1), -webkit-clip-path 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease !important; 
     
-    z-index: 999 !important; /* Posisi di bawah header (1000) agar saat naik tertutup rapi */
+    z-index: 999 !important; 
     overflow-y: auto !important; 
   }
 
   /* Memunculkan menu turun ke layar saat hamburger diklik */
   .header-nav.active {
-    transform: translateY(0) !important; /* Turun meluncur ke posisi normal */
-    opacity: 1 !important; /* Warnanya menjadi solid */
+    -webkit-clip-path: inset(0 0 0 0); /* (Safari/iOS) */
+    clip-path: inset(0 0 0 0); /* Buka potongan sepenuhnya ke bawah */
+    opacity: 1 !important; 
   }
 
   /* 4. PERBAIKAN LAYAR PUTIH KOSONG: Paksa list muncul */
