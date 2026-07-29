@@ -2063,8 +2063,20 @@ body.is-zoomed .project-viewport {
   .header-nav .nav-links > li > a::after {
     display: none !important;
   }
-  .header-socials {
-    display: none !important;
+/* Tampilkan ikon sosmed di dalam menu HP */
+  .header-nav .header-socials {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    margin-top: 30px !important; /* Memberi jarak ke bawah dari teks 'Contact Us' */
+    width: 100% !important;
+  }
+
+  /* Mengatur ukuran dan warna ikon agar serasi */
+  .header-nav .header-socials svg {
+    width: 22px !important;
+    height: 22px !important;
+    fill: var(--navy) !important; /* Memastikan warnanya biru gelap */
   }
   
 /* ==========================================================================
