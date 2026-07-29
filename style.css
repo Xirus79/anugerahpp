@@ -665,12 +665,18 @@ margin-left: 18px;
 
   /* Formatting Visi & Misi di dalam accordion */
   .about .label-accent {
-    display: inline-block;
+    display: block;
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     color: var(--blue-deep);
     letter-spacing: 1px;
     margin-bottom: 4px;
+    text-align: left;
+    padding: 0;
+  }
+  .about .vision-box,
+  .about .mission-box {
+    text-align: left;
   }
   .about .divider-line {
     height: 1px;
