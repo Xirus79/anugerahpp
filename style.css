@@ -1937,10 +1937,29 @@ body.is-zoomed .project-viewport {
   font-size:12px;color:rgba(255,255,255,.6);
 }
 
+/* ===== MOBILE MENU BUTTON (HAMBURGER) ===== */
+.mobile-menu-btn {
+  display: none; /* Sembunyikan di layar laptop */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1001; /* Pastikan selalu berada di atas */
+}
+
+/* Tiga Garis Hamburger */
+.mobile-menu-btn .bar {
+  display: block;
+  width: 28px;
+  height: 2.5px;
+  margin: 6px auto;
+  background-color: var(--navy); /* Warna garis biru gelap */
+  transition: all 0.3s ease-in-out;
+}
+
 @media(max-width:960px){
   header{padding:14px 24px;height:auto;min-height:82px;flex-wrap:wrap;}
   .site-nav{order:3;flex-basis:100%;justify-content:flex-start;overflow-x:auto;}
-  nav ul{display:none;}
   section{padding:80px 24px;}
   .about-grid, .career-grid, .contact-grid{grid-template-columns:1fr;}
   .service-cols{grid-template-columns:1fr;}
@@ -1959,42 +1978,84 @@ body.is-zoomed .project-viewport {
   8. RESPONSIVE MOBILE LAYOUT (BREAKPOINT: 768px)
   ========================================================================== */
 @media screen and (max-width: 768px) {
-  
-  /* Memaksa chips "Application" ke tengah di mobile */
-  .application tbody td:nth-child(2),
-  .application tr td:last-child {
-    justify-content: center !important;
-  }
-  /* --- PERBAIKAN HEADER --- */
+/* 1. Header atas untuk HP */
   .header-main {
-    height: auto;
-    padding: 15px 20px;
-    flex-direction: column; /* Membuat logo dan menu berbaris ke bawah */
-    gap: 15px;
-    position: relative; /* Lepas sementara efek fixed di mobile agar tidak menumpuk */
+    height: 70px !important;
+    padding: 10px 24px !important;
+    flex-direction: row !important; 
+    justify-content: space-between !important;
+    align-items: center !important;
+    position: fixed !important; 
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background-color: var(--white) !important;
+    z-index: 1000 !important;
   }
-  /* Membuat logo berada di tengah */
-  .logo-lockup img {
-    height: 50px;/* Perkecil sedikit ukuran logo di mobile */
-    max-width: 100%;
+
+  /* 2. Tampilkan tombol Hamburger HANYA di HP */
+  .mobile-menu-btn {
+    display: block !important;
   }
-  /* Menyusun menu navigasi agar berbaris rapi ke bawah */
+
+  /* Animasi X */
+  .mobile-menu-btn.active .bar:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+  .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
+  .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+
+  /* 3. DESAIN MENU FULLSCREEN DROPDOWN (HP) */
+  .header-nav {
+    position: fixed !important;
+    top: 70px !important; 
+    left: -100% !important; /* Tersembunyi di kiri saat idle */
+    width: 100% !important;
+    height: calc(100vh - 70px) !important; 
+    background-color: var(--white) !important;
+    
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    padding-top: 40px !important; 
+    transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important; 
+    z-index: 999 !important;
+    overflow-y: auto !important; 
+  }
+
+  /* Memunculkan menu ke layar saat hamburger diklik */
+  .header-nav.active {
+    left: 0 !important;
+  }
+
+  /* 4. PERBAIKAN LAYAR PUTIH KOSONG: Paksa list muncul */
   .header-nav .nav-links {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 0;
-    gap: 12px;
+    display: flex !important; /* <--- Ini kunci agar teksnya muncul */
+    flex-direction: column !important;
+    gap: 30px !important; 
+    width: 100% !important;
   }
-  .header-nav .nav-links li {
-    width: 100%;
-    text-align: center;
+
+  /* Penyesuaian teks menu */
+  .header-nav .nav-links > li {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
   }
-  /* Beri jarak tambahan untuk ikon sosial media & WhatsApp */
-  .header-socials,
-  .nav-whatsapp {
-    justify-content: center;
-    margin-top: 5px;
+
+  /* Styling tulisan menu (Biru cerah sesuai contoh) */
+  .header-nav .nav-links > li > a {
+    display: inline-block !important;
+    font-size: 18px !important; 
+    color: var(--c) !important; /* Warna biru cerah */
+    font-weight: 600 !important;
+  }
+
+  /* Sembunyikan pernak-pernik desktop di HP */
+  .header-nav .nav-links > li > a::after {
+    display: none !important;
+  }
+  .header-socials {
+    display: none !important;
   }
   
 /* ==========================================================================
