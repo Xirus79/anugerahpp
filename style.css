@@ -1590,30 +1590,29 @@ body.is-zoomed .project-viewport {
     border-right: none;
   }
 
-  /* 4. PENYESUAIAN TEKS MENJADI LIST DENGAN TITIK (BULLET DOT) */
+/* 4. PENYESUAIAN TEKS MENJADI LIST DENGAN TITIK (BULLET DOT) */
   .application td span {
-    display: inline-block; /* Menggunakan flex agar titik dan teks sejajar secara horizontal */
-    align-items: center;
-    gap: 8px; /* Mengatur jarak antara titik dan huruf pertama teks */
-    color: var(--white); /* Warna teks putih agar kontras di atas background foto */
+    display: inline-flex; /* PENTING: Gunakan flex agar teks dan titik terpisah rapi */
+    align-items: flex-start; /* Titik sejajar di atas dengan baris pertama teks */
+    gap: 10px; /* Jarak antara titik dan teks */
+    color: var(--white); 
     margin-bottom: 8px;
-    margin-right: 16px; /* Jarak yang cukup antar item agar tidak berdempetan */
+    margin-right: 16px; 
     font-size: 13.5px;
     font-weight: 600;
-    text-align: center; /* Memastikan jika teks turun baris, posisinya tetap di tengah */
+    text-align: left; /* Teks harus selalu rata kiri */
   }
 
   /* Membuat elemen titik bulat sebelum teks */
   .application td span::before {
     content: "";
-    display: inline-block; /* Titik ikut menjadi bagian dari alur teks */    width: 5px;  /* Lebar titik */
-    height: 5px; /* Tinggi titik */
-    background-color: var(--c); /* Warna titik otomatis mengikuti warna teksnya */
-    border-radius: 50%; /* Membuat sudutnya melengkung 100% (bulat sempurna) */
-    margin-right: 8px; /* Jarak antara titik dan huruf pertama */
-    vertical-align: middle; /* Sejajarkan titik dengan tinggi huruf */
-    position: relative;
-    top: -1px; /* Mengangkat titik sedikit ke atas agar sejajar sempurna di mata */
+    display: block; 
+    flex-shrink: 0; /* PENTING: Mencegah titik gepeng saat teksnya panjang */
+    width: 6px;  
+    height: 6px; 
+    background-color: var(--c); 
+    border-radius: 50%; 
+    margin-top: 6px; /* Turunkan titik sedikit agar pas di tengah tinggi huruf pertama */
   }
 
   /* Memastikan tidak ada sisa border/garis tepi dari kode sebelumnya */
@@ -1622,21 +1621,19 @@ body.is-zoomed .project-viewport {
   .application td span:nth-child(4n+3) {
     border: none;
   }
-
   .application td span:nth-child(4n) {
     border: none;
-    color: var(--lime-2, #a7f0bd); /* Karena titik pakai 'currentColor', otomatis titik ini ikut jadi hijau */
+    color: var(--lime-2, #a7f0bd); 
   }
 
-  /* Center chips horizontally within the Application column */
-  .application tbody td:nth-child(2) {
+  /* Tata letak kolom Desktop agar konsisten rata kiri */
+  .application tbody td:last-child {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; 
     gap: 12px;
     flex-wrap: wrap;
-    padding-top:12px;
-    padding-bottom:12px;
+    padding: 16px 20px;
   }
 
   /* On narrow screens keep chips left-aligned for readability */
@@ -2572,29 +2569,39 @@ body.is-zoomed .project-viewport {
   }
   
 
-  /* Di mobile, judul dikembalikan ke tengah agar lebih seimbang dengan layar HP */
+  /* ========================================================
+     PERBAIKAN TABEL APPLICATION UNTUK MOBILE (HP)
+     ======================================================== */
   .application .section-head {
     text-align: center !important;
   }
 
-  /* Membuat tabel bisa di-scroll ke samping di HP agar tidak hancur atau terpotong */
-  .application .app-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+  /* Hapus class .app-table yang salah, targetkan tag table langsung */
+  .application table {
+    display: block !important;
+    overflow-x: auto !important; /* Izinkan tabel di-scroll ke samping jika kepanjangan */
+    width: 100% !important;
+    white-space: normal !important; /* Izinkan teks panjang untuk turun baris */
   }
 
-  /* Membuat isi sel tabel (teks dan tombol seperti Cosmetics) menjadi ke tengah */
-  .application .app-table th,
-  .application .app-table td {
-    text-align: center !important;
-    vertical-align: middle !important; /* Memastikan elemen juga berada di tengah secara vertikal */
+  /* Susun daftar di kolom Application menjadi rapi ke bawah */
+  .application tbody td:last-child {
+    display: flex !important;
+    flex-direction: column !important; /* Paksa turun ke bawah (vertikal) */
+    align-items: flex-start !important; /* Paksa menempel ke kiri */
+    justify-content: flex-start !important;
+    padding-left: 20px !important; /* Beri jarak aman dari garis tengah agar tidak mepet */
+    padding-right: 15px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    gap: 12px !important; /* Jarak lega antar item list */
   }
 
-  /* Jika item di dalam kolom "Application" dibungkus menggunakan Flexbox */
-  .application .app-table td {
-    justify-content: center !important;
-    align-items: center !important;
+  /* Mencegah teks rata tengah dan merapikan spasi */
+  .application td span {
+    text-align: left !important; 
+    margin: 0 !important; 
+    line-height: 1.5 !important; 
   }
   
   .contact-form button[type="submit"],
@@ -2604,6 +2611,22 @@ body.is-zoomed .project-viewport {
 /* Menghapus jarak 40px bawaan desktop agar di HP tidak terlalu renggang */
   .header-nav {
     gap: 0 !important;
+  }
+  /* --- PERBAIKAN RATA KIRI KOLOM APPLICATION DI HP --- */
+  .application tbody td:nth-child(2) {
+    display: flex !important;
+    flex-direction: column !important; /* Menyusun daftar item urut ke bawah */
+    align-items: flex-start !important; /* Memaksa semua item rata kiri */
+    padding-left: 24px !important; /* Memberikan jarak lega dari garis pembatas kiri */
+    padding-right: 12px !important;
+    gap: 10px !important; /* Jarak antar list agar tidak terlalu dempet */
+  }
+
+  /* Memastikan teks yang panjang dan turun baris tetap rata kiri */
+  .application td span {
+    text-align: left !important; 
+    margin-right: 0 !important; 
+    line-height: 1.4 !important; /* Merapikan jarak atas-bawah saat teks turun baris */
   }   
 } /* Ini adalah kurung kurawal penutup untuk @media screen and (max-width: 768px) */
 
