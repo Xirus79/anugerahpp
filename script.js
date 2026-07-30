@@ -12,7 +12,7 @@ if (serviceTabs.length > 0) {
   });
 }
 
-// ===== 2. PORTFOLIO CAROUSEL, FILTER, DROPDOWN & MODAL =====
+// ===== 2. PORTFOLIO CAROUSEL, FILTER, DROPDOWN & MODAL (PERFECT LOOP) =====
 (function(){
   const source = document.getElementById('projectSource');
   const track = document.getElementById('projectTrack');
@@ -63,6 +63,7 @@ if (serviceTabs.length > 0) {
     }
     totalPages = groups.length;
 
+    // 1. Masukkan halaman asli ke dalam track
     groups.forEach(group => {
       const pageEl = document.createElement('div');
       pageEl.className = 'project-page';
@@ -71,6 +72,21 @@ if (serviceTabs.length > 0) {
       track.appendChild(pageEl);
     });
 
+    // 2. Kloning halaman untuk efek Perfect Loop (Hanya jika halaman lebih dari 1)
+    if (totalPages > 1) {
+      const originalPages = Array.from(track.querySelectorAll('.project-page'));
+      originalPages.forEach(p => track.appendChild(p.cloneNode(true)));
+    }
+
+    // 3. Atur lebar keseluruhan track dan lebar masing-masing page
+    const totalSlides = totalPages > 1 ? totalPages * 2 : totalPages;
+    track.style.width = (totalSlides * 100) + '%';
+    track.querySelectorAll('.project-page').forEach(p => {
+      p.style.flex = `0 0 ${100 / totalSlides}%`;
+      p.style.width = `${100 / totalSlides}%`;
+    });
+
+    // 4. Bangun titik indikator (dots)
     for (let i = 0; i < totalPages; i++){
       const dot = document.createElement('span');
       if (i === 0) dot.classList.add('active');
@@ -87,30 +103,55 @@ if (serviceTabs.length > 0) {
     if (totalPages > 1) startAutoplay();
   }
   
+  // 5. Tangkap akhir transisi untuk trik Reset instan ke awal
   track.addEventListener('transitionend', () => {
     isTransitioning = false;
+    if (page >= totalPages && totalPages > 1) {
+      page = 0; // Kembalikan ke halaman 1 asli secara diam-diam
+      render(false);
+    }
   });
 
   function render(withTransition){
-    if (totalPages <= 0) return;
-    track.style.transition = withTransition ? 'transform .6s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
-    isTransitioning = withTransition;
-    track.style.transform = `translateX(-${page * 100}%)`;
+    const totalSlides = totalPages > 1 ? totalPages * 2 : totalPages;
+    if (totalSlides <= 0) return;
 
-    dotsWrap.querySelectorAll('span').forEach((dot, index) => {
-      dot.classList.toggle('active', index === (page % totalPages));
-    });
+    if (withTransition) {
+      track.style.transition = 'transform .6s cubic-bezier(0.25, 1, 0.5, 1)';
+      isTransitioning = true;
+    } else {
+      track.style.transition = 'none';
+      isTransitioning = false;
+    }
+
+    // Force reflow agar pemutusan animasi (transition: none) terbaca browser
+    track.offsetHeight; 
+
+    track.style.transform = `translateX(-${page * (100 / totalSlides)}%)`;
+
+    if (dotsWrap) {
+      const dots = dotsWrap.querySelectorAll('span');
+      const activeDot = page % totalPages; // Hitung ulang dot mana yang aktif
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === activeDot);
+      });
+    }
   }
 
   function nextPage(){
     if (isTransitioning || totalPages <= 1) return;
-    page = (page + 1) % totalPages;
+    page++;
     render(true);
   }
 
   function prevPage(){
     if (isTransitioning || totalPages <= 1) return;
-    page = (page - 1 + totalPages) % totalPages;
+    if (page === 0) {
+      page = totalPages; // Lompat ke salinan terakhir sebelum mundur
+      render(false);
+      track.offsetHeight; // Force reflow
+    }
+    page--;
     render(true);
   }
 
@@ -130,36 +171,29 @@ if (serviceTabs.length > 0) {
     carouselWrap.addEventListener('mouseleave', () => { if (totalPages > 1) startAutoplay(); });
   }
 
-  // ==========================================
-  // --- TAMBAHAN LOGIKA SWIPE (TOUCH) ---
-  // ==========================================
+  // LOGIKA SWIPE (TOUCH)
   let touchStartX = 0;
   let touchEndX = 0;
-  // 1. Catat titik koordinat X saat jari pertama kali menyentuh layar
   track.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
-    stopAutoplay(); // Hentikan pergerakan otomatis saat layar sedang disentuh
+    stopAutoplay();
   }, { passive: true });
-  // 2. Terus perbarui koordinat X saat jari bergeser
+  
   track.addEventListener('touchmove', (e) => {
     touchEndX = e.changedTouches[0].screenX;
   }, { passive: true });
-  // 3. Eksekusi perpindahan saat jari dilepas dari layar
+  
   track.addEventListener('touchend', () => {
-    const swipeThreshold = 50; // Jarak minimal geseran (dalam pixel) agar dianggap valid
-    // Jika jarak sentuh awal dikurangi jarak akhir melebihi threshold (Geser Kiri)
+    const swipeThreshold = 50; 
     if (touchStartX - touchEndX > swipeThreshold) {
       nextPage();
-    } 
-    // Jika jarak sentuh akhir dikurangi jarak awal melebihi threshold (Geser Kanan)
-    else if (touchEndX - touchStartX > swipeThreshold) {
+    } else if (touchEndX - touchStartX > swipeThreshold) {
       prevPage();
     }
-    // Lanjutkan kembali autoplay setelah selesai swipe
     if (totalPages > 1) startAutoplay();
   });
-  // ==========================================
 
+  // FILTER TOMBOL
   if (filterTabs.length){
     filterTabs.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -177,15 +211,13 @@ if (serviceTabs.length > 0) {
     resizeTimer = setTimeout(buildPages, 250);
   });
 
-  // --- EVENT DELEGATION UNTUK INTERAKSI PORTFOLIO BARU ---
+  // EVENT DELEGATION UNTUK TOMBOL DROPDOWN
   track.addEventListener('click', (event) => {
-    // 1. Logika Klik Tombol Dropdown
     const toggleBtn = event.target.closest('.dropdown-toggle-btn');
     if (toggleBtn) {
-      event.stopPropagation(); // Cegah merembet ke gambar
+      event.stopPropagation();
       const card = toggleBtn.closest('.project-card');
       
-      // Tutup kartu lain (opsional, jika ingin satu-satu terbuka)
       track.querySelectorAll('.project-card').forEach(item => {
         if (item !== card) item.classList.remove('open');
       });
@@ -193,10 +225,8 @@ if (serviceTabs.length > 0) {
       if (card) card.classList.toggle('open');
       return;
     }
-
   });
 
-  // Render awal
   buildPages();
 })();
 
@@ -292,7 +322,8 @@ if (serviceTabs.length > 0) {
       track.style.transition = 'none';
       isTransitioning = false;
     }
-
+    
+    track.offsetHeight;
     track.style.transform = `translateX(-${page * (100 / totalSlides)}%)`;
     
     if (dotsWrap) {
