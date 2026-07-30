@@ -848,3 +848,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// ===== 12. BACK TO TOP BUTTON LOGIC =====
+(function() {
+  const backToTopBtn = document.getElementById('backToTop');
+
+  if (backToTopBtn) {
+    // 1. Munculkan tombol saat layar di-scroll ke bawah lebih dari 400px
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+
+    // 2. Gulirkan layar kembali ke paling atas saat tombol diklik
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Membuat pergerakan scroll menjadi halus
+      });
+    });
+  }
+})();

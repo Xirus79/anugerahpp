@@ -536,7 +536,7 @@ margin-left: 18px;
   font-size: clamp(80px, 11vw, 150px);
   font-weight: 800;
   font-style: italic;
-  color: #ffffff80;
+  color: rgba(255, 255, 255, 0.06);
   letter-spacing: -2px;
   line-height: 0.85; /* Memangkas jarak kosong bawaan font di bagian bawah */
   z-index: 0;
@@ -547,11 +547,11 @@ margin-left: 18px;
   position: relative;
   z-index: 1; /* Pastikan teks CHOOSE selalu berada di lapisan paling depan */
   font-size: clamp(26px, 3.4vw, 44px);
-  font-weight: 500;
-  color: var(--c); 
+  font-weight: 650;
+  font-family: 'JetBrains Mono', sans-serif;
+  color: var(--line); 
   letter-spacing: 1px;
-  /* HAPUS margin-top: 70px; di sini agar teksnya bisa naik dan menumpuk dengan pas */
-  margin-top: 0; 
+  margin-top: 0;  
 }
 
 .why-header h2 span {
@@ -572,6 +572,8 @@ margin-left: 18px;
   margin:0 auto 22px;
   border-radius:50%;
   border:2px solid var(--line);
+  box-shadow: var(--c) 0px 0px 20px -6px;
+  backdrop-filter: blur(10px);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -603,36 +605,7 @@ margin-left: 18px;
   margin:0 auto;
 }
 
-@media(max-width:960px){
-  .why-grid{grid-template-columns:1fr 1fr;}
-  .why-header{text-align:center;}
-  .why-bg-text{position:static;
-    display:block;
-    font-size:60px;
-    margin-bottom:-10px;}
-}
-@media (max-width: 768px) {
-  .why-header {
-    text-align: center !important;
-    padding-top: 40px !important;
-  }
-  
-  .why-bg-text {
-    position: absolute !important;
-    bottom: -5px !important; /* Kunci di bawah juga untuk tampilan HP */
-    top: auto !important;
-    right: 0 !important;
-    left: 0 !important; /* Paksa rata tengah di HP */
-    font-size: 80px !important;
-    margin-bottom: 0 !important;
-  }
-  
-  .why-header h2 {
-    margin-top: 0 !important;
-    font-size: 24px !important;
-    line-height: 1.3 !important;
-  }
-}
+
 
 /* Penyesuaian responsif tampilan list di mobile */
 @media screen and (max-width: 576px) {
@@ -1639,16 +1612,9 @@ body.is-zoomed .project-viewport {
     justify-content: flex-start; 
     gap: 12px;
     flex-wrap: wrap;
-    padding: 16px 20px;
-  }
-
-  /* On narrow screens keep chips left-aligned for readability */
-  @media (max-width: 960px) {
-    .application tbody td:nth-child(2) {
-      justify-content: flex-start;
-    }
-  }
-  
+    padding-top:12px;
+    padding-bottom:12px;
+  }  
   .entries-count{
     margin-top:16px;
     margin-bottom:10px;
@@ -1781,118 +1747,146 @@ body.is-zoomed .project-viewport {
     gap: 10px;
   }
   
-    /* ===== SNACKBAR / TOAST CONTAINER ===== */
-    .toast-container {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-  
-    /* Base Style untuk Setiap Toast */
-    .custom-toast {
-      background: var(--white, #ffffff);
-      color: var(--ink, #333333);
-      padding: 16px 24px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 300px;
-      max-width: 400px;
-      border-left: 4px solid transparent;
-  
-      /* Animasi muncul dari kanan bawah */
-      transform: translateX(120%);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25);
-    }
-  
-    /* Ketika Toast Aktif */
-    .custom-toast.show {
-      transform: translateX(0);
-    }
-  
-    /* Varian Sukses (Hijau Eelegan) */
-    .custom-toast.success {
-      border-left-color: #2ecc71;
-    }
-  
-    /* Varian Gagal (Merah Lembut) */
-    .custom-toast.error {
-      border-left-color: #e74c3c;
-    }
+  /* ===== SNACKBAR / TOAST CONTAINER ===== */
+  .toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  /* Base Style untuk Setiap Toast */
+  .custom-toast {
+    background: var(--white, #ffffff);
+    color: var(--ink, #333333);
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 300px;
+    max-width: 400px;
+    border-left: 4px solid transparent;
+    /* Animasi muncul dari kanan bawah */
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  }
+  /* Ketika Toast Aktif */
+  .custom-toast.show {
+    transform: translateX(0);
+  }
+  /* Varian Sukses (Hijau Eelegan) */
+  .custom-toast.success {
+    border-left-color: #2ecc71;
+  }
+  /* Varian Gagal (Merah Lembut) */
+  .custom-toast.error {
+    border-left-color: #e74c3c;
+  }
+
+/* ===== BACK TO TOP BUTTON ===== */
+.back-to-top {
+position: fixed;
+bottom: 30px;
+right: 30px;
+width: 50px;
+height: 50px;
+background-color: var(--blue-deep); /* Menggunakan warna biru gelap temamu */
+color: var(--white);
+border: none;
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+z-index: 998; /* Di bawah header (1000) dan notifikasi toast (9999) */
+/* Logika Sembunyi secara default */
+opacity: 0;
+visibility: hidden;
+transform: translateY(20px);
+transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Class ini akan ditambahkan oleh JS saat layar di-scroll ke bawah */
+.back-to-top.show {
+opacity: 1;
+visibility: visible;
+transform: translateY(0);
+}
+
+/* Efek Hover (Saat disentuh mouse) */
+.back-to-top:hover {
+background-color: var(--navy-1);
+transform: translateY(-5px);
+/* Memberi efek melayang sedikit ke atas */
+box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
   /* ===== FOOTER ===== */
   footer {
     background: var(--navy);
     color: rgba(255, 255, 255, .75);
-    padding: 70px 56px 0;
+    padding: 40px 56px 0;
   }
-
   .footer-grid {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
     gap: 50px;
     padding-bottom: 50px;
   }
-
-    /* Membersihkan background putih dan jarak pada logo di footer */
   .footer-grid img {
-    background: transparent !important; /* Membuang kotak background putih */
-    padding: 0 !important; /* Menghapus jarak dalam yang membuat logo terdorong ke kanan */
-    margin-left: 0 !important; /* Memastikan posisinya rata kiri sejajar dengan teks di bawahnya */
-    width: auto !important; /* Memastikan lebarnya pas dengan ukuran aslinya */
-    max-width: 180px; /* Batasi maksimal besarnya agar tidak raksasa, silakan sesuaikan angkanya */
+    background: transparent !important;
+    padding: 0 !important;
+    margin-left: 0 !important;
+    width: auto !important;
+    max-width: 180px;
     display: block; 
-    margin-bottom: 0px; /* Jarak antara logo dan teks "Trusted partner..." */
+    margin-bottom: 0px;
   }
-
-.contact-line{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:9px;
-  font-size:14.5px;
-  color:rgba(255,255,255,.6);
-  transition:color .2s;
-}
-.contact-icon{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:28px;
-  height:28px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.08);
-  color:rgba(255,255,255,.75);
-  transition:background .2s, color .2s;
-}
-.contact-icon svg{
-  width:15px;
-  height:15px;
-  fill:currentColor;
-}
-
-/* Warna brand saat hover */
-.contact-line.link-mail:hover{ color:#EA4335; }
-.contact-line.link-mail:hover .contact-icon{
-  background:#EA4335;
-  color:#fff;
-}
-
-.contact-line.link-wa:hover{ color:#25D366; }
-.contact-line.link-wa:hover .contact-icon{
-  background:#25D366;
-  color:#fff;
-}
-  
+  .contact-line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:9px;
+    font-size:14.5px;
+    color:rgba(255,255,255,.6);
+    transition:color .2s;
+  }
+  .contact-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;
+    height:28px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    color:rgba(255,255,255,.75);
+    transition:background .2s, color .2s;
+  }
+  .contact-icon svg{
+    width:15px;
+    height:15px;
+    fill:currentColor;
+  }
+  /* Warna brand saat hover */
+  .contact-line.link-mail:hover{ color:#EA4335; }
+  .contact-line.link-mail:hover .contact-icon{
+    background:#EA4335;
+    color:#fff;
+  }
+  .contact-line.link-wa:hover{ color:#25D366; }
+  .contact-line.link-wa:hover .contact-icon{
+    background:#25D366;
+    color:#fff;
+  }
   .footer-grid h4 {
     margin-bottom: 18px;
     font-weight: 600;
@@ -1928,11 +1922,11 @@ body.is-zoomed .project-viewport {
     font-weight: 500;
     letter-spacing: 1px;
   }
-.socials{display:flex;gap:14px;}
-.socials span{
-  width:34px;height:34px;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;
-  font-size:12px;color:rgba(255,255,255,.6);
-}
+  .socials{display:flex;gap:14px;}
+  .socials span{
+    width:34px;height:34px;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;
+    font-size:12px;color:rgba(255,255,255,.6);
+  }
 
 /* ===== MOBILE MENU BUTTON (HAMBURGER) ===== */
 .mobile-menu-btn {
@@ -1954,18 +1948,66 @@ body.is-zoomed .project-viewport {
   transition: all 0.3s ease-in-out;
 }
 
-@media(max-width:960px){
-  header{padding:14px 24px;height:auto;min-height:82px;flex-wrap:wrap;}
-  .site-nav{order:3;flex-basis:100%;justify-content:flex-start;overflow-x:auto;}
-  section{padding:80px 24px;}
-  .about-grid, .career-grid, .contact-grid{grid-template-columns:1fr;}
-  .service-cols{grid-template-columns:1fr;}
-  .footer-grid{grid-template-columns:1fr 1fr;}
-  .form-row{grid-template-columns:1fr;}
-  .client-strip{gap:50px;}
+@media (max-width:960px){
+  header{
+    padding:14px 24px;
+    height:auto;
+    min-height:82px;
+    flex-wrap:wrap;}
+  .site-nav{
+    order:3;
+    flex-basis:100%;
+    justify-content:flex-start;
+    overflow-x:auto;}
+  section{
+    padding:80px 24px;}
+  .about-grid, .career-grid, .contact-grid{
+    grid-template-columns:1fr;}
+  .service-cols{
+    grid-template-columns:1fr;}
+  .footer-grid{
+    grid-template-columns:1fr 1fr;}
+  .form-row{
+    grid-template-columns:1fr;}
+  .client-strip{
+    gap:50px;}
+  .why-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .why-header {
+    text-align: center;
+  }
+  .why-bg-text {
+    position: static;
+    display: block;
+    font-size: 60px;
+    margin-bottom: -10px;
+  }
+  .application tbody td:nth-child(2) {
+    justify-content: flex-start;
+  }
 }
-
-@media(max-width:576px){
+@media (max-width: 768px) {
+  .why-header {
+    text-align: center !important;
+    padding-top: 40px !important;
+  }
+  .why-bg-text {
+    position: absolute !important;
+    bottom: -5px !important;
+    top: auto !important;
+    right: 0 !important;
+    left: 0 !important;
+    font-size: 80px !important;
+    margin-bottom: 0 !important;
+  }
+  .why-header h2 {
+    margin-top: 0 !important;
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+  }
+}
+@media (max-width:576px){
     .project-carousel{gap:10px;}
     .carousel-btn{display:none;}
     .project-card .project-media{aspect-ratio:3/2;}
@@ -1990,63 +2032,51 @@ body.is-zoomed .project-viewport {
     z-index: 1000 !important;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important; /* Bayangan tipis di bawah header */
   }
-
   /* Pastikan logo di HP tidak membuat header membengkak */
   .logo-lockup img {
     height: 38px !important; 
   }
-
   /* 2. Tampilkan tombol Hamburger HANYA di HP */
   .mobile-menu-btn {
     display: block !important;
   }
-
-  /* Animasi X */
+  /* Animasi-X */
   .mobile-menu-btn.active .bar:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
   .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
   .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
-
   /* 3. DESAIN MENU DROPDOWN SETENGAH LAYAR (HP) */
   .header-nav {
     position: fixed !important;
-    top: 60px !important; /* Pas mengikuti tinggi header yang baru */
+    top: 60px !important; 
     left: 0 !important; 
     width: 100% !important;
-    height: auto !important; /* TIDAK full layar, tinggi otomatis menyesuaikan isi menu */
-    max-height: 70vh !important; /* Maksimal 70% layar, sisanya bisa di-scroll */
+    height: auto !important;
+    max-height: 70vh !important; 
     background-color: var(--white) !important;
-    
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
     align-items: center !important;
-    
-    /* Padding diperkecil agar tidak terlalu kosong di bagian atas/bawah */
     padding: 24px 0 32px 0 !important; 
     
-    /* --- ANIMASI EXPAND DARI BAWAH HEADER (Efek Tirai Buka) --- */
+    /*--ANIMASI EXPAND HEADER--*/
     transform: none !important; 
     -webkit-clip-path: inset(0 0 100% 0); 
     clip-path: inset(0 0 100% 0); 
     opacity: 0 !important; 
     transition: clip-path 0.4s cubic-bezier(0.25, 1, 0.5, 1), -webkit-clip-path 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease !important; 
-    
     z-index: 999 !important; 
-    overflow-y: auto !important; 
-    
-    /* Efek estetika tambahan agar terlihat seperti panel yang menggantung */
+    overflow-y: auto !important;
     box-shadow: 0 15px 30px rgba(0,0,0,0.12) !important;
     border-bottom-left-radius: 20px !important;
     border-bottom-right-radius: 20px !important;
   }
-
   /* Memunculkan menu turun ke layar saat hamburger diklik */
   .header-nav.active {
     -webkit-clip-path: inset(0 0 0 0); 
     clip-path: inset(0 0 0 0); 
     opacity: 1 !important; 
   }
-
   /* 4. PERBAIKAN JARAK ANTAR MENU (Merapatkan teks) */
   .header-nav .nav-links {
     display: flex !important; 
@@ -2089,27 +2119,24 @@ body.is-zoomed .project-viewport {
     height: 22px !important;
     fill: var(--navy) !important; /* Memastikan warnanya biru gelap */
   }
- 
-  
-/* ==========================================================================
-   PERBAIKAN HERO SECTION UNTUK VERSI MOBILE (MAX-WIDTH: 768px)
-   ========================================================================== */
-
-  /* 0. Reset body dan html agar tidak bisa digeser ke kanan dan menghilangkan sela putih */
-    html,
-    body {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden; /* Mengunci layar agar tidak bisa digeser ke samping */
-    }
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+  html,
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Mengunci layar agar tidak bisa digeser ke samping */
+  }
 
   /* 1. Atur ulang container utama hero di HP */
   .hero {
     width: 100% !important;
-    min-height: 620px !important; /* Tinggi minimal hero agar tetap proporsional di HP */
-    margin: 0px !important; /* Ubah padding kiri-kanan menjadi 20px agar teks tidak menempel ke ujung kaca HP, 
-        tetapi background gambarnya tetap penuh ke ujung layar */
+    min-height: 620px !important;
     padding: 0px 10px 0px 10px !important;
     left: 0;
     right: 0;
@@ -2117,49 +2144,37 @@ body.is-zoomed .project-viewport {
     align-items: center;
     justify-content: center;
   }
-
   .hero::before {
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
     transform: none !important;
-    /* Matikan efek parallax di HP jika membuat gambar bergeser */
   }
-
   .hero-inner {
     padding: 0 !important;
     width: 100%;
     text-align: center;
-    /* Paksa semua teks konten hero rata tengah di HP */
   }
-
-  /* 2. PERBAIKAN EYEBROW (Teks Hijau yang berantakan di gambar) */
   .hero .eyebrow {
-    font-size: 12px !important; /* Perkecil ukuran huruf agar muat satu atau dua baris rapi */
-    letter-spacing: 1px !important; /* Kurangi jarak antar huruf yang terlalu renggang */
+    font-size: 12px !important;
+    letter-spacing: 1px !important; 
     line-height: 1.5 !important;
     margin-bottom: 20px;
-    display: block !important; /* Ubah dari flex menjadi block agar teks mengalir natural */
+    display: block !important;
     text-align: center;
     text-transform: uppercase;
     color: var(--lime-2);
   }
-
-  /* Hilangkan garis dekorasi horizontal di mobile agar teks teks hijau bisa rata tengah sempurna */
   .hero .eyebrow::before {
     display: none !important;
   }
-
-  /* 3. Sesuaikan Ukuran Judul Utama di HP */
   .hero h1 {
-    font-size: 30px !important; /* Ukuran ideal h1 untuk layar handphone */
+    font-size: 30px !important; 
     line-height: 1.2 !important;
     letter-spacing: -0.5px !important;
     margin-bottom: 12px;
   }
-
-  /* 4. Sesuaikan Sub-deskripsi */
   .hero .sub-line {
     font-size: 14px !important;
     line-height: 1.5 !important;
@@ -2171,87 +2186,69 @@ body.is-zoomed .project-viewport {
     justify-content: center;
     width: 100%;
   }
-
   .btn-secondary {
     width: 100%;
     max-width: 290px;
     margin-bottom: 10px;
   }
-
-  /* 5. PERBAIKAN TAG LAYANAN (Offset, Flexo, Security Printing) */
   .hero-tags {
     display: flex !important;
-    flex-direction: row !important; /* Tetap berbaris ke samping, bukan ke bawah */
-    justify-content: center !important; /* Posisikan pas di tengah-tengah layar HP */
-    gap: 8px !important; /* Beri jarak tipis antar tag */
+    flex-direction: row !important; 
+    justify-content: center !important; 
+    gap: 8px !important; 
     margin-bottom: 28px !important;
-    flex-wrap: wrap !important; /* Jika layar HP terlalu kecil, otomatis turun dengan rapi */
+    flex-wrap: wrap !important; 
   }
-
   .hero-tags span {
-    font-family: 'sans-serif', 'Space Grotesk', sans-serif;
+    font-family: 'sans-serif','Space Grotesk';
     font-size: 15px;
     font-weight: 5000;
     letter-spacing: 1px;
     padding: 5px 10px; /* border:1px solid var(--c); */
     color: var(--c);
     border-radius: 8px;
-    
-    
   }
-
-  /* 6. Sesuaikan Tombol Utama di HP */
   .btn-primary {
     width: 100%;
-    /* Buat tombol memanjang penuh selebar area konten di HP */
     max-width: 290px;
-    /* Batasi lebar maksimal agar tidak terlalu over-stretch */
     padding: 14px 20px !important;
     font-size: 14px !important;
     justify-content: center;
     margin: 0 auto !important;
   }
-
-/* Tambahkan pengaturan untuk kontainer induk agar jarak atasnya berkurang di HP */
-    .why-header {
-      padding-top: 0px !important; 
-      margin-top: 0 !important; 
-    }
-
-    /* 1. Mengubah teks aksen latar belakang "WHY" di mobile */
-    .why-header .why-bg-text {
-      position: relative !important; 
-      top: 0 !important;
-      font-size: 44px !important; 
-      margin-top: 0 !important; /* Memastikan tidak ada margin bawaan browser yang mendorong ke bawah */
-      margin-bottom: 5px !important;
-      display: block !important;
-      text-align: center !important;
-      color: rgba(255, 255, 255, .3) !important;
-    }
-
-    /* 2. Mengubah judul utama "CHOOSE ANUGERAH PRIMA PRINTING" di mobile */
-    .why-header h2 {
-      font-size: 22px !important; 
-      line-height: 1.3 !important; 
-      text-align: center !important; 
-      letter-spacing: 0.5px !important;
-      padding: 0 10px !important; 
-      margin-top: 0 !important; /* Opsional: Jaga-jaga jika h2 juga punya margin atas bawaan */
-    }
-    
-  /* --- PERBAIKAN SECTIONS LAIN (ABOUT & SERVICES) --- */
+  .why-header {
+    padding-top: 0px !important; 
+    margin-top: 0 !important; 
+  }
+  .why-header .why-bg-text {
+    position: relative !important; 
+    top: 0 !important;
+    font-size: 44px !important; 
+    margin-top: 0 !important;
+    margin-bottom: 5px !important;
+    display: block !important;
+    text-align: center !important;
+    color: rgba(255, 255, 255, .3) !important;
+  }
+  .why-header h2 {
+    font-size: 22px !important; 
+    line-height: 1.3 !important; 
+    text-align: center !important; 
+    letter-spacing: 0.5px !important;
+    padding: 0 10px !important; 
+    margin-top: 0 !important; 
+  }
   .about-grid,
   .service-cols,
   .project-grid {
     display: flex !important;
-    flex-direction: column !important; /* Susun 1 kolom penuh vertikal ke bawah */
+    flex-direction: column !important; 
     gap: 20px !important;
     width: 100% !important;
   }
   .footer-grid,
   .contact-grid {
-    grid-template-columns: 1fr !important; /* Paksa semua grid 2-3 kolom menjadi 1 kolom saja */
+    grid-template-columns: 1fr !important;
     gap: 30px;
   }
   .services,
@@ -2260,179 +2257,135 @@ body.is-zoomed .project-viewport {
   .application,
   .career,
   .contact {
-    padding: 60px 20px !important;/* Sesuaikan seluruh padding konten agar tidak terlalu mepet */
+    padding: 60px 20px !important;
   }
-
-  /* 1. Perkecil ukuran judul utama "About Us" agar proporsional di HP */
   .section-head h2 {
-    font-size: 38px !important; /* Diubah dari ukuran desktop agar pas di layar HP */
+    font-size: 38px !important; 
     line-height: 1.2 !important;
     letter-spacing: -0.5px !important;
     margin-bottom: 12px !important;
   }
-
-  /* Sesuaikan paragraf di bawah judul utama */
   .section-head p {
     font-size: 14px !important;
     line-height: 1.5 !important;
     max-width: 100% !important;
   }
-
-
-  /* 4. Memperbaiki grid angka statistik (100%, 24/7, dll) agar tidak menumpuk kaku */
   .project-card {
     width: 100% !important;
     max-width: 310px !important;
-    display: block !important; /* Kembalikan ke block normal agar animasi dropdown di JS tetap aman */
+    display: block !important;
     margin-bottom: 0 auto 10px autopx !important;
   }
-  /* 2. Siapkan Area Track untuk Swipe */
   .project-track {
-    /* Mencegah layar ikut tergeser ke samping (scroll default browser) saat melakukan swipe, 
-        tapi tetap mengizinkan scroll atas-bawah (pan-y) */
     touch-action: pan-y !important;
   }
   .project-card.is-hidden {
-    display: none !important; /* Kartu yang tidak cocok akan benar-benar sembunyi */
+    display: none !important; 
   }
-  
   .service-col,
-
-  /* 1. Beri jarak antara About dengan About Design */
   .about-grid {
     display: grid !important;
-    grid-template-columns: 1fr !important; /* Memastikan 1 kolom penuh di mobile */
-    gap: 40px !important; /* Jarak 40px ini memisahkan kotak atas dengan area akordeon di bawahnya */
-    margin-top: 40px !important; /* Dorong seluruh area akordeon ke bawah agar tidak menempel */
+    grid-template-columns: 1fr !important;
+    gap: 40px !important; 
+    margin-top: 40px !important; 
   }
-
-  /* 2. Sesuaikan Elemen Akordeon Individual (Details) */
   .accordion-item {
     border-bottom: 1px solid var(--line) !important;
-    scroll-margin-top: 100px !important; /* Penyesuaian agar tidak tertutup header saat smooth-scroll */
+    scroll-margin-top: 100px !important;
   }
-
-  /* 3. Penyesuaian Tipografi & Font pada Judul Akordeon (Summary) */
   .accordion-item summary {
-    padding: 18px 4px !important; /* Kurangi padding atas-bawah agar pas di layar HP */
-    font-family: 'Space Grotesk', sans-serif !important; /* Memastikan menggunakan font modern */
-    font-size: 16px !important; /* Kecilkan ukuran dari desktop agar serasi di HP */
-    font-weight: 600 !important; /* Gunakan semi-bold, tidak terlalu tebal kaku */
+    padding: 18px 4px !important; 
+    font-family: 'Space Grotesk', sans-serif !important; 
+    font-size: 16px !important; 
+    font-weight: 600 !important; 
     color: var(--navy) !important;
   }
-
-  /* Sesuaikan nomor indikator (01, 02, 03) */
   .accordion-item summary .num {
-    font-family: 'JetBrains Mono', monospace !important; /* Font monospace untuk angka agar estetik */
-    font-size: 16px !important; /* Samakan ukuran dengan teks judulnya */
+    font-family: 'JetBrains Mono', monospace !important; 
+    font-size: 16px !important;
     font-weight: 700 !important;
-    margin-right: 12px !important; /* Jarak angka ke tulisan sedikit dirapatkan */
+    margin-right: 12px !important;
   }
-
-  /* Sesuaikan ikon "+" di sebelah kanan */
   .accordion-item summary::after {
-    font-size: 18px !important; /* Perkecil ukuran tanda tambah di HP */
+    font-size: 18px !important; 
     font-weight: 600 !important;
   }
-
-  /* 4. Sesuaikan Isi Konten Akordeon Saat Terbuka */
   .accordion-item .content {
-    padding: 0 4px 20px 32px !important; /* Atur indentasi kiri (32px) agar lurus dengan tulisan judul (setelah angka) */
-    font-size: 13.5px !important; /* Skala teks isi diperkecil sedikit agar nyaman dibaca di HP */
+    padding: 0 4px 20px 32px !important;
+    font-size: 13.5px !important; 
     line-height: 1.6 !important;
     color: var(--muted) !important;
   }
-
   .project-card h3,
   .about-details {
     font-size: 13px !important;
     line-height: 1.5 !important;
     margin-top: 12px !important;
   }
-
-  /* 1. Atur susunan tombol tab (Offset, Flexo, Security) di mobile agar seimbang */
   .service-tabs {
     display: flex !important;
     justify-content: center !important;
     gap: 8px !important;
     margin-bottom: 10px !important;
   }
-
   .service-tabs .tab {
     font-size: 13px !important;
     padding: 10px 16px !important;
-    flex: 1 !important; /* Membuat tombol membagi lebar secara rata di HP */
+    flex: 1 !important;
     text-align: center;
     white-space: nowrap;
   }
-
-  /* 2. Tata letak grid container panel */
   .service-cols {
     display: flex !important;
-    flex-direction: column !important; /* Susun kartu menumpuk ke bawah */
-    gap: 20px !important; /* Beri sela antar kartu agar tidak menempel kaku */
+    flex-direction: column !important; 
+    gap: 20px !important; 
     background: transparent !important;
   }
-
-/* 3. Desain struktur kartu individual (.service-col) */
   .service-col {
     display: flex !important;
     flex-direction: column !important; 
     align-items: stretch !important; 
-    justify-content: flex-start !important; /* TAMBAHAN: Paksa semua elemen ngumpul ke atas, tidak menyebar */
-    gap: 12px !important; /* TAMBAHAN: Atur jarak pas antar elemen (ikon, judul, paragraf) */
+    justify-content: flex-start !important;
+    gap: 12px !important;
     padding: 24px !important; 
     width: 100% !important;
     max-width: 100% !important;
     border-radius: 10px ; 
   }
-
-  /* 2. Satukan Icon, Judul "Design", dan nomor "01" di bagian atas kartu */
   .service-col .service-header,
   .service-col>div:first-child {
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important; /* Judul di kiri, nomor/icon menyesuaikan */
+    justify-content: space-between !important;
     width: 100% !important;
   }
-
-  /* 4. EKSEKUSI CORETAN 1: Memperbesar Ukuran Ikon Utama */
   .service-col .swatch-target {
-    width: 76px !important; /* Diperbesar signifikan sesuai coretan luar lingkaran */
+    width: 76px !important;
     height: 76px !important;
   }
-
   .service-col .service-icon {
-    width: 46px !important; /* Ukuran ikon SVG di dalam diperbesar agar tegas */
+    width: 46px !important;
     height: 46px !important;
   }
-
-  /* 5. EKSEKUSI CORETAN 2: Memperbesar Judul Layanan (Design, Press, Finishing) */
   .service-col h3 {
     font-size: 24px !important; 
     font-weight: 700 !important;
     color: #ffffff !important;
-    margin: 0 !important; /* TAMBAHAN: Hapus margin atas/bawah bawaan browser */
-    margin-top: 0px !important; /* TAMBAHAN: Beri sedikit jarak ekstra dari ikon di atasnya (bisa diubah sesuai selera) */
+    margin: 0 !important;
+    margin-top: 0px !important; 
   }
-
-/* 6. EKSEKUSI CORETAN 3: Penyelarasan Paragraf Deskripsi di HP */
   .service-col p {
     display: block !important;
-    width: 100% !important; /* Paksa 100% tanpa kompromi */
-    max-width: 100% !important;  /* Hancurkan batasan lebar desktop */
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-  
-    /* Perataan teks premium khusus mobile */
-    text-align: justify !important; /* Rata kanan-kiri */
+    text-align: justify !important;
     text-justify: inter-word !important;
-    font-size: 15px !important; /* Ukuran pas di mata pengguna HP */
-    line-height: 1.6 !important; /* Jarak antar baris yang lega */
+    font-size: 15px !important;
+    line-height: 1.6 !important;
     color: #e3e0d8 !important;
   }
-
-  /* Rapikan penempatan nomor indeks pojok kanan atas (01, 02, 03) */
   .service-col .idx {
     top: 32px !important;
     right: 24px !important;
@@ -2440,27 +2393,21 @@ body.is-zoomed .project-viewport {
     font-weight: 600;
     color: rgba(255, 255, 255, 0.4) !important;
   }
-
   .client-page .client-logo-card:nth-child(n+2) {
     display: none !important;
   }
-  
-  /* Kurangi lebar total track jika di mobile kolom grid-nya menyempit */
   .client-carousel {
     padding: 0 8px !important;
     gap: 16px !important;
-    min-height: 180px !important; /* Tingkatkan tinggi area agar logo lebih leluasa */
+    min-height: 180px !important;
     align-items: center !important;
   }
-  /* 2. Perkecil tombol panah navigasi agar tidak terlalu dominan di HP */
   .carousel-btn {
     width: 44px !important;
     height: 44px !important;
     min-width: 44px !important;
     font-size: 16px !important;
   }
-
-  /* 3. Maksimalkan lebar viewport penampung halaman logo */
   .client-viewport {
     max-width: 100% !important;
     padding: 0 4px !important;
@@ -2468,11 +2415,10 @@ body.is-zoomed .project-viewport {
   .client-page {
     display: flex !important;
     align-items: center !important;
-    justify-content: center !important; /* Ubah ke center agar logo mengelompok rapi */
+    justify-content: center !important;
     width: 100% !important;
-    gap: 20px !important; /* Beri jarak horizontal yang cukup antar logo */
+    gap: 20px !important;
   }
-  /* 5. MEMPERBESAR LOGO & KOTAK CARD NYA */
   .client-logo-card {
     padding: 10px 20px !important;
     width: 100% !important;
@@ -2482,7 +2428,6 @@ body.is-zoomed .project-viewport {
     align-items: center !important;
     justify-content: center !important;
   }
-  /* Perkecil ukuran logo agar 3-4 logo bisa muat berjejer dengan rapi di layar HP */
   .client-page img {
     width: 100% !important;
     max-width: 240px !important;  /* Logo otomatis mekar maksimal di HP */
@@ -2634,11 +2579,9 @@ body.is-zoomed .project-viewport {
     margin-right: 0 !important; 
     line-height: 1.4 !important; /* Merapikan jarak atas-bawah saat teks turun baris */
   }   
-} /* Ini adalah kurung kurawal penutup untuk @media screen and (max-width: 768px) */
+}
 
-
-/* === KODE PAKSAAN UNTUK MENGHAPUS PANAH DI HP === */
-/* PASTIKAN KODE INI BERADA DI LUAR KURUNG KURAWAL APAPUN */
+/* === KODE UNTUK MENGHAPUS PANAH DI HP === */
 @media screen and (max-width: 960px) {
   .nav-caret,
   .header-nav ul.nav-links li.dropdown-container a.dropdown-toggle .nav-caret,
