@@ -508,6 +508,11 @@ margin-left: 18px;
     border-radius: 10px;
     margin-bottom: 35px;
   }
+  /* Mengatur posisi vertikal ikon panah pada tombol utama */
+  .btn-primary .arrow-icon {
+    display: inline-block;
+    transform: translateY(-2px); 
+  }
   .btn-primary:hover{background:var(--navy-1);}
 
 /* ===== WHY CHOOSE APP ===== */
