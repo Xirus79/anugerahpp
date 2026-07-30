@@ -825,3 +825,26 @@ if (dropdownLinks.length > 0) {
     window.removeEventListener('scroll', handleScrollFade);
   }
 })();
+
+// ===== 11. MOBILE HAMBURGER MENU LOGIC =====
+document.addEventListener('DOMContentLoaded', function() {
+  const menuBtn = document.getElementById('mobileMenuBtn');
+  const headerNav = document.getElementById('headerNav');
+
+  if (menuBtn && headerNav) {
+    // 1. Fungsi saat tombol hamburger diklik
+    menuBtn.addEventListener('click', function() {
+      menuBtn.classList.toggle('active'); // Ubah hamburger jadi X
+      headerNav.classList.toggle('active'); // Geser menu ke layar
+    });
+
+    // 2. Fungsi otomatis menutup menu saat salah satu link diklik
+    const navLinks = headerNav.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        menuBtn.classList.remove('active');
+        headerNav.classList.remove('active');
+      });
+    });
+  }
+});
