@@ -505,6 +505,10 @@ section{padding:25px 60px;position:relative;}
   padding: 25px 56px;
   position: relative;;
 } 
+.clients .section-head h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+}
 .clients .section-head p {
   color: #3b527a !important;
   font-size: 16px;
@@ -680,6 +684,10 @@ section{padding:25px 60px;position:relative;}
   padding:50px 50px;
   max-width:1200px;
   margin:0 auto;
+}
+.project .section-head h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
 }
 /* === Filter Projects === */
 .filter-row{
