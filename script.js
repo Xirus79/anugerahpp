@@ -761,6 +761,9 @@ if (dropdownLinks.length > 0) {
     activeClone = imgWrapper.cloneNode(true);
     const textOverlay = activeClone.querySelector('.image-overlay');
     if (textOverlay) textOverlay.style.display = 'none';
+    
+    // --- TAMBAHAN BARU: Masukkan class CSS agar gambar tampil utuh ---
+    activeClone.classList.add('show-full');
 
     activeClone.style.position = 'fixed';
     activeClone.style.top = rect.top + 'px';
@@ -791,21 +794,20 @@ if (dropdownLinks.length > 0) {
     const cloneCenterX = rect.left + (rect.width / 2);
     const cloneCenterY = rect.top + (rect.height / 2);
     
-    // Jarak pixel yang harus digeser (Translate)
     const translateX = centerX - cloneCenterX;
-    const translateY = centerY - cloneCenterY - 50; // -30px agar naik sedikit memberi ruang untuk caption
+    const translateY = centerY - cloneCenterY - 40; // Sisakan ruang sedikit untuk caption
 
     // Pancing browser merender posisi
     activeClone.getBoundingClientRect();
 
-    // G. Animasi ke Tengah & Tampilkan Teks
-    // --- Logika Pendeteksi Layar ---
-    let zoomScale = 3; // Rasio zoom untuk Desktop (Silakan ubah sesuai seleramu)
+    // G. Animasi ke Tengah & Skala Presisi (Diperbarui)
+    // Menghitung batas maksimal gambar sebesar 85% dari lebar dan 70% dari tinggi layar
+    const scaleX = (window.innerWidth * 0.85) / rect.width;
+    const scaleY = (window.innerHeight * 0.70) / rect.height;
     
-    // Jika lebar layar 768px ke bawah (berarti ini HP / Mobile)
-    if (window.innerWidth <= 768) {
-      zoomScale = 1.2; // Rasio zoom untuk Mobile (Dikecilkan agar pas di HP)
-    }
+    // Gunakan skala terkecil agar seluruh gambar pasti muat di dalam layar tanpa terpotong
+    const zoomScale = Math.min(scaleX, scaleY);
+
     activeClone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${zoomScale})`;
     activeCaption.classList.add('show');
 
