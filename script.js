@@ -172,7 +172,7 @@ if (serviceTabs.length > 0) {
   }
 
   // LOGIKA SWIPE (TOUCH)
-  let touchStartX = 0;
+  /*let touchStartX = 0;
   let touchEndX = 0;
   track.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
@@ -192,7 +192,7 @@ if (serviceTabs.length > 0) {
     }
     if (totalPages > 1) startAutoplay();
   });
-
+*/
   // FILTER TOMBOL
   if (filterTabs.length){
     filterTabs.forEach(btn => {
@@ -384,7 +384,7 @@ if (serviceTabs.length > 0) {
   });
 
   /* === TAMBAHKAN KODE SWIPE CLIENT DI SINI === */
-  let clientTouchStartX = 0;
+  /*let clientTouchStartX = 0;
   let clientTouchEndX = 0;
   
   track.addEventListener('touchstart', e => {

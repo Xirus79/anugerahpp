@@ -2018,6 +2018,52 @@ footer {
     margin-right: 0 !important; 
     line-height: 1.4 !important; 
   }   
+  /* =========================================
+     PENGATURAN GESER (SCROLL) NATURAL DI HP
+     ========================================= */
+
+  /* 1. Aktifkan scroll horizontal alami pada wadah (track) */
+  .project-track,
+  .client-track {
+    display: flex !important;
+    overflow-x: auto !important;             /* Izinkan scroll ke samping */
+    scroll-snap-type: x mandatory !important;/* Kunci (snap) secara horizontal */
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important; /* Efek halus khas smartphone */
+    
+    /* Batalkan paksaan dari JavaScript */
+    width: auto !important; 
+    transform: none !important; 
+    
+    gap: 16px !important;
+    padding-bottom: 15px !important; /* Ruang bernafas di bawah */
+  }
+
+  /* 2. Sembunyikan garis scrollbar agar bersih seperti di aplikasi */
+  .project-track::-webkit-scrollbar,
+  .client-track::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* 3. Keluarkan kartu dari "Halaman (Page)" buatan JS agar berjejer lurus */
+  .project-page,
+  .client-page {
+    display: contents !important; 
+  }
+
+  /* 4. Atur ukuran kartu & titik berhentinya (SNAP) */
+  .project-card {
+    /* Lebar 85% agar kartu sebelahnya "mengintip" sedikit, persis seperti di video */
+    flex: 0 0 85% !important; 
+    max-width: 85% !important;
+    scroll-snap-align: center !important; /* Kartu akan berhenti persis di tengah layar */
+  }
+
+  .client-logo-card {
+    flex: 0 0 65% !important; /* Lebar 65% untuk logo client */
+    max-width: 65% !important;
+    scroll-snap-align: center !important;
+  }
 }
 
 @media (max-width: 768px) {
