@@ -224,9 +224,12 @@ filter: drop-shadow(1px 1px 0px #00f2fe) drop-shadow(-1px -1px 0px #fe0979);}
   padding: 90px 56px; position: relative; overflow: hidden;
   background: var(--navy);
 }
+
 .why-header {
   text-align: right;
-  position: relative;margin-bottom: 70px;padding-top: 70px;
+  position: relative;
+  margin-bottom: 70px;
+  padding-top: 0; /* Jarak atas dihilangkan agar teks naik */
 }
 .why-bg-text {
   font-family: 'Space Grotesk', sans-serif;font-size: clamp(80px, 11vw, 150px);font-weight: 800;font-style: italic;letter-spacing: -2px;
@@ -439,9 +442,12 @@ section{padding:25px 60px;position:relative;}
 .services .service-tabs,
 .services .service-panels {position: relative;z-index: 2;}
 .services .section-head h2{
-  margin-top: -10px;max-width: 100px;
+  margin-top: -10px;
+  max-width: 100%; /* Mengubah batas lebar agar teks bisa memanjang */
   color:var(--paper);
-  font-size: 55px;font-weight:800;letter-spacing:-1.5px;
+  font-size: 55px;
+  font-weight:800;
+  letter-spacing:-1.5px;
 }
 .services .section-head p{color:rgba(255,255,255,.6);}
 .services .eyebrow{color:var(--lime-2);}
@@ -1033,7 +1039,8 @@ body.is-zoomed .project-viewport {
 /*=Garis Table=*/
 .application thead th {
   border-bottom: 1px solid rgba(17, 59, 227, 0.897); 
-  padding-bottom: 22px;
+  padding-top: 13px;    /* Tambahkan jarak atas agar seimbang */
+  padding-bottom: 13px; 
   color: #ffffff;
 }
 .application tbody tr {
