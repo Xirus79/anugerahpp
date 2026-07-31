@@ -692,7 +692,7 @@ section{padding:25px 60px;position:relative;}
 /* === Filter Projects === */
 .filter-row{
   display:flex;
-  gap:10px;
+  gap:10px; 
   margin:8px 0 24px;
   flex-wrap:wrap;
   justify-content:center;
