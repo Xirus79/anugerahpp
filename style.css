@@ -731,7 +731,7 @@ section{padding:25px 60px;position:relative;}
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  align-items: flex-start;
+  align-items: stretch;
   gap:12px;
 }
 .project-page .project-card{
@@ -837,6 +837,7 @@ section{padding:25px 60px;position:relative;}
 .card-footer {
   padding: 16px;
   background: #ffffff;
+  flex-grow: 1;
 }
 .card-title-row {
   display: flex;
