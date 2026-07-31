@@ -799,6 +799,13 @@ section{padding:25px 60px;position:relative;}
   object-fit: cover;
   transition: transform 0.4s ease;
 }
+.card-image-wrapper.show-full {
+  background: transparent !important;
+}
+.card-image-wrapper.show-full img {
+  object-fit: contain !important;
+  border-radius: 4px;
+}
 .image-overlay {
   position: absolute;
   top: 0;
