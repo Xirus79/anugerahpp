@@ -56,7 +56,12 @@ if (serviceTabs.length > 0) {
       render(false);
       return;
     }
-
+    /* === TAMBAHKAN KODE INI KHUSUS UNTUK HP === */
+    if (window.innerWidth <= 768) {
+      // Jejerkan kartu secara langsung tanpa dibungkus halaman
+      cards.forEach(card => track.appendChild(card.cloneNode(true)));
+      return; // Hentikan fungsi JS di sini agar CSS Native mengambil alih
+    }
     const groups = [];
     for (let i = 0; i < cards.length; i += size){
       groups.push(cards.slice(i, i + size));
@@ -263,6 +268,12 @@ if (serviceTabs.length > 0) {
     track.innerHTML = '';
     if (dotsWrap) dotsWrap.innerHTML = '';
 
+    /* === TAMBAHKAN KODE INI KHUSUS UNTUK HP === */
+    if (window.innerWidth <= 768) {
+      allCards.forEach(card => track.appendChild(card.cloneNode(true)));
+      return; // Hentikan fungsi JS di sini
+    }
+    
     // Kelompokkan kartu logo ke dalam halaman-halaman baru
     const groups = [];
     for (let i = 0; i < allCards.length; i += itemsPerPage) {

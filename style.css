@@ -1736,9 +1736,8 @@ footer {
     font-size: 11.5px !important; /* Mengecilkan teks judul agar proporsional di HP */
     line-height: 1.4 !important;
   }
-  .project-track {
-    touch-action: pan-y !important;
-  }
+  
+  
   .project-card.is-hidden {
     display: none !important; 
   }
