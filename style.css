@@ -490,10 +490,11 @@ section{padding:25px 60px;position:relative;}
   margin-bottom: 14px;
 }
 .service-col p{
-  font-size: 16px !important; font-weight: 400 !important;text-align: justify !important;text-justify: inter-word !important;
-  min-height: 105px !important;width: 100% !important;max-width: 100% !important;margin: 0 !important;padding: 0 !important;
+  font-size: 16px !important; font-weight: 400 !important;
+  text-align: justify !important;text-justify: inter-word !important; min-height: 105px !important;
+  width: 100% !important;max-width: 100% !important;margin: 0 !important;padding: 0 !important;
   word-spacing: -0.2px;line-height: 1.6 !important;
-  color: #e3e0d8 !important;
+  color: #e3e0d8 !important; 
 }
 .service-col .idx{
   position:absolute;top:36px;right:32px;font-family:'JetBrains Mono';font-size:12px;color:rgba(255,255,255,.3);
@@ -507,7 +508,7 @@ section{padding:25px 60px;position:relative;}
 } 
 .clients .section-head h2 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 16px;
+  font-size: 70px;
 }
 .clients .section-head p {
   color: #3b527a !important;
@@ -687,7 +688,14 @@ section{padding:25px 60px;position:relative;}
 }
 .project .section-head h2 {
   font-family: 'Space Grotesk', sans-serif;
+  font-size: 70px;
+}
+.project .section-head p {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 16px;
+  /* margin-left: 8px; */
+  /* margin-right: 2px; */
+  display: flex;
 }
 /* === Filter Projects === */
 .filter-row{
