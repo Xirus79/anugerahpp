@@ -859,6 +859,7 @@ section{padding:25px 60px;position:relative;}
   cursor: pointer;
   padding: 4px;
   transition: transform 0.3s ease;
+  display: none;
 }
 .project-card.open .arrow-icon {
   display: inline-block;
