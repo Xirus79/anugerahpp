@@ -898,35 +898,8 @@ document.addEventListener('DOMContentLoaded', function() {
     backToTopBtn.addEventListener('click', () => {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth' // Membuat pergerakan scroll menjadi halus
+        behavior: 'smooth'
       });
     });
-  }
-})();
-
-// ===== 13. CUSTOM SCROLL SPEED =====
-(function() {
-  // Hanya terapkan pada perangkat desktop (bukan touch screen)
-  if (window.matchMedia("(pointer: fine)").matches) {
-    
-    // Angka pengali: 
-    // 1 = Normal bawaan browser
-    // 2 = Dua kali lipat lebih jauh, dst. Silakan ubah angka 2.5 ini sesuai selera!
-    const scrollMultiplier = 7.5; 
-
-    window.addEventListener('wheel', function(event) {
-      // Mencegah scroll bawaan browser
-      event.preventDefault(); 
-
-      // Mengambil arah dan jarak scroll asli, lalu dikalikan dengan pengali kita
-      const scrollDistance = event.deltaY * scrollMultiplier; 
-
-      // Memerintahkan layar untuk menggulir dengan jarak baru secara mulus
-      window.scrollBy({
-        top: scrollDistance,
-        left: 0,
-        behavior: 'smooth' 
-      });
-    }, { passive: false }); // passive: false diperlukan agar preventDefault() berfungsi
   }
 })();
