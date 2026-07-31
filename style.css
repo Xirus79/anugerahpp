@@ -1726,10 +1726,14 @@ footer {
   }
   /* ===== PROJECTS ===== */
   .project-card {
-    width: 100% !important;
-    max-width: 310px !important;
-    display: block !important;
-    margin-bottom: 0 auto 10px autopx !important;
+    width: calc(50% - 6px) !important; /* Membagi ukuran agar muat 2 kolom bersandingan */
+    max-width: none !important; /* Menghapus batasan lebar maksimal sebelumnya */
+    display: flex !important;
+    margin-bottom: 10px !important; /* Memperbaiki typo 'autopx' pada kode sebelumnya */
+  }
+  .project-card h4 {
+    font-size: 11.5px !important; /* Mengecilkan teks judul agar proporsional di HP */
+    line-height: 1.4 !important;
   }
   .project-track {
     touch-action: pan-y !important;
