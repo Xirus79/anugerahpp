@@ -224,9 +224,12 @@ filter: drop-shadow(1px 1px 0px #00f2fe) drop-shadow(-1px -1px 0px #fe0979);}
   padding: 90px 56px; position: relative; overflow: hidden;
   background: var(--navy);
 }
+
 .why-header {
   text-align: right;
-  position: relative;margin-bottom: 70px;padding-top: 70px;
+  position: relative;
+  margin-bottom: 70px;
+  padding-top: 0; /* Jarak atas dihilangkan agar teks naik */
 }
 .why-bg-text {
   font-family: 'Space Grotesk', sans-serif;font-size: clamp(80px, 11vw, 150px);font-weight: 800;font-style: italic;letter-spacing: -2px;
@@ -439,9 +442,12 @@ section{padding:25px 60px;position:relative;}
 .services .service-tabs,
 .services .service-panels {position: relative;z-index: 2;}
 .services .section-head h2{
-  margin-top: -10px;max-width: 100px;
+  margin-top: -10px;
+  max-width: 100%; /* Mengubah batas lebar agar teks bisa memanjang */
   color:var(--paper);
-  font-size: 55px;font-weight:800;letter-spacing:-1.5px;
+  font-size: 55px;
+  font-weight:800;
+  letter-spacing:-1.5px;
 }
 .services .section-head p{color:rgba(255,255,255,.6);}
 .services .eyebrow{color:var(--lime-2);}
@@ -725,7 +731,7 @@ section{padding:25px 60px;position:relative;}
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  align-items: flex-start;
+  align-items: stretch;
   gap:12px;
 }
 .project-page .project-card{
@@ -838,6 +844,7 @@ section{padding:25px 60px;position:relative;}
 .card-footer {
   padding: 16px;
   background: #ffffff;
+  flex-grow: 1;
 }
 .card-title-row {
   display: flex;
@@ -860,6 +867,7 @@ section{padding:25px 60px;position:relative;}
   cursor: pointer;
   padding: 4px;
   transition: transform 0.3s ease;
+  display: none;
 }
 .project-card.open .arrow-icon {
   display: inline-block;
@@ -1040,7 +1048,8 @@ body.is-zoomed .project-viewport {
 /*=Garis Table=*/
 .application thead th {
   border-bottom: 1px solid rgba(17, 59, 227, 0.897); 
-  padding-bottom: 22px;
+  padding-top: 13px;    /* Tambahkan jarak atas agar seimbang */
+  padding-bottom: 13px; 
   color: #ffffff;
 }
 .application tbody tr {
@@ -1725,10 +1734,14 @@ footer {
   }
   /* ===== PROJECTS ===== */
   .project-card {
-    width: 100% !important;
-    max-width: 310px !important;
-    display: block !important;
-    margin-bottom: 0 auto 10px autopx !important;
+    width: calc(50% - 6px) !important; /* Membagi ukuran agar muat 2 kolom bersandingan */
+    max-width: none !important; /* Menghapus batasan lebar maksimal sebelumnya */
+    display: flex !important;
+    margin-bottom: 10px !important; /* Memperbaiki typo 'autopx' pada kode sebelumnya */
+  }
+  .project-card h4 {
+    font-size: 11.5px !important; /* Mengecilkan teks judul agar proporsional di HP */
+    line-height: 1.4 !important;
   }
   .project-track {
     touch-action: pan-y !important;

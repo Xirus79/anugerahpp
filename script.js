@@ -33,8 +33,8 @@ if (serviceTabs.length > 0) {
 
   function groupSize(){
     const w = window.innerWidth;
-    if (w <= 576) return 1;
-    if (w <= 960) return 2;
+    if (w <= 576) return 2;
+    if (w <= 960) return 3;
     return 4;
   }
 
