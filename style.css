@@ -1898,10 +1898,7 @@ footer {
   .client-carousel .carousel-btn,
   #clientPrev,
   #clientNext {
-    width: 42px !important;
-    height: 42px !important;
-    min-width: 42px !important;
-    font-size: 16px !important;
+    display: none
   }
   .client-dots {
     display: none !important;
@@ -2053,8 +2050,8 @@ footer {
   /* 4. Atur ukuran kartu & titik berhentinya (SNAP) */
   .project-card {
     /* Lebar 85% agar kartu sebelahnya "mengintip" sedikit, persis seperti di video */
-    flex: 0 0 85% !important; 
-    max-width: 85% !important;
+    flex: 0 0 45% !important; 
+    max-width: 45% !important;
     scroll-snap-align: center !important; /* Kartu akan berhenti persis di tengah layar */
   }
 
@@ -2136,5 +2133,19 @@ footer {
   }
   .application tbody td:nth-child(2) {
     justify-content: flex-start;
+  }
+}
+
+/* =======================================================
+   MENYEMBUNYIKAN SEMUA TOMBOL PANAH CAROUSEL KHUSUS HP
+   ======================================================= */
+@media screen and (max-width: 768px) {
+  button#clientPrev,
+  button#clientNext,
+  button#projectPrev,
+  button#projectNext,
+  .client-carousel .carousel-btn,
+  .project-carousel .carousel-btn {
+    display: none !important;
   }
 }
