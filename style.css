@@ -570,6 +570,20 @@ section{padding:25px 60px;position:relative;}
   background: var(--navy);
   color: #fff;
 }
+.carousel-btn:hover {
+  background: var(--navy);
+  color: #fff;
+}
+#projectPrev {
+  position: absolute;
+  left: -15px;
+  z-index: 10;
+}
+#projectNext {
+  position: absolute;
+  right: -15px;
+  z-index: 10;
+}
 .client-viewport {
   max-width: calc(100% - 90px) !important;
   overflow: hidden !important;
@@ -698,7 +712,7 @@ section{padding:25px 60px;position:relative;}
 .project{
   background:var(--white);
   padding:50px 50px;
-  max-width:1200px;
+  max-width:1400px;
   margin:0 auto;
 }
 .project .section-head h2 {
@@ -729,8 +743,21 @@ section{padding:25px 60px;position:relative;}
   color:#fff;
 }
 /*== Carousel Projects== */
-.project-carousel{display:flex;align-items:center;gap:16px;margin-top:12px;}
-.project-viewport{overflow:hidden;flex:1;min-width:0;}
+.project-carousel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  position: relative;
+  justify-content: center;
+}
+
+.project-viewport {
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+  margin: 0 40px; 
+}
 .project-track{  display:flex;transition:transform .6s cubic-bezier(0.25, 1, 0.5, 1);width:100%;}
 .project-page{
   flex:0 0 100%;

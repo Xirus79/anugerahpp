@@ -35,7 +35,7 @@ if (serviceTabs.length > 0) {
     const w = window.innerWidth;
     if (w <= 576) return 2;
     if (w <= 960) return 3;
-    return 4;
+    return 5;
   }
 
   function getFiltered(){
