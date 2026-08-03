@@ -35,7 +35,7 @@ if (serviceTabs.length > 0) {
     const w = window.innerWidth;
     if (w <= 576) return 2;
     if (w <= 960) return 3;
-    return 4;
+    return 5;
   }
 
   function getFiltered(){
@@ -102,7 +102,13 @@ if (serviceTabs.length > 0) {
       });
       dotsWrap.appendChild(dot);
     }
-
+    if (totalPages <= 1) {
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+    } else {
+      if (prevBtn) prevBtn.style.display = 'flex';
+      if (nextBtn) nextBtn.style.display = 'flex';
+    }
     page = 0;
     render(false);
     if (totalPages > 1) startAutoplay();
