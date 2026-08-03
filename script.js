@@ -254,7 +254,7 @@ if (serviceTabs.length > 0) {
   let isTransitioning = false; 
   let autoplayTimer = null;
 
-  // Tentukan jumlah logo per halaman berdasarkan lebar layar perangkat
+  // Tentukan jumlah logo per halaman (1 untuk HP, 2 untuk Desktop)
   function getItemsPerPage() {
     return window.innerWidth <= 768 ? 1 : 2; 
   }
@@ -267,12 +267,6 @@ if (serviceTabs.length > 0) {
     // Bersihkan track dan dots lama
     track.innerHTML = '';
     if (dotsWrap) dotsWrap.innerHTML = '';
-
-    /* === TAMBAHKAN KODE INI KHUSUS UNTUK HP === */
-    if (window.innerWidth <= 768) {
-      allCards.forEach(card => track.appendChild(card.cloneNode(true)));
-      return; // Hentikan fungsi JS di sini
-    }
     
     // Kelompokkan kartu logo ke dalam halaman-halaman baru
     const groups = [];
@@ -394,32 +388,32 @@ if (serviceTabs.length > 0) {
     resizeTimer = setTimeout(buildClientPages, 250);
   });
 
-  /* === TAMBAHKAN KODE SWIPE CLIENT DI SINI === */
-  /*let clientTouchStartX = 0;
+  /* === LOGIKA SENSOR SWIPE / SENTUHAN (MOBILE & DESKTOP) === */
+  let clientTouchStartX = 0;
   let clientTouchEndX = 0;
   
   track.addEventListener('touchstart', e => {
     clientTouchStartX = e.changedTouches[0].screenX;
-    stopAutoplay(); // Hentikan autoplay saat jari menempel
+    stopAutoplay(); // 1. Hentikan autoplay saat jari menempel di layar
   }, {passive: true});
   
   track.addEventListener('touchend', e => {
     clientTouchEndX = e.changedTouches[0].screenX;
     handleClientSwipe();
-    if (totalPages > 1) startAutoplay(); // Lanjutkan autoplay saat jari dilepas
+    
+    if (totalPages > 1) startAutoplay(); // 2. Lanjutkan autoplay saat jari dilepas
   }, {passive: true});
   
   function handleClientSwipe() {
     const swipeDistance = clientTouchEndX - clientTouchStartX;
-    const minDistance = 40; // Dibuat sedikit lebih sensitif untuk klien
+    const minDistance = 40; // Batas sensitivitas geseran jari
     
     if (swipeDistance < -minDistance) {
-      nextPage();
+      nextPage(); // Geser ke logo selanjutnya
     } else if (swipeDistance > minDistance) {
-      prevPage();
+      prevPage(); // Geser ke logo sebelumnya
     }
   }
-  /* =========================================== */
 
   // Init pertama kali
   buildClientPages();
