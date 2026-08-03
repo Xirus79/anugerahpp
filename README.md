@@ -5,16 +5,16 @@ Website profil perusahaan untuk **PT Anugerah Prima Printing (APP)**, perusahaan
 ## 🔗 Fitur Utama
 
 - **Hero Section** dengan efek parallax dan background image
-- **Why Choose Us** — 4 keunggulan perusahaan
-- **About Us** — accordion (History, Vision & Mission, Work Ethic) yang hanya bisa membuka satu panel dalam satu waktu, dilengkapi slider foto fasilitas produksi
-- **Services** — 3 kategori layanan (Offset / Flexo / Security Printing) dengan sistem tab, masing-masing punya sub-tahap Design, Press, dan Finishing
-- **Our Clients** — carousel logo klien dengan infinite loop & autoplay
-- **Portfolio/Project** — carousel galeri proyek dengan filter kategori dan dropdown detail per kartu
-- **Application** — tabel jenis produk & aplikasi cetak yang dilayani
-- **Contact** — form pengiriman pesan terintegrasi **EmailJS**, peta lokasi via Google Maps embed, dan tautan langsung WhatsApp
-- **Smart Header** — navbar otomatis sembunyi saat scroll ke bawah, muncul kembali saat scroll ke atas
-- **Scroll Reveal Animation** — elemen muncul dengan animasi fade + blur saat discroll ke area layar
-- **Toast Notification** — notifikasi sukses/gagal saat pengiriman form
+- **Why Choose Us**: 4 keunggulan perusahaan
+- **About Us**: accordion (History, Vision & Mission, Work Ethic) yang hanya bisa membuka satu panel dalam satu waktu, dilengkapi slider foto fasilitas produksi
+- **Services**: 3 kategori layanan (Offset / Flexo / Security Printing) dengan sistem tab, masing-masing punya sub-tahap Design, Press, dan Finishing
+- **Our Clients**: carousel logo klien dengan infinite loop & autoplay
+- **Portfolio/Project**: carousel galeri proyek dengan filter kategori dan dropdown detail per kartu
+- **Application**: tabel jenis produk & aplikasi cetak yang dilayani
+- **Contact**: form pengiriman pesan terintegrasi **EmailJS**, peta lokasi via Google Maps embed, dan tautan langsung WhatsApp
+- **Smart Header**: navbar otomatis sembunyi saat scroll ke bawah, muncul kembali saat scroll ke atas
+- **Scroll Reveal Animation**: elemen muncul dengan animasi fade + blur saat discroll ke area layar
+- **Toast Notification**: notifikasi sukses/gagal saat pengiriman form
 - Desain **fully responsive** (breakpoint di 960px dan 768px)
 
 ## 📁 Struktur Folder
