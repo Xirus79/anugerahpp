@@ -1096,7 +1096,7 @@ body.is-zoomed .project-viewport {
   text-align: center;
 }
 .application thead th {
-  border-bottom: 1px solid rgba(17, 59, 227, 0.897); 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
   padding-top: 13px;    
   padding-bottom: 13px; 
   color: #ffffff;
@@ -1111,9 +1111,12 @@ body.is-zoomed .project-viewport {
 .application td:first-child {
   width: 35%;
 }
-.application th:last-child,
+.application th:last-child {
+  width: 65%; 
+}
+
 .application td:last-child {
-  width: 100%;
+  width: 65%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1124,7 +1127,7 @@ body.is-zoomed .project-viewport {
   font-weight:700;
   color: #ffffff;
   font-family:'Space Grotesk';
-  border-right: 1px solid rgba(17, 125, 227, 0.897); 
+  border-right: 0px solid rgba(17, 125, 227, 0.897); 
 }
 .application tr td:first-child,
 .application tr th:first-child {
