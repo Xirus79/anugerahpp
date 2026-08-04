@@ -1081,10 +1081,9 @@ body.is-zoomed .project-viewport {
   vertical-align: middle;
   text-align: center;
 }
-/*=Garis Table=*/
 .application thead th {
   border-bottom: 1px solid rgba(17, 59, 227, 0.897); 
-  padding-top: 13px;    /* Tambahkan jarak atas agar seimbang */
+  padding-top: 13px;    
   padding-bottom: 13px; 
   color: #ffffff;
 }
@@ -2226,11 +2225,9 @@ footer {
   .application tbody td:nth-child(2) {
     justify-content: flex-start;
   }
+  
 }
 
-/* =======================================================
-   MENYEMBUNYIKAN SEMUA TOMBOL PANAH CAROUSEL KHUSUS HP
-   ======================================================= */
 @media screen and (max-width: 768px) {
   button#clientPrev,
   button#clientNext,
@@ -2239,5 +2236,19 @@ footer {
   .client-carousel .carousel-btn,
   .project-carousel .carousel-btn {
     display: none !important;
+  }
+}
+
+@media screen and (min-width: 961px) {
+  .header-nav {
+    flex-grow: 1;
+    justify-content: flex-end; 
+  }
+  
+  
+  .header-nav .nav-links {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
