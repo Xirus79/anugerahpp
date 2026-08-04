@@ -514,6 +514,20 @@ section{padding:25px 60px;position:relative;}
   max-width: 100% !important;
   margin: 0 !important;
 } 
+.clients .section-head {
+  display: flex !important;           
+  flex-direction: column !important;  
+  align-items: center !important;     
+  text-align: center !important;      
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 800px !important;
+}
+.clients .section-head h2,
+.clients .section-head p {
+  text-align: center !important;
+  width: 100% !important;
+}
 .clients .section-head h2 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 70px;
@@ -1081,10 +1095,9 @@ body.is-zoomed .project-viewport {
   vertical-align: middle;
   text-align: center;
 }
-/*=Garis Table=*/
 .application thead th {
-  border-bottom: 1px solid rgba(17, 59, 227, 0.897); 
-  padding-top: 13px;    /* Tambahkan jarak atas agar seimbang */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+  padding-top: 13px;    
   padding-bottom: 13px; 
   color: #ffffff;
 }
@@ -1098,9 +1111,12 @@ body.is-zoomed .project-viewport {
 .application td:first-child {
   width: 35%;
 }
-.application th:last-child,
+.application th:last-child {
+  width: 65%; 
+}
+
 .application td:last-child {
-  width: 100%;
+  width: 65%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1111,7 +1127,7 @@ body.is-zoomed .project-viewport {
   font-weight:700;
   color: #ffffff;
   font-family:'Space Grotesk';
-  border-right: 1px solid rgba(17, 125, 227, 0.897); 
+  border-right: 0px solid rgba(17, 125, 227, 0.897); 
 }
 .application tr td:first-child,
 .application tr th:first-child {
@@ -2226,11 +2242,9 @@ footer {
   .application tbody td:nth-child(2) {
     justify-content: flex-start;
   }
+  
 }
 
-/* =======================================================
-   MENYEMBUNYIKAN SEMUA TOMBOL PANAH CAROUSEL KHUSUS HP
-   ======================================================= */
 @media screen and (max-width: 768px) {
   button#clientPrev,
   button#clientNext,
@@ -2239,5 +2253,19 @@ footer {
   .client-carousel .carousel-btn,
   .project-carousel .carousel-btn {
     display: none !important;
+  }
+}
+
+@media screen and (min-width: 961px) {
+  .header-nav {
+    flex-grow: 1;
+    justify-content: flex-end; 
+  }
+  
+  
+  .header-nav .nav-links {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
