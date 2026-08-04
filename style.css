@@ -514,6 +514,20 @@ section{padding:25px 60px;position:relative;}
   max-width: 100% !important;
   margin: 0 !important;
 } 
+.clients .section-head {
+  display: flex !important;           
+  flex-direction: column !important;  
+  align-items: center !important;     
+  text-align: center !important;      
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 800px !important;
+}
+.clients .section-head h2,
+.clients .section-head p {
+  text-align: center !important;
+  width: 100% !important;
+}
 .clients .section-head h2 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 70px;
