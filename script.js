@@ -371,7 +371,7 @@ if (serviceTabs.length > 0) {
 
   function startAutoplay() {
     stopAutoplay();
-    autoplayTimer = setInterval(nextPage, 3000); 
+    autoplayTimer = setInterval(nextPage, 1500); 
   }
 
   function stopAutoplay() {
