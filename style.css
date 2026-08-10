@@ -1047,7 +1047,7 @@ body.is-zoomed .project-viewport {
   z-index: 0;
   background-image:
     linear-gradient(rgba(5, 18, 44, 0.918), rgba(10, 21, 41, 0.717)),
-    url('images/About_Mesin-Produksi.jpg');
+    url('Images/About_Mesin-Produksi.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
