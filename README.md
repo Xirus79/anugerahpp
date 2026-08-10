@@ -1,6 +1,6 @@
 # PT Anugerah Prima Printing — Company Profile Website
 
-Website profil perusahaan untuk **PT Anugerah Prima Printing (APP)**, perusahaan yang bergerak di bidang **Offset Printing, Flexo Printing, dan Security Printing** sejak 2013. Dibangun sebagai single-page website statis menggunakan HTML, CSS, dan JavaScript murni (tanpa framework).
+Website profil perusahaan untuk **PT Anugerah Prima Printing (APP)**, perusahaan yang bergerak di bidang **Digital Printing dengan spesialisasi Offset Printing, Flexo Printing, dan Security Printing** sejak 2013. Dibangun sebagai single-page website statis menggunakan HTML, CSS, dan JavaScript murni (tanpa framework).
 
 ## 🔗 Fitur Utama
 
