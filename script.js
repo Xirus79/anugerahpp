@@ -916,3 +916,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 })();
+//cuma buat final tulisan di github
